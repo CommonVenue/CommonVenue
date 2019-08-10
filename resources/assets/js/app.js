@@ -5,6 +5,15 @@
  */
 
 require('./bootstrap');
+require('./bootstrap.min');
+require('./jquery.easing.min');
+require('./jquery.min');
+require('./jquery-1.11.0.min');
+require('./jquery-migrate-1.2.1.min');
+require('./popper.min');
+require('./script');
+require('./scrolling-nav');
+require('./wow.min');
 
 window.Vue = require('vue');
 
