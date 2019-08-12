@@ -928,7 +928,7 @@ opacity:1
 }
 .site_login_bg {
 	position: relative;
-	background-image: url("images/signup-bg.jpg");
+	background-image: url("public/images/signup-bg.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
