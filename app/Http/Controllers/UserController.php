@@ -3,10 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Profile;
+use App\Http\Requests\UserProfile\StoreRequest;
+use App\Http\Requests\UserProfile\UpdateRequest;
 use Illuminate\Http\Request;
+use Auth;
+
 
 class UserController extends Controller
 {
+
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +32,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('profile');
-    }
+        $profile = Profile::where('user_id',auth()->id())->first();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        if($profile) {
+            return view('profile.index',['profile' => $profile]);
+        }
+        
+        return view('profile.index');
+
     }
 
     /**
@@ -33,9 +48,11 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $profile = Profile::create($request->params());
+
+        return $profile;
     }
 
     /**
@@ -44,21 +61,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Profile $profile)
     {
-        //
+        // return view('profile.index',['profile' => $profile]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -67,19 +74,12 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateRequest $request)
     {
-        //
+        $profile = Profile::where('user_id',auth()->id())->first();
+        $profile->update($request->params());
+
+        return redirect(route('profile'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
 }

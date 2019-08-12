@@ -40,6 +40,6 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne(User::class, 'user_id');
+        return $this->hasOne(User::class);
     }
 }

@@ -17,7 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-Route::get('/profile','UserController@index');
+
 // Auth::logout();
 //
+Route::group(['middleware' => array('auth')],function(){
+	Route::get('/', 'HomeController@index');
+	Route::get('/profile','UserController@index')->name('profile');
+	Route::post('/profile','UserController@store')->name('profile.store');
+	Route::put('/profile','UserController@update')->name('profile.update');
+});

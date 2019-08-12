@@ -11,7 +11,7 @@
               <div class="site_login_content_box">
                   
             <div class="site_alerady_account_wrap">
-              <div class="site_absoute_logo"><a href="../vendor/index.html"><img src="../vendor/images/logo.png" class="img-fluid"></a></div>
+              <div class="site_absoute_logo"><a href="../vendor/index.html"><img src="{{ asset('/images/logo.png') }}" class="img-fluid"></a></div>
             </div>
                   
                 <h1 class="site_login_content_title mb-3">Find your dream <br>
@@ -34,7 +34,7 @@
               <h3 class="site_login_title mb-0">Sign up</h3>
             </div>
             <form class="site_access_form" novalidate="" method="POST" action="{{ route('register') }}">
-                @csrf
+              @csrf
               <div class="row mb-4">
                 <div class="col">
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Name">
