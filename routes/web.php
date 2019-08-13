@@ -13,14 +13,13 @@
 
 
 
-// Auth::logout();
 Auth::routes();
 
-Route::group(['middleware' => array('guest')],function(){
-	Route::get('/', 'HomeController@index');
-});
-
+Route::get('/', 'HomeController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
+
+Route::get('/city/{comingSoonCity}', 'ComingSoonController@show');
+
 Route::group(['middleware' => array('auth')],function(){
 	Route::get('/home', 'HomeController@home');
 	Route::get('/profile','UserController@index')->name('profile');

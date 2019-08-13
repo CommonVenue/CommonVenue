@@ -53,9 +53,9 @@
 					<h4 class="site_footer_links_title">Locations</h4>
 					<ul class="list-unstyled">
 						<li><a href="#">Toronto</a></li>
-						<li><a href="#">Vancouver</a></li>
-						<li><a href="#">Montreal</a></li>
-						<li><a href="#">Calgary</a></li>
+						<li><a href="/city/vancouver">Vancouver</a></li>
+						<li><a href="/city/montreal">Montreal</a></li>
+						<li><a href="/city/calgary">Calgary</a></li>
 					</ul>
 					
 					
