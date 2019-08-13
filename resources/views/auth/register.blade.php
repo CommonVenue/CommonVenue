@@ -11,7 +11,7 @@
               <div class="site_login_content_box">
                   
             <div class="site_alerady_account_wrap">
-              <div class="site_absoute_logo"><a href="../vendor/index.html"><img src="{{ asset('/images/logo.png') }}" class="img-fluid"></a></div>
+              <div class="site_absoute_logo"><a href="/"><img src="{{ asset('/images/logo.png') }}" class="img-fluid"></a></div>
             </div>
                   
                 <h1 class="site_login_content_title mb-3">Find your dream <br>

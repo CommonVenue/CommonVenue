@@ -6,13 +6,9 @@ use App\Models\User;
 use App\Models\Profile;
 use App\Http\Requests\UserProfile\StoreRequest;
 use App\Http\Requests\UserProfile\UpdateRequest;
-use Illuminate\Http\Request;
-use Auth;
-
 
 class UserController extends Controller
 {
-
 
     /**
      * Create a new controller instance.
@@ -45,7 +41,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UserProfile\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRequest $request)
@@ -56,22 +52,10 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Profile $profile)
-    {
-        // return view('profile.index',['profile' => $profile]);
-    }
-
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Http\Requests\UserProfile\UpdateRequest  $request
+     * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRequest $request)
