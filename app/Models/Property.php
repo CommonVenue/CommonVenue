@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Property extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,11 +12,17 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id','first_name','last_name', 'avatar', 'phone_number', 'description','country','postal_code', 'industry', 'job_title', 'organization'
+        'name','description','image', 'price', 'status', 'address_id','owner_id'
     ];
 
-    public function user()
+
+    public function owner()
     {
     	return $this->belongsTo(User::class);
+    }
+
+    public function address()
+    {
+    	return $this->hasOne(Address::class);
     }
 }
