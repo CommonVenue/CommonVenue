@@ -18,6 +18,6 @@ class Address extends Model
 
     public function property()
     {
-    	return $this->belongsTo(Property::class);
+    	return $this->hasOne(Property::class);
     }
 }

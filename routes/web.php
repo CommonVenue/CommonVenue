@@ -19,6 +19,8 @@ Route::get('/', 'HomeController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/city/{comingSoonCity}', 'ComingSoonController@show');
+Route::get('/properties', 'PropertiesController@index');
+Route::get('/properties/{property}', 'PropertiesController@show')->name('properties.show');
 
 Route::group(['middleware' => array('auth')],function(){
 	Route::get('/home', 'HomeController@home');

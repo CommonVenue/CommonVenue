@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
 {
+	protected $with = ['address'];
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +24,6 @@ class Property extends Model
 
     public function address()
     {
-    	return $this->hasOne(Address::class);
+    	return $this->belongsTo(Address::class);
     }
 }
