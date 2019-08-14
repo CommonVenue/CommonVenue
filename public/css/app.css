@@ -4408,6 +4408,12 @@ span.grey {
   color: #183882;
 }
 
+.site_reviews_images {
+  height: 120px;
+  width: 180px;
+  /*border-radius: 50%:*/
+}
+
 .site_reply_btn {
   text-align: right;
 }

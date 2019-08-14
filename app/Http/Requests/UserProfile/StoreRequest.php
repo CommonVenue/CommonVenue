@@ -26,16 +26,28 @@ class StoreRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'phone_number' => 'required',
-            'country' => 'required'
+            'country' => 'required',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
     public function params()
     {
-        $data = $this->only(['first_name','last_name', 'avatar', 'description','country','postal_code', 'industry', 'job_title', 'organization']);
+        $data = $this->only(['first_name','last_name', 'phone_number', 'avatar', 'description','country','postal_code', 'industry', 'job_title', 'organization']);
 
-        $data['phone_number'] = auth()->user()->phone_number;
+        if ($this->hasFile('avatar')) {
+
+            $image = $this->file('avatar');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('images');
+
+            $imagePath = $destinationPath. "/".  $name;
+            $image->move($destinationPath, $name);
+            
+            $data['avatar'] = $name;
+        }
+        
+        // $data['phone_number'] = auth()->user()->phone_number;
         $data['user_id'] = auth()->id();
 
         return $data;

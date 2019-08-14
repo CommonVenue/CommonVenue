@@ -82,7 +82,7 @@
 	@foreach($properties as $property)
       <div class="col-lg-3 mb-4">
 		<div class="site_venue_box card">
-		  <img src="{{ $property->image }}" class="card-img-top" alt="">
+		  <img src="{{ asset('/images/'.$property->image) }}" class="card-img-top" alt="">
 		  <div class="card-body">
 			<p class="site_venue_title"><a href="{!! route('properties.show',[$property->id]) !!}">{{ $property->name }}</a></p>
 			<p class="site_venue_address mb-1">{{ $property->address->country }} {{ $property->address->state }} {{ $property->address->city }}</p>

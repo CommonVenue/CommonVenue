@@ -30,12 +30,7 @@ class UserController extends Controller
     {
         $profile = Profile::where('user_id',auth()->id())->first();
 
-        if($profile) {
-            return view('profile.index',['profile' => $profile]);
-        }
-        
-        return view('profile.index');
-
+        return view('profile.index',['profile' => $profile]);
     }
 
     /**
@@ -46,9 +41,14 @@ class UserController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $profile = Profile::create($request->params());
+        $profile = Profile::where('user_id',auth()->id())->first();
 
-        return $profile;
+        if (isset($profile)) {
+            return view('profile.index',['profile' => $profile]);
+        }
+        $createProfile = Profile::create($request->params());
+
+        return view('profile.index',['profile' => $createProfile]);
     }
 
     /**

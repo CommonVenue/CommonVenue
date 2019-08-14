@@ -19,7 +19,7 @@
         <li class="nav-item"><a class="nav-link" href="signin.html">Inbox</a></li>		  
         <li class="nav-item"><a class="nav-link" href="signup.html">Bookings</a></li>
 		    <li class="nav-item site_user_dropdown_li dropdown">
-          <a class="nav-link site_user_dropdown dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link site_user_dropdown dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="site_user_circle"><i class="far fa-user"></i></div>
           </a>
           <div class="site_booking_dropdown dropdown-menu" aria-labelledby="navbarDropdown">

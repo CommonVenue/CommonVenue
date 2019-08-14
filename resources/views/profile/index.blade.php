@@ -5,37 +5,33 @@
 
 <section class="site_section_wrapper bg-light">
   <div class="container">
-	 
-
-	 
 	<div class="row">
 		<div class="col-lg-12"><h1 class="site_page_title">Profile</h1>  </div>  
 	</div>  
 	<hr class="mt-2 mb-5">  
-
 	<div class="row">
-	  
 		<div class="col-lg-6 mb-4">
 			<div class="row">
-				<div class="col-lg-12"><h4 class="site_select_category_title mb-0">Profile Photo</h4> </div>  
-			</div>  	
+				<div class="col-lg-12"><h4 class="site_select_category_title mb-0">Basic Information</h4> </div>  
+			</div>
 			<hr class="mb-4">
-			
+			<form  method="POST" action="{{ isset($profile) ? route('profile.update') : route('profile.store')  }}"  enctype="multipart/form-data">
+			<div class="row">
+				<div class="col-lg-12"><h4 class="site_select_category_title mb-0">Profile Photo</h4> </div>  
+			</div> 
 			<ul class="site_select_photo_list list-inline">
-				<li class="list-inline-item"><img src="{{ asset('/images/profile-photo.png') }}" class="site_your_profile_thumb img-fluid" alt=""></li>
+				<li class="list-inline-item">
+					<img src="{{ isset($profile->avatar) ? asset('/images/'.$profile->avatar) : "" }}" class="site_your_profile_thumb img-fluid" alt="">
+				</li>
 				<li class="list-inline-item">
 					<div class="site_input_file btn btn-lg btn-primary">
 						Select Profile Photo
-						<input type="file" name="file">
+						<input type="file" class="form-control" name="avatar" autocomplete="avatar">
 					</div>
 				</li>
 			</ul>
-			
-			<div class="row">
-				<div class="col-lg-12"><h4 class="site_select_category_title mb-0">Basic Information</h4> </div>  
-			</div>  	
+	
 			<hr class="mb-4">
-			<form  method="POST" action="{{ isset($profile) ? route('profile.update') : route('profile.store')  }}">
             @csrf
             @if(isset($profile))
             	@method('PUT')

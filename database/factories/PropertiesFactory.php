@@ -17,7 +17,7 @@ $factory->define(Property::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->sentence(25),
-        'image' => $faker->image('storage/app/public', 400, 300, null, false),
+        'image' => $faker->image('public/images', 400, 300, null, false),
         'price' => $faker->randomNumber(5),
         'status' => $faker->randomElement(['active' ,'inactive']),
         'address_id' => $address->id,

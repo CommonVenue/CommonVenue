@@ -26,4 +26,13 @@ class Property extends Model
     {
     	return $this->belongsTo(Address::class);
     }
+
+
+    /**
+     * Get the reviews for the property.
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
