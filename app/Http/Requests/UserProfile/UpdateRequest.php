@@ -27,6 +27,7 @@ class UpdateRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'country' => 'required',
+            'postal_code' => 'required',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
@@ -47,9 +48,6 @@ class UpdateRequest extends FormRequest
             $data['avatar'] = $name;
         }
         
-        // $data['phone_number'] = auth()->user()->phone_number;
-        $data['user_id'] = auth()->id();
-
         return $data;
     }
 }

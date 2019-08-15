@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Property extends Model
 {
 	protected $with = ['address'];
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -15,7 +16,6 @@ class Property extends Model
     protected $fillable = [
         'name','description','image', 'price', 'status', 'address_id','owner_id'
     ];
-
 
     public function owner()
     {
@@ -27,12 +27,19 @@ class Property extends Model
     	return $this->belongsTo(Address::class);
     }
 
-
     /**
      * Get the reviews for the property.
      */
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function booking()
+    {
+        return $this->hasOne(Booking::class);
     }
 }

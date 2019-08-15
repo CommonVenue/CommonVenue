@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Laravel\Cashier\Billable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    use Billable;
     use Notifiable;
 
     /**
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone_number','password',
+        'first_name', 'last_name', 'avatar', 'description', 'country', 'postal_code', 'industry', 'job_title', 'organization', 'email', 'phone_number','password',
     ];
 
     /**
@@ -37,12 +39,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function profile()
-    {
-        return $this->hasOne(User::class);
-    }
-
     public function properties()
     {
         return $this->hasMany(Property::class);
@@ -51,5 +47,13 @@ class User extends Authenticatable
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function booking()
+    {
+        return $this->hasOne(Booking::class);
     }
 }

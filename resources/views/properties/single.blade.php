@@ -116,7 +116,7 @@
 						<div class="col-lg-12">
 							<ul class="list-inline mb-0">
 								<li class="list-inline-item">
-									<a href="#" class="btn btn-dark site_btn_lg">Booking</a>
+									<a href="/properties/{{$property->id}}/booking" class="btn btn-dark site_btn_lg">Booking</a>
 								</li>
 								<li class="list-inline-item">
 									<div class="site_venue_space_detail_price">${{ $property->price }}<span>/hr</span>

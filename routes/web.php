@@ -32,4 +32,8 @@ Route::group(['middleware' => array('auth')],function(){
 	Route::get('/properties/{property}', 'PropertiesController@show')->name('properties.show');
 
 	Route::get('/properties/{property}/reviews', 'ReviewsController@index')->name('reviews');
+
+	Route::get('/properties/{property}/booking', 'BookingController@index')->name('booking');
+
+	Route::get('/payment', 'PaymentController@payWithStripe')->name('make:payment');
 });
