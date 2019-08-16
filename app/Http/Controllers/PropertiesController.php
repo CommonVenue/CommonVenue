@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\Address;
 use Illuminate\Http\Request;
+use App\Http\Requests\Property\StoreRequest;
+use App\Http\Requests\Property\UpdateRequest;
 
 class PropertiesController extends Controller
 {
@@ -26,7 +29,7 @@ class PropertiesController extends Controller
      */
     public function create()
     {
-        //
+        return view('properties.create');
     }
 
     /**
@@ -35,9 +38,14 @@ class PropertiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        try {
+            $property= Property::create($request->params());
+            return redirect()->route('properties.update')->message('Please add addres of property');
+        } catch(\Exception $ex) { 
+            return $ex->getMessage(); 
+        } 
     }
 
     /**
@@ -59,7 +67,9 @@ class PropertiesController extends Controller
      */
     public function edit(Property $property)
     {
-        //
+        $address = Address::where('id',$property->address_id)->first();
+
+        return view('properties.edit',['property' => $property, 'address' => $address]);
     }
 
     /**
@@ -69,9 +79,14 @@ class PropertiesController extends Controller
      * @param  \App\Models\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Property $property)
+    public function update(UpdateRequest $request, Property $property)
     {
-        //
+        try {
+            $property->update($request->params());
+            return redirect()->route('properties.edit',$property->id);
+        } catch(\Exception $ex) { 
+            return $ex->getMessage(); 
+        } 
     }
 
     /**
@@ -84,4 +99,5 @@ class PropertiesController extends Controller
     {
         //
     }
+
 }

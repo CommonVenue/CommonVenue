@@ -103,13 +103,14 @@
     <div class="row">
       @foreach($categories as $category)
       <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="{{asset('/images/'.$category->image)}}" class="card-img" alt="">
-          <a href="../users/search.html">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">{{ $category->name }}</h2>
+        <div class="site_space_belongs_box card bg-dark text-white">
+          <img src="{{asset('/images/'.$category->image)}}" class="card-img" alt="">
+          <a href="#">
+            <div class="card-img-overlay d-flex">
+              <div class="m-auto">
+                <h2 class="card-title">{{ $category->name }}</h2>
+              </div>
             </div>
-          </div>
           </a>
         </div>
       </div>

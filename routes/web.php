@@ -29,7 +29,14 @@ Route::group(['middleware' => array('auth')],function(){
 	Route::put('/profile','UserController@update')->name('profile.update');
 
 	Route::get('/properties', 'PropertiesController@index')->name('properties');
+	Route::get('/properties/create', 'PropertiesController@create')->name('properties.create');
+	Route::post('/properties/store', 'PropertiesController@store')->name('properties.store');
 	Route::get('/properties/{property}', 'PropertiesController@show')->name('properties.show');
+	Route::get('/properties/{property}/edit', 'PropertiesController@edit')->name('properties.edit');
+	Route::put('/properties/{property}', 'PropertiesController@update')->name('properties.update');
+
+	Route::post('/addresses/store', 'AddressesController@store')->name('addresses.store');
+	Route::put('/addresses/{address}', 'AddressesController@update')->name('addresses.update');
 
 	Route::get('/properties/{property}/reviews', 'ReviewsController@index')->name('reviews');
 
