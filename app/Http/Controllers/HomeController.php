@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,9 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function home()
-    {        
-        return view('home');
+    {
+        $categories = Category::all();
+
+        return view('home', [ 'categories' => $categories ]);
     }
 }

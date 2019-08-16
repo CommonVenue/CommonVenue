@@ -101,91 +101,19 @@
       </div>
     </div>
     <div class="row">
-        
-        
-        
+      @foreach($categories as $category)
       <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup4.png" class="card-img" alt=""> <a href="../users/search.html">
+        <div class="site_space_belongs_box card bg-dark text-white"> <img src="{{asset('/images/'.$category->image)}}" class="card-img" alt="">
+          <a href="../users/search.html">
           <div class="card-img-overlay d-flex">
             <div class="m-auto">
-              <h2 class="card-title">Bars</h2>
+              <h2 class="card-title">{{ $category->name }}</h2>
             </div>
           </div>
-          </a> </div>
+          </a>
+        </div>
       </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup5.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Bars</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup6.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Birthday Parties</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup7.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Photoshoots</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup8.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Workshop</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup9.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Babyshowers</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup7.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Photoshoots</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup8.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Workshop</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup9.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Babyshowers</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-        
+      @endforeach
     </div>
   </div>
 </section>
