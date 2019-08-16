@@ -4,7 +4,7 @@
    <div class = "content"> 
     <h1> Trial Purchase </h1> 
     <h3> US $ 19.99 </h3> 
-    <form action = "/payment" method = "POST"> 
+    <form action = "/process-subscription" method="POST"> 
         {{csrf_field ()}} 
         <script 
             src = " https://checkout.stripe.com/checkout.js " class = "stripe-button" 

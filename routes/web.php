@@ -36,4 +36,9 @@ Route::group(['middleware' => array('auth')],function(){
 	Route::get('/properties/{property}/booking', 'BookingController@index')->name('booking');
 
 	Route::get('/payment', 'PaymentController@payWithStripe')->name('make:payment');
+	Route::post('/payment', 'PaymentController@payment');
+	Route::get('/subscription', 'PaymentController@subscription');
+	Route::post('/process-subscription', 'PaymentController@process_subscription');
+	Route::get('/invoices', 'PaymentController@invoices'); 
+	Route::get('/invoice/{invoice_id}', 'PaymentController@invoice');
 });
