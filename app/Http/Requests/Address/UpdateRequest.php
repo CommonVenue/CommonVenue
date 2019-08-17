@@ -34,7 +34,6 @@ class UpdateRequest extends FormRequest
 
     public function params()
     {
-        dd($this);
         $data = [
             'country' => $this->country,
             'state' => $this->state,

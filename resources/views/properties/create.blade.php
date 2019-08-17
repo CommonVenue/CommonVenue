@@ -75,36 +75,36 @@
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Country</label>
-										<input type="text" class="form-control" name="country">
+										<input type="text" class="form-control" name="country" value="{{ isset($address->country) ? $address->country : "" }}">
 									</div>				  
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">City</label>
-										<input type="text" class="form-control" name="city">
+										<input type="text" class="form-control" name="city" value="{{ isset($address->city) ? $address->city : "" }}">
 									</div>				  
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">State</label>
-										<input type="text" class="form-control" name="state">
+										<input type="text" class="form-control" name="state" value="{{ isset($address->state) ? $address->state : "" }}">
 									</div>				  
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Unit</label>
-										<input type="text" class="form-control" name="street_1">
+										<input type="text" class="form-control" name="street_1" value="{{ isset($address->street_1) ? $address->street_1 : "" }}">
 									</div>				  
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Zip/Postal Code</label>
-										<input type="text" class="form-control" name="postal_code">
+										<input type="text" class="form-control" name="postal_code" value="{{ isset($address->postal_code) ? $address->postal_code : "" }}">
 									</div>				  
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
-										<button id="hiddenButton" type="submit" class="btn btn-primary site_btn_lg" style="float: right;visibility: hidden;">Save</button>
+										<button id="hiddenButton" type="submit" class="btn btn-primary site_btn_lg" style="float: right;">Save</button>
 									</div>				  
 								</div>
 							</div>
@@ -118,17 +118,18 @@
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Name</label>
-										<input type="text" class="form-control" id="" placeholder=" Lorium ipsum, Torronto" name="name">
-									</div>					
+										<input type="text" class="form-control"placeholder=" Lorium ipsum, Torronto" name="name">
+									</div>
 									<div class="form-group">
 										<label>Price</label>
-										<input type="text" class="form-control" id="" placeholder=" Lorium ipsum, Torronto" name="price">
-									</div>					
+										<input type="text" class="form-control" placeholder=" Lorium ipsum, Torronto" name="price">
+									</div>
+										<input type="hidden" class="form-control" placeholder=" Lorium ipsum, Torronto" name="address_id" value="{{ isset($address->id) ? $address->id : "" }}">
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label>Description</label>
-										<textarea class="form-control" id="" rows="5" placeholder="Lorium ipsum, Torronto" name="description"></textarea>
+										<textarea class="form-control" rows="5" placeholder="Lorium ipsum, Torronto" name="description"></textarea>
 									</div>				
 								</div>
 							</div>  

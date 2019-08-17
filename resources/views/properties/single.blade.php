@@ -7,13 +7,7 @@
 			<div class="site_sticky_col col-lg-6">
 				<div class="site_venue_space_carousel owl-carousel owl-theme">
 					<div class="item">
-						<img src="../vendor/images/benjamin-child-90768-unsplash.png" class="img-fluid w-100" alt="">
-					</div>
-					<div class="item">
-						<img src="../vendor/images/benjamin-child-90768-unsplash.png" class="img-fluid w-100" alt="">
-					</div>
-					<div class="item">
-						<img src="../vendor/images/benjamin-child-90768-unsplash.png" class="img-fluid w-100" alt="">
+						<img src="{{ asset('/images/'.$property->image) }}" class="img-fluid w-100" alt="">
 					</div>
 				</div>
 			</div>

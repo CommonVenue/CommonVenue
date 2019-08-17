@@ -41,8 +41,8 @@ class PropertiesController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            $property= Property::create($request->params());
-            return redirect()->route('properties.update')->message('Please add addres of property');
+            $property = Property::create($request->params());
+            return redirect()->route('properties.show',[ 'id' => $property->id ]);
         } catch(\Exception $ex) { 
             return $ex->getMessage(); 
         } 

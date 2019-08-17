@@ -126,32 +126,32 @@
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Country</label>
-										<input type="text" class="form-control" value="{{ $address->country }}">
+										<input type="text" class="form-control" value="{{ $address->country }}" name="country">
 									</div>				  
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">City</label>
-										<input type="text" class="form-control" value="{{ $address->city }}">
+										<input type="text" class="form-control" value="{{ $address->city }}" name="city">
 									</div>				  
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">State</label>
-										<input type="text" class="form-control" value="{{ $address->state }}">
+										<input type="text" class="form-control" value="{{ $address->state }}" name="state">
 									</div>				  
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Unit</label>
-										<input type="text" class="form-control" value="{{ $address ->street_1 }}">
+										<input type="text" class="form-control" value="{{ $address ->street_1 }}" name="street_1">
 									</div>				  
 								</div>
 
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Zip/Postal Code</label>
-										<input type="text" class="form-control" value="{{ $address ->postal_code }}">
+										<input type="text" class="form-control" value="{{ $address ->postal_code }}" name="postal_code">
 									</div>				  
 								</div>
 								<div class="col-lg-6">
@@ -168,7 +168,4 @@
 		</div>
 	</div>
 </section>
-
-<!-- Section 1 end --> 
-
 @endsection

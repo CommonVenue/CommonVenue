@@ -37,6 +37,7 @@ class StoreRequest extends FormRequest
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
+            'address_id' => $this->address_id,
             'owner_id'=> auth()->user()->id
         ];
 
