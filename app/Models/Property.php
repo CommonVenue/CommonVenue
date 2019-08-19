@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
 class Property extends Model
 {
+    use Favoriteable;
+
 	protected $with = ['address'];
     
     /**
@@ -14,7 +17,13 @@ class Property extends Model
      * @var array
      */
     protected $fillable = [
-        'name','description','image', 'price', 'status', 'address_id','owner_id'
+        'name',
+        'description',
+        'image',
+        'price',
+        'status',
+        'address_id',
+        'owner_id'
     ];
 
     public function owner()

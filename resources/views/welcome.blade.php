@@ -313,9 +313,11 @@
           <div class="site_newsletter_inner">
             <h1 class="site_newsletter_title mb-4">Subscribe Our Newsletter</h1>
             <div class="site_newsletter_form">
-              <form class="form-inline">
+              <form class="form-inline" action="{{ route('subscribe') }}" method="POST">
+                @csrf
                 <div class="form-group mr-3 mb-2">
-                  <input type="password" class="form-control rounded-0" id="" placeholder="Enter Your Email Here">
+                  <input type="hidden" class="csrf-token"  value="{{  csrf_token() }}">
+                  <input type="email" class="form-control rounded-0" name="email" placeholder="Enter your email Here" aria-label="Email address">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2 site_btn_lg">SUBSCRIBE</button>
               </form>

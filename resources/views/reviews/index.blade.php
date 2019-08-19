@@ -15,11 +15,10 @@
 				<li class="media">
 					<div class="site_reviews_thumb mr-3">
 						<img src="{{ isset($user) ? asset('/images/'.$user->avatar) : "" }}" class="site_reviews_images" alt="...">
-						<div class="site_reviews_username">{{ $review->user->name }}</div>  
+						<div class="site_reviews_username">{{ $review->user->first_name }}</div>  
 					</div>
 					<div class="media-body">
-			      		<p>{{ $review->text }}
-			      		</p>
+			      		<p>{{ $review->text }}</p>
 			      		<div class="row">
 							<div class="col-lg-6">
 								<strong>{{ $review->created_at }}</strong>

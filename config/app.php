@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        ChristianKuri\LaravelFavorite\FavoriteServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -230,11 +230,12 @@
 								Reviews
 							</a>
 						</div>
+						@foreach($reviews as $review)
 						<div class="col-lg-6 mb-4">
 							<div class="site_review_media media">
-								<img src="../vendor/images/circle-img.png" class="mr-3" alt="...">
+								<img src="{{ isset($user) ? asset('/images/'.$user->avatar) : "" }}" class="mr-3" alt="...">
 								<div class="media-body">
-									<h6 class="mt-0">John Doe</h6>
+									<h6 class="mt-0">{{ $review->user->first_name }}</h6>
 									<p>Job</p>
 									<div class="site_venue_rating mb-1">
 										<i class="fas fa-star"></i>
@@ -244,71 +245,15 @@
 										<i class="fas fa-star site_light_color"></i>
 										<span class="site_venue_rewiews"><i class="fas fa-check"></i> Yes, I would book</span>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consetetur </p>
-									<small class="site_vsd_review_time">2 days ago</small>
+			      					<p>{{ $review->text }}</p>
+									<small class="site_vsd_review_time">{{ $review->created_at }}</small>
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-6 mb-4">
-							<div class="site_review_media media">
-								<img src="../vendor/images/circle-img.png" class="mr-3" alt="...">
-								<div class="media-body">
-									<h6 class="mt-0">John Doe</h6>
-									<p>Job</p>
-									<div class="site_venue_rating mb-1">
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star site_light_color"></i>
-										<span class="site_venue_rewiews"><i class="fas fa-check"></i> Yes, I would book</span>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consetetur </p>
-									<small class="site_vsd_review_time">2 days ago</small>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 mb-4">
-							<div class="site_review_media media">
-								<img src="../vendor/images/circle-img.png" class="mr-3" alt="...">
-								<div class="media-body">
-									<h6 class="mt-0">John Doe</h6>
-									<p>Job</p>
-									<div class="site_venue_rating mb-1">
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star site_light_color"></i>
-										<span class="site_venue_rewiews"><i class="fas fa-check"></i> Yes, I would book</span>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consetetur </p>
-									<small class="site_vsd_review_time">2 days ago</small>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 mb-4">
-							<div class="site_review_media media">
-								<img src="../vendor/images/circle-img.png" class="mr-3" alt="...">
-								<div class="media-body">
-									<h6 class="mt-0">John Doe</h6>
-									<p>Job</p>
-									<div class="site_venue_rating mb-1">
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star"></i>
-										<i class="fas fa-star site_light_color"></i>
-										<span class="site_venue_rewiews"><i class="fas fa-check"></i> Yes, I would book</span>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consetetur </p>
-									<small class="site_vsd_review_time">2 days ago</small>
-								</div>
-							</div>
-						</div>
+						@endforeach
 						<div class="col-lg-12">
 							<div class="site_vsd_more_link">
-								<small><a href="#">See more</a></small>
+								<small><a href="/properties/{{$property->id}}/reviews">See more</a></small>
 							</div>
 						</div>
 					</div>				  				  				  

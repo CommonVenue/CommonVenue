@@ -15,10 +15,11 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('welcome');
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/city/{comingSoonCity}', 'ComingSoonController@show');
+Route::post('/subscribe', 'SubscribersController@store')->name('subscribe');
 
 
 Route::group(['middleware' => array('auth')],function(){
@@ -34,6 +35,11 @@ Route::group(['middleware' => array('auth')],function(){
 	Route::get('/properties/{property}', 'PropertiesController@show')->name('properties.show');
 	Route::get('/properties/{property}/edit', 'PropertiesController@edit')->name('properties.edit');
 	Route::put('/properties/{property}', 'PropertiesController@update')->name('properties.update');
+	
+	Route::prefix('favorite')->name('favorite.')->group(function() {
+	    Route::get('/properties', 'PropertiesController@favorites')->name('properties.favorites');
+	    Route::get('/properties/{property}', 'PropertiesController@toggleFavorite')->name('properties.toggle');
+	});
 
 	Route::post('/addresses/store', 'AddressesController@store')->name('addresses.store');
 	Route::put('/addresses/{address}', 'AddressesController@update')->name('addresses.update');

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Laravel\Cashier\Billable;
 use Illuminate\Notifications\Notifiable;
+use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -11,6 +13,7 @@ class User extends Authenticatable
 {
     use Billable;
     use Notifiable;
+    use Favoriteability;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +21,18 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'avatar', 'description', 'country', 'postal_code', 'industry', 'job_title', 'organization', 'email', 'phone_number','password',
+        'first_name', 
+        'last_name', 
+        'avatar', 
+        'description', 
+        'country', 
+        'postal_code', 
+        'industry', 
+        'job_title', 
+        'organization', 
+        'email', 
+        'phone_number',
+        'password'
     ];
 
     /**
@@ -56,4 +70,15 @@ class User extends Authenticatable
     {
         return $this->hasOne(Booking::class);
     }
+
+    /**
+     * Define a one-to-many relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class, 'user_id');
+    }
+
 }

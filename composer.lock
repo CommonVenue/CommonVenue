@@ -4,8 +4,74 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07e5ee6710c2d5b462c2a7597d974d7c",
+    "content-hash": "d30c98050af76f80af1bd226b5cfe495",
     "packages": [
+        {
+            "name": "christiankuri/laravel-favorite",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ChristianKuri/laravel-favorite.git",
+                "reference": "a6e519934711c4261ed546426e288432aed26422"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ChristianKuri/laravel-favorite/zipball/a6e519934711c4261ed546426e288432aed26422",
+                "reference": "a6e519934711c4261ed546426e288432aed26422",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": ">=5.4",
+                "illuminate/support": ">=5.4",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "orchestra/database": "~3.4",
+                "orchestra/testbench": "~3.4",
+                "phpunit/phpunit": "~5.7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ChristianKuri\\LaravelFavorite\\FavoriteServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ChristianKuri\\LaravelFavorite\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Kuri",
+                    "role": "Developer",
+                    "email": "christian.kuri.martinez@gmail.com"
+                }
+            ],
+            "description": "Allows Laravel Eloquent models to implement a 'favorite' or 'remember' or 'follow' feature.",
+            "homepage": "https://github.com/ChristianKuri/laravel-favorite",
+            "keywords": [
+                "ChristianKuri",
+                "Follow",
+                "favoritable",
+                "favorite",
+                "favourite",
+                "laravel",
+                "laravel-favorite",
+                "package",
+                "remember"
+            ],
+            "time": "2018-12-14T17:53:29+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",

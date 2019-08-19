@@ -28,4 +28,5 @@ class ReviewsController extends Controller
         
         return view('reviews.index',['reviews' => $reviews]);
     }
+
 }

@@ -13,7 +13,9 @@ class Review extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id','parent_id','text'
+        'user_id',
+        'parent_id',
+        'text'
     ];
 
 

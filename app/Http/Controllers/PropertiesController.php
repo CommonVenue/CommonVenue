@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use App\Models\Address;
+use App\Models\User;
+use App\Models\Review;
+use Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Http\Requests\Property\StoreRequest;
 use App\Http\Requests\Property\UpdateRequest;
+use App\Http\Requests\Property\AddFavoriteRequest;
 
 class PropertiesController extends Controller
 {
@@ -56,7 +61,17 @@ class PropertiesController extends Controller
      */
     public function show(Property $property)
     {
-        return view('properties.single',['property' => $property]);
+        $reviews = Review::where('parent_id',$property->id)->limit(4)->get();
+
+        foreach ($reviews as $review) {
+            $user = User::where('id',$review->user_id)->first();
+        }
+
+        if ($user){
+            return view('properties.single',['property' => $property, 'reviews' => $reviews, 'user' => $user]);
+        }
+        
+        return view('properties.single',['property' => $property, 'reviews' => $reviews]);
     }
 
     /**
@@ -100,4 +115,35 @@ class PropertiesController extends Controller
         //
     }
 
+    public function favorites()
+    {
+        if (Auth::user()) {
+            $properties = Property::whereHas('favorites', function($q) {
+                    return $q->where('user_id', Auth::user()->id);
+                })->orderByDesc('id')->get();
+                
+            return view('properties.favorites', compact('properties'));
+
+        } else {
+            return view('errors.404');
+        }
+    }
+    
+    public function toggleFavorite(Property $property, AddFavoriteRequest $request)
+    {
+        $data = [
+            'user_id' => $request->user()->id,
+        ];
+
+        if(!$property->favorites()->exists()) {
+            $property = $property->favorites()->create($data);
+            
+            return redirect()->route('properties');
+
+        } else {
+            $property->favorites()->delete();
+            
+            return redirect()->route('properties');
+        }
+    }
 }

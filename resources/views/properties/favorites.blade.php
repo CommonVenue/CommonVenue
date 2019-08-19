@@ -3,65 +3,7 @@
 @section('content')
 <section class="site_section_wrapper">
 	<div class="container">
-		<div class="site_search_fields_row row">
-			<div class="col-lg-3 mb-4">
-				<div class="site_input_group input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id=""><i class="fas fa-search"></i></span>
-					</div>
-					<input type="text" class="form-control" placeholder="Meeting">
-				</div>		  
-			</div>
-			<div class="col-lg-3 mb-4">
-				<div class="site_input_group input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id=""><i class="fas fa-map-marker-alt"></i></span>
-					</div>
-					<input type="text" class="form-control" placeholder="Toronto">
-				</div>		  
-			</div>
-			<div class="col-lg-3 mb-4">
-				<div class="site_input_group input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id=""><i class="far fa-calendar-alt"></i></span>
-					</div>
-					<input type="text" class="form-control" placeholder="When">
-				</div>		  
-			</div>
-			<div class="col-lg-3 mb-4">
-				<select class="form-control">
-					<option value="0">Attendes</option>
-					<option value="1">Attendes 1</option>
-					<option value="2">Attendes 2</option>
-				</select>
-			</div>
-			<div class="col-lg-3 mb-4">
-				<select class="form-control">
-					<option value="0">Price per hour</option>
-					<option value="1">Price per hour 1</option>
-					<option value="2">Price per hour 2</option>
-				</select>
-			</div>
-			<div class="col-lg-3 mb-4">
-				<select class="form-control">
-					<option value="0">Rating</option>
-					<option value="1">Rating 1</option>
-					<option value="2">Rating 2</option>
-				</select>
-			</div>
-			<div class="col-lg-3 mb-4">
-				<select class="form-control">
-					<option value="0">More filters</option>
-					<option value="1">More filters 1</option>
-					<option value="2">More filters 2</option>
-				</select>
-			</div>
-			<div class="col-lg-3 mb-3">
-				<div class="">
-					<a href="#"><img src="{{ asset('/images/map.png') }}" class="img-fluid" alt=""></a>
-				</div>
-			</div>
-		</div>
+		<div class="row"><div class="col-lg-12 text-center"><h1>Favourite</h1></div></div>
 		<hr class="mt-2 mb-4">  
 		<p class="site_search_showing_title mb-5">Showing 1-20 of 122 meeting spaces near Toronto</p>  
 		<div class="row mb-5">
@@ -90,9 +32,9 @@
 								<div class="site_favorite_icon">
 									<a href="{{ route('favorite.properties.toggle', [ 'property' => $property ]) }}">
 										@if (isFavoriteProperty(Auth::user(), $property->id)) 
-											<i class="fas fa-heart"></i>
+											<i class="fas fa-heart like"></i>
 										@else
-											<i class="far fa-heart"></i>
+											<i class="far fa-heart like"></i>
 										@endif
 									</a>
 								</div>
