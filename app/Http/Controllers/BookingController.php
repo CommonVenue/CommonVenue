@@ -15,9 +15,9 @@ class BookingController extends Controller
      */
     public function index(Property $property)
     {
-        $booking = Booking::where('property_id',$property->id)->get();
+        $booking = Booking::where('property_id', $property->id)->get();
 
-        return view('booking.index',['booking' => $booking ,'property' => $property]);
+        return view('booking.index', ['booking' => $booking ,'property' => $property]);
     }
 
     /**

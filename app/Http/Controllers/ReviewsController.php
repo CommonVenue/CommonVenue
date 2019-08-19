@@ -16,17 +16,16 @@ class ReviewsController extends Controller
      */
     public function index(Property $property)
     {
-        $reviews = Review::where('parent_id',$property->id)->get();
-        
+        $reviews = Review::where('parent_id', $property->id)->get();
+
         foreach ($reviews as $review) {
-            $user = User::where('id',$review->user_id)->first();
+            $user = User::where('id', $review->user_id)->first();
         }
 
-        if ($user){
-            return view('reviews.index',['reviews' => $reviews, 'user' => $user]);
+        if ($user) {
+            return view('reviews.index', ['reviews' => $reviews, 'user' => $user]);
         }
-        
-        return view('reviews.index',['reviews' => $reviews]);
+
+        return view('reviews.index', ['reviews' => $reviews]);
     }
-
 }

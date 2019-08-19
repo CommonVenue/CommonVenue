@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Subscriber;
 use App\Http\Requests\Subscribe\StoreRequest;
 
-
 class SubscribersController extends Controller
 {
     /**

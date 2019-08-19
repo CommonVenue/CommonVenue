@@ -26,9 +26,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $profile = User::where('id',auth()->id())->first();
+        $profile = User::where('id', auth()->id())->first();
 
-        return view('profile.index',['profile' => $profile]);
+        return view('profile.index', ['profile' => $profile]);
     }
 
     /**
@@ -40,11 +40,10 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request)
     {
-        $profile = User::where('id',auth()->id())->first();
-        
+        $profile = User::where('id', auth()->id())->first();
+
         $profile->update($request->params());
 
-        return view('profile.index',['profile' => $profile]);
+        return view('profile.index', ['profile' => $profile]);
     }
-
 }
