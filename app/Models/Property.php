@@ -51,4 +51,12 @@ class Property extends Model
     {
         return $this->hasOne(Booking::class);
     }
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function amenities()
+    {
+        return $this->belongsToMany(Amenity::class);
+    }
 }
