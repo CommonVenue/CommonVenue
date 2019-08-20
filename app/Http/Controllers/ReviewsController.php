@@ -20,11 +20,11 @@ class ReviewsController extends Controller
 
         foreach ($reviews as $review) {
             $user = User::where('id', $review->user_id)->first();
+            if ($user) {
+                return view('reviews.index', ['reviews' => $reviews, 'user' => $user]);
+            }
         }
 
-        if ($user) {
-            return view('reviews.index', ['reviews' => $reviews, 'user' => $user]);
-        }
 
         return view('reviews.index', ['reviews' => $reviews]);
     }
