@@ -52,30 +52,34 @@
             <div class="col-lg-5">
               <div class="site_banner_search_box">
                 <form>
+                  @csrf
                   <div class="form-row">
                     <div class="col-lg-12 mb-4">
-                      <input type="text" class="form-control" placeholder="Address">
+                      <input type="text" class="form-control" placeholder="Country" name="country">
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="col-lg-6 mb-4">
-                      <input type="text" class="form-control" placeholder="City">
+                      <input type="text" class="form-control" placeholder="City" name="city">
                     </div>
                     <div class="col-lg-6 mb-4">
-                      <input type="text" class="form-control" placeholder="State">
+                      <input type="text" class="form-control" placeholder="State" name="state">
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="col-lg-6 mb-4">
-                      <input type="number" class="form-control" placeholder="Unit">
+                      <input type="number" class="form-control" placeholder="Unit" name="street_1">
                     </div>
                     <div class="col-lg-6 mb-4">
-                      <input type="number" class="form-control" placeholder="Zip">
+                      <input type="number" class="form-control" placeholder="Zip" name="postal_code">
                     </div>
                   </div>
                   <div class="form-row">
-                    <div class="col-lg-12"> <span class="site_circle_btn_text">Get Started</span>
-                      <a href="about-complete.html" class="btn btn-primary site_circle_btn site_circle_btn_shadow"><i class="fas fa-arrow-right"></i></a>
+                    <div class="col-lg-12">
+                      <span class="site_circle_btn_text">Get Started</span>
+                        <a href="/register" class="btn btn-primary site_circle_btn site_circle_btn_shadow">
+                          <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                   </div>
                 </form>
@@ -165,7 +169,7 @@
             <div class="site_choosehow_box_content my-auto">
               <h1 class="site_choose_how_title text-primary mb-3">Choose How You Share</h1>
               <p class="mb-4">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut, sed quia.</p>
-              <a href="#" class="btn btn-primary site_btn">Ready To Start <i class="fas fa-arrow-right ml-2"></i></a> </div>
+              <a href="/register" class="btn btn-primary site_btn">Ready To Start <i class="fas fa-arrow-right ml-2"></i></a> </div>
           </div>
         </div>
       </div>

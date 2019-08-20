@@ -10,7 +10,7 @@ class Property extends Model
     use Favoriteable;
 
 	protected $with = ['address'];
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -58,5 +58,10 @@ class Property extends Model
     public function amenities()
     {
         return $this->belongsToMany(Amenity::class);
+    }
+    
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
