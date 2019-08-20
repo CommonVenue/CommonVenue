@@ -24,7 +24,7 @@ class PropertiesController extends Controller
     {
         $properties = Property::all();
 
-        return view('properties.index',['properties' => $properties]);
+        return view('properties.index', ['properties' => $properties]);
     }
 
     /**
@@ -47,10 +47,10 @@ class PropertiesController extends Controller
     {
         try {
             $property = Property::create($request->params());
-            return redirect()->route('properties.show',[ 'id' => $property->id ]);
-        } catch(\Exception $ex) { 
-            return $ex->getMessage(); 
-        } 
+            return redirect()->route('properties.show', [ 'id' => $property->id ]);
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        }
     }
 
     /**
@@ -61,17 +61,17 @@ class PropertiesController extends Controller
      */
     public function show(Property $property)
     {
-        $reviews = Review::where('parent_id',$property->id)->limit(4)->get();
+        $reviews = Review::where('parent_id', $property->id)->limit(4)->get();
 
         foreach ($reviews as $review) {
-            $user = User::where('id',$review->user_id)->first();
+            $user = User::where('id', $review->user_id)->first();
         }
 
-        if ($user){
-            return view('properties.single',['property' => $property, 'reviews' => $reviews, 'user' => $user]);
+        if ($user) {
+            return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user]);
         }
-        
-        return view('properties.single',['property' => $property, 'reviews' => $reviews]);
+
+        return view('properties.single', ['property' => $property, 'reviews' => $reviews]);
     }
 
     /**
@@ -82,9 +82,9 @@ class PropertiesController extends Controller
      */
     public function edit(Property $property)
     {
-        $address = Address::where('id',$property->address_id)->first();
+        $address = Address::where('id', $property->address_id)->first();
 
-        return view('properties.edit',['property' => $property, 'address' => $address]);
+        return view('properties.edit', ['property' => $property, 'address' => $address]);
     }
 
     /**
@@ -98,10 +98,10 @@ class PropertiesController extends Controller
     {
         try {
             $property->update($request->params());
-            return redirect()->route('properties.edit',$property->id);
-        } catch(\Exception $ex) { 
-            return $ex->getMessage(); 
-        } 
+            return redirect()->route('properties.edit', $property->id);
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        }
     }
 
     /**
@@ -118,31 +118,29 @@ class PropertiesController extends Controller
     public function favorites()
     {
         if (Auth::user()) {
-            $properties = Property::whereHas('favorites', function($q) {
-                    return $q->where('user_id', Auth::user()->id);
-                })->orderByDesc('id')->get();
-                
-            return view('properties.favorites', compact('properties'));
+            $properties = Property::whereHas('favorites', function ($q) {
+                return $q->where('user_id', Auth::user()->id);
+            })->orderByDesc('id')->get();
 
+            return view('properties.favorites', compact('properties'));
         } else {
             return view('errors.404');
         }
     }
-    
+
     public function toggleFavorite(Property $property, AddFavoriteRequest $request)
     {
         $data = [
             'user_id' => $request->user()->id,
         ];
 
-        if(!$property->favorites()->exists()) {
+        if (!$property->favorites()->exists()) {
             $property = $property->favorites()->create($data);
-            
-            return redirect()->route('properties');
 
+            return redirect()->route('properties');
         } else {
             $property->favorites()->delete();
-            
+
             return redirect()->route('properties');
         }
     }

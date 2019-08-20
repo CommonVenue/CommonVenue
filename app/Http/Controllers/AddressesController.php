@@ -20,9 +20,9 @@ class AddressesController extends Controller
         try {
             $address = Address::create($request->params());
 
-        	return view('properties.create',['address' => $address]);
-        } catch(\Exception $ex) { 
-            return $ex->getMessage(); 
+            return view('properties.create', ['address' => $address]);
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
         }
     }
 
@@ -35,14 +35,12 @@ class AddressesController extends Controller
      */
     public function update(UpdateRequest $request, Address $address)
     {
-        $property = Property::where('address_id',$address->id)->first();
+        $property = Property::where('address_id', $address->id)->first();
         try {
             $address->update($request->params());
-            return redirect()->route('properties.edit',$property->id);
-
-        }catch(\Exception $ex) { 
-            return $ex->getMessage(); 
+            return redirect()->route('properties.edit', $property->id);
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
         }
-
     }
 }
