@@ -51,4 +51,9 @@ class Property extends Model
     {
         return $this->hasOne(Booking::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

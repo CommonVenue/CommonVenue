@@ -4,6 +4,7 @@
 
 use App\Models\Property;
 use App\Models\Address;
+use App\Models\Category;
 use App\Models\User;
 use Faker\Generator as Faker;
 
@@ -13,6 +14,9 @@ $factory->define(Property::class, function (Faker $faker) {
 
     $users = User::all();
     $user = $users->Random(1)->first();
+
+    $categories = User::all();
+    $category = $categories->Random(1)->first();
     
     return [
         'name' => $faker->name,
@@ -21,6 +25,7 @@ $factory->define(Property::class, function (Faker $faker) {
         'price' => $faker->randomNumber(5),
         'status' => $faker->randomElement(['active' ,'inactive']),
         'address_id' => $address->id,
-        'owner_id' => $user->id
+        'owner_id' => $user->id,
+        'category_id' => $category->id
     ];
 });
