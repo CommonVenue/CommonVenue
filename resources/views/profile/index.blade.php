@@ -91,14 +91,14 @@ et malesuada fames ac turpis egestas. Ut arcu libero, nar non massa sed, accumsa
 			  <div class="form-group row">
 				<label class="col-sm-3 col-form-label">Country</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ isset($profile->country) ? $profile->country : "" }}" required autocomplete="country" autofocus placeholder="United States of America (USA)">
+					<input type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ isset($profile->country) ? $profile->country : "" }}" autocomplete="country" autofocus placeholder="United States of America (USA)">
 				</div>
 			  </div>
 				
 			  <div class="form-group row mb-5">
 				<label class="col-sm-3 col-form-label">Zip/Postal Code</label>
 				<div class="col-sm-9">
-				  <input type="text" class="form-control @error('postal_code') is-invalid @enderror" name="postal_code" value="{{ isset($profile->postal_code) ? $profile->postal_code : "" }}" required autocomplete="postal_code" autofocus id="" placeholder="452221">
+				  <input type="text" class="form-control @error('postal_code') is-invalid @enderror" name="postal_code" value="{{ isset($profile->postal_code) ? $profile->postal_code : "" }}" autocomplete="postal_code" autofocus id="" placeholder="452221">
 				</div>
 			  </div>
 
@@ -110,21 +110,21 @@ et malesuada fames ac turpis egestas. Ut arcu libero, nar non massa sed, accumsa
 			  <div class="form-group row">
 				<label class="col-sm-3 col-form-label">Industry</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control @error('industry') is-invalid @enderror" name="industry" value="{{ isset($profile->industry) ? $profile->industry : "" }}" required autocomplete="industry" autofocus id="" placeholder="Inovation technology">
+					<input type="text" class="form-control @error('industry') is-invalid @enderror" name="industry" value="{{ isset($profile->industry) ? $profile->industry : "" }}" autocomplete="industry" autofocus id="" placeholder="Inovation technology">
 				</div>
 			  </div>
 				
 			  <div class="form-group row mb-5">
 				<label class="col-sm-3 col-form-label">Job Title</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control @error('job_title') is-invalid @enderror" name="job_title" value="{{ isset($profile->job_title) ? $profile->job_title : "" }}" required autocomplete="job_title" autofocus id="" placeholder="Developer">
+					<input type="text" class="form-control @error('job_title') is-invalid @enderror" name="job_title" value="{{ isset($profile->job_title) ? $profile->job_title : "" }}" autocomplete="job_title" autofocus id="" placeholder="Developer">
 				</div>
 			  </div>
 
 			  <div class="form-group row mb-5">
 				<label class="col-sm-3 col-form-label">Organization</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control @error('organization') is-invalid @enderror" name="organization" value="{{ isset($profile->organization) ? $profile->organization : "" }}" required autocomplete="organization" autofocus id="" placeholder="Exio.tech">
+					<input type="text" class="form-control @error('organization') is-invalid @enderror" name="organization" value="{{ isset($profile->organization) ? $profile->organization : "" }}" autocomplete="organization" autofocus id="" placeholder="Exio.tech">
 				</div>
 			  </div>
 				

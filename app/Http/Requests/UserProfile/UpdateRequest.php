@@ -26,8 +26,7 @@ class UpdateRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'country' => 'required',
-            'postal_code' => 'required',
+            'phone_number' => 'required',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
