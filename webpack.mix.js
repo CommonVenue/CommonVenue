@@ -14,7 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
    // .js('resources/assets/js/main.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-   .copyDirectory('resources/assets/img', 'public/images');
+   .copyDirectory('resources/assets/images', 'public/images');
    /**
     * The version method will automatically append a unique hash to the filenames
     *  of all compiled files, allowing for more convenient cache busting:

@@ -1,7 +1,40 @@
 @extends('layouts.master')
 
 @section('content')
-    
+<div class="modelbackground"></div>
+
+  <div class="modal fade pt-9" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <!-- header -->
+        <button type="button" class="close text-right" data-dismiss="modal">&times;</button>
+
+
+        <!-- body -->
+        <div class="modal_body pt-7">
+          <div class="Modal_heading ">
+            <h3 class="modal_title text-center">Sign in to book this space</h3>
+            <p class="modal_para text-center">You won't be able to book a venue unless you login.</p>
+          </div>
+          <div class="signup_form">
+            <form class="text-center">
+
+              <div class="Email"><input type="email" class="eMail" placeholder="Email"></div> 
+
+              <div class="Password"><input type="password" class="passWord" placeholder="password"></div>
+
+              <div class="modal-footer">
+                <button class="btn btn-primary btn-block">Log In</button>
+              </div>
+            </form>
+          </div>
+          <div class="form-footer text-center">
+            <p class="footer-text">Don't have an account?<span>Sign up</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <!-- Slider Start -->
 <div id="site_main_slider" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">

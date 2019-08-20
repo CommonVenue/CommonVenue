@@ -88,11 +88,11 @@
 							</div>  
 							<div class="col">
 								<div class="site_favorite_icon">
-									<a href="{{ route('favorite.properties.toggle', [ 'property' => $property ]) }}">
+									<a href="#" data-id="{{ $property->id }}">
 										@if (isFavoriteProperty(Auth::user(), $property->id)) 
-											<i class="fas fa-heart"></i>
+											<i class="like-{{$property->id}} fas fa-heart"></i>
 										@else
-											<i class="far fa-heart"></i>
+											<i class="like-{{$property->id}} far fa-heart"></i>
 										@endif
 									</a>
 								</div>
@@ -121,4 +121,38 @@
 		<div class="row"><div class="col-lg-12 site_join_title"><p>Join our email list and be the first to know when we add new spaces.</p></div></div>
 	</div>
 </section>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  	$('[data-id]').click(function(e) {
+      e.preventDefault();
+
+      var self = $(this);
+      var id = self.data('id');
+      var url = 'favorite/properties/'+id;
+
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('.csrf-token').val()
+        },
+        type: "GET",
+        url: url,
+        dataType: "JSON",
+        data: { id: id },
+        success: function(res) {
+        	if ( $('i.like-'+id).hasClass('far') ){
+        		$('i.like-'+id).removeClass('far');
+        		$('i.like-'+id).addClass('fas');
+        	}else {
+        		$('i.like-'+id).removeClass('fas');
+        		$('i.like-'+id).addClass('far');
+        	}
+        },
+        error: function(error) {
+        	console.log(error)
+        }
+      });
+    });
+  })
+</script>
 @endsection

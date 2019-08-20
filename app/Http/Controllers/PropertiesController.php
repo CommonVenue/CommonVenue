@@ -65,10 +65,10 @@ class PropertiesController extends Controller
 
         foreach ($reviews as $review) {
             $user = User::where('id', $review->user_id)->first();
-        }
 
-        if ($user) {
-            return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user]);
+            if ($user) {
+                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user]);
+            }
         }
 
         return view('properties.single', ['property' => $property, 'reviews' => $reviews]);
@@ -133,15 +133,18 @@ class PropertiesController extends Controller
         $data = [
             'user_id' => $request->user()->id,
         ];
-
         if (!$property->favorites()->exists()) {
             $property = $property->favorites()->create($data);
 
-            return redirect()->route('properties');
+            return response()->json([
+                'success' => 'Property liked',
+            ]);
         } else {
             $property->favorites()->delete();
 
-            return redirect()->route('properties');
+            return response()->json([
+                'success' => 'Property disliked',
+            ]);
         }
     }
 }
