@@ -12,7 +12,7 @@ class Booking extends Model
      * @var array
      */
     protected $fillable = [
-        'property_id','user_id','from_date', 'to_date', 'total_price', 'payment_id'
+        'property_id', 'user_id', 'from_date', 'to_date', 'total_price', 'payment_id'
     ];
 
     /**
@@ -30,5 +30,4 @@ class Booking extends Model
     {
         return $this->belongsTo(Property::class);
     }
-
 }
