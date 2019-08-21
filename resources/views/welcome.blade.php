@@ -399,12 +399,14 @@
 
 <!-- Section 8 end --> 
 <script type="text/javascript">
-    $(window).on('load',function(){
-      var delayMs = 1500; // delay in milliseconds
+  $(document).ready(function() {
+    $('a.login_modal').click(function(e) {
+        var delayMs = 1500; // delay in milliseconds
 
-      setTimeout(function(){
-        $('#myModal').modal('show');
-      }, delayMs);
+        setTimeout(function(){
+            $('#myModal').modal('show');
+        }, delayMs);
     });
+  });
 </script>
 @endsection
