@@ -2617,7 +2617,7 @@ h6 {
 
 .btn-primary:focus {
 	box-shadow: 0 0 0 0.2rem rgba(45, 174, 210, 0.5) !important;
-}*/
+	}*/
 
 .site_fill_your_content {
   text-align: center;
@@ -4408,12 +4408,6 @@ span.grey {
   color: #183882;
 }
 
-.site_reviews_images {
-  height: 120px;
-  width: 180px;
-  /*border-radius: 50%:*/
-}
-
 .site_reply_btn {
   text-align: right;
 }
@@ -4936,4 +4930,214 @@ span.grey {
 }
 
 /* Responsive end */
+
+/* my custom */
+
+.side-section {
+  width: 100%;
+}
+
+.modal {
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+}
+
+.intro {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
+.modal-content {
+  padding: 26px;
+  border-radius: 20px;
+  height: 500px;
+  border: none;
+}
+
+/****** LOGIN MODAL ******/
+
+h3.modal_title.text-center {
+  margin-top: 50px;
+  color: #2E95C3;
+  letter-spacing: -2px;
+}
+
+p.modal_para.text-center {
+  color: #2D2D2D;
+  margin-bottom: 40px;
+}
+
+.eMail {
+  margin-top: 20px;
+}
+
+.eMail,
+.passWord {
+  width: 65%;
+  padding: 8px;
+  padding-left: 10px;
+  border: 1px solid #A4A4A4;
+  margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+button.btn.btn-primary.text-center {
+  margin-left: 50%;
+  transform: translate(-50%);
+  width: 65%;
+}
+
+p.footer-text {
+  color: #A4A4A4;
+}
+
+.footer-text span {
+  color: #1E76BF;
+}
+
+div#home {
+  padding: 20px;
+}
+
+div#menu1 {
+  padding: 20px;
+}
+
+.guest {
+  background: #fff;
+  padding: 10px;
+  color: #000 !important;
+  border: 1px solid #e2e2e2;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+a.book1 {
+  color: #69696B;
+}
+
+a.book2 {
+  color: #69696B;
+}
+
+a.active {
+  color: #000000;
+}
+
+.personal-info {
+  background: white;
+  padding: 30px;
+}
+
+.top-row {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.img-info {
+  padding-left: 30px;
+}
+
+.site-profile {
+  margin-bottom: 21px;
+  line-height: 14px;
+  margin-left: 93px;
+  color: #A29E9E;
+  margin-top: -66px;
+}
+
+.site-profile h1 {
+  font-size: 23px;
+}
+
+.site-profile p {
+  font-size: 15px;
+}
+
+.site-profile span {
+  font-size: 17px;
+}
+
+.site_booking_request_box_1 {
+  background: white;
+  /*    padding: 10px;*/
+}
+
+.review_1 {
+  padding: 40px;
+}
+
+.review-col-1 {
+  padding: 20px;
+  border: 1px solid #1492E6;
+  border-radius: 20px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.review-col-2 {
+  padding: 20px;
+  border: 1px solid #1492E6;
+  border-radius: 20px;
+  margin-left: 58%;
+  transform: translate(-50%);
+}
+
+.rating {
+  position: absolute;
+  top: 64%;
+  right: 6%;
+  color: #1E76BC;
+}
+
+.img-caption p {
+  margin-left: 17px;
+  color: #183882;
+}
+
+.One {
+  color: #A4A4A4;
+  margin-left: 20px;
+  margin-top: 13px;
+  letter-spacing: 1.5px;
+  text-align: left;
+}
+
+.review-date {
+  position: absolute;
+  top: 55%;
+  left: 16%;
+}
+
+.title {
+  width: 20%;
+  margin-top: 20px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .review_1 {
+    display: block;
+  }
+
+  .title {
+    width: 100%;
+    margin-top: -44px;
+  }
+
+  .rating {
+    top: 83%;
+  }
+
+  .second-title {
+    position: absolute;
+    top: 20%;
+    left: 33%;
+  }
+
+  .review-date {
+    top: 27%;
+    left: 33%;
+  }
+}
 

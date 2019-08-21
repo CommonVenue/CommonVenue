@@ -41,7 +41,7 @@ Route::group(['middleware' => array('auth')],function(){
 	    Route::get('/properties/{property}', 'PropertiesController@toggleFavorite')->name('properties.toggle');
 	});
     
-    Route::get('/properties/category/{category}', 'CategoriesController@index')->name('properties.category');
+    Route::get('/properties?category_id={category}', 'CategoriesController@index')->name('properties.category');
 
 	Route::post('/addresses/store', 'AddressesController@store')->name('addresses.store');
 	Route::put('/addresses/{address}', 'AddressesController@update')->name('addresses.update');

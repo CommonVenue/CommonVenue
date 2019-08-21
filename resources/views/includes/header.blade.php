@@ -25,7 +25,7 @@
           <div class="site_booking_dropdown dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">Reviews</a>
             <a class="dropdown-item" href="/profile">Profile</a>
-            <a class="dropdown-item" href="#">My List</a>
+            <a class="dropdown-item" href="/favorite/properties">My List</a>
             <a class="dropdown-item" href="#">Payments</a>
             <a class="dropdown-item" href="#">Add a space</a>
             <a class="dropdown-item" href="/logout">Logout</a>

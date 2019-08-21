@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="modelbackground"></div>
-
+  <!--login Modal-->
+  <div class="modelbackground"></div>
   <div class="modal fade pt-9" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -17,24 +17,27 @@
             <p class="modal_para text-center">You won't be able to book a venue unless you login.</p>
           </div>
           <div class="signup_form">
-            <form class="text-center">
-
-              <div class="Email"><input type="email" class="eMail" placeholder="Email"></div> 
-
-              <div class="Password"><input type="password" class="passWord" placeholder="password"></div>
-
+            <form class="text-center" novalidate="" method="POST" action="{{ route('login') }}">
+              @csrf
+              <div class="Email">
+                <input type="email" class="eMail @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+              </div>
+              <div class="Password">
+                <input type="password" class="passWord @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+              </div>
               <div class="modal-footer">
-                <button class="btn btn-primary btn-block">Log In</button>
+                <button type="submit" class="btn btn-primary btn-block">{{ __('Log In') }}</button>
               </div>
             </form>
           </div>
           <div class="form-footer text-center">
-            <p class="footer-text">Don't have an account?<span>Sign up</span></p>
+            <p class="footer-text">Don't have an account?<span><a href="/register">Sign up</a></span></p>
           </div>
         </div>
       </div>
     </div>
   </div>
+<!---Login modal end-->
 <!-- Slider Start -->
 <div id="site_main_slider" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
@@ -228,60 +231,20 @@
       </div>
     </div>
     <div class="row">
+      @foreach($categories as $category)
       <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup4.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Bars</h2>
+        <div class="site_space_belongs_box card bg-dark text-white">
+          <img src="{{ asset('/images/'.$category->image) }}" class="card-img" alt="">
+          <a href="{{ route('properties.category',$category->id) }}">
+            <div class="card-img-overlay d-flex">
+              <div class="m-auto">
+                <h2 class="card-title">{{ $category->name }}</h2>
+              </div>
             </div>
-          </div>
-          </a> </div>
+          </a>
+        </div>
       </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup5.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Bars</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup6.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Birthday Parties</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup7.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Photoshoots</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup8.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Workshop</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
-      <div class="col-lg-4 mb-5">
-        <div class="site_space_belongs_box card bg-dark text-white"> <img src="images/MaskGroup9.png" class="card-img" alt=""> <a href="#">
-          <div class="card-img-overlay d-flex">
-            <div class="m-auto">
-              <h2 class="card-title">Babyshowers</h2>
-            </div>
-          </div>
-          </a> </div>
-      </div>
+      @endforeach
     </div>
   </div>
 </section>
@@ -435,5 +398,13 @@
 </section>
 
 <!-- Section 8 end --> 
+<script type="text/javascript">
+    $(window).on('load',function(){
+      var delayMs = 1500; // delay in milliseconds
 
+      setTimeout(function(){
+        $('#myModal').modal('show');
+      }, delayMs);
+    });
+</script>
 @endsection

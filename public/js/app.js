@@ -49195,25 +49195,25 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap.js */ "./resources/assets/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js");
 
-__webpack_require__(/*! ./bootstrap.min.js */ "./resources/assets/js/bootstrap.min.js");
+__webpack_require__(/*! ./bootstrap.min */ "./resources/assets/js/bootstrap.min.js");
 
-__webpack_require__(/*! ./jquery.easing.min.js */ "./resources/assets/js/jquery.easing.min.js");
+__webpack_require__(/*! ./jquery.easing.min */ "./resources/assets/js/jquery.easing.min.js");
 
-__webpack_require__(/*! ./jquery.min.js */ "./resources/assets/js/jquery.min.js");
+__webpack_require__(/*! ./jquery.min */ "./resources/assets/js/jquery.min.js");
 
-__webpack_require__(/*! ./jquery-1.11.0.min.js */ "./resources/assets/js/jquery-1.11.0.min.js");
+__webpack_require__(/*! ./jquery-1.11.0.min */ "./resources/assets/js/jquery-1.11.0.min.js");
 
-__webpack_require__(/*! ./jquery-migrate-1.2.1.min.js */ "./resources/assets/js/jquery-migrate-1.2.1.min.js");
+__webpack_require__(/*! ./jquery-migrate-1.2.1.min */ "./resources/assets/js/jquery-migrate-1.2.1.min.js");
 
-__webpack_require__(/*! ./popper.min.js */ "./resources/assets/js/popper.min.js");
+__webpack_require__(/*! ./popper.min */ "./resources/assets/js/popper.min.js");
 
-__webpack_require__(/*! ./script.js */ "./resources/assets/js/script.js");
+__webpack_require__(/*! ./script */ "./resources/assets/js/script.js");
 
-__webpack_require__(/*! ./scrolling-nav.js */ "./resources/assets/js/scrolling-nav.js");
+__webpack_require__(/*! ./scrolling-nav */ "./resources/assets/js/scrolling-nav.js");
 
-__webpack_require__(/*! ./wow.min.js */ "./resources/assets/js/wow.min.js");
+__webpack_require__(/*! ./wow.min */ "./resources/assets/js/wow.min.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
