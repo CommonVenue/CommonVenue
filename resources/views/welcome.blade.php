@@ -401,11 +401,9 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('a.login_modal').click(function(e) {
-        var delayMs = 1500; // delay in milliseconds
-
         setTimeout(function(){
             $('#myModal').modal('show');
-        }, delayMs);
+        });
     });
   });
 </script>
