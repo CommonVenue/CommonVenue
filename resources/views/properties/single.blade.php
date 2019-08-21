@@ -59,53 +59,13 @@
 						</div>
 					</div>
 					<div id="collapseExample" class="site_venue_space_detail_services row no-gutters">
+						@foreach($amenities as $amenity)
 						<div class="col-lg-3 mb-4">
 							<div class="site_venue_space_detail_services_box">
-								<i class="fas fa-wifi"></i> Wifi
+								{!! $amenity->icon !!} {{ $amenity->name }} 
 							</div>
 						</div>
-						<div class="col-lg-3 mb-4">
-							<div class="site_venue_space_detail_services_box">
-								<i class="fas fa-coffee"></i> Coffee
-							</div>
-						</div>
-						<div class="col-lg-3 mb-4">
-							<div class="site_venue_space_detail_services_box">
-								<i class="fas fa-table"></i> Table
-							</div>
-						</div>
-						<div class="col-lg-3 mb-4">
-							<div class="site_venue_space_detail_services_box">
-								<i class="fas fa-chair"></i> Chairs
-							</div>
-						</div>
-						<div class="col-lg-3 mb-4">
-							<div class="site_venue_space_detail_services_box">
-								<i class="fas fa-tv"></i> Screen
-							</div>
-						</div>
-						<div class="col-lg-3 mb-4">
-							<div class="site_venue_space_detail_services_box">
-								<i class="fas fa-chalkboard"></i> Whiteboard
-							</div>
-						</div>
-						<div class="col-lg-3 mb-4">
-							<div class="site_venue_space_detail_services_box">
-								<i class="fas fa-toilet-paper"></i> Restroom
-							</div>
-						</div>
-						<div class="col-lg-3 mb-4">
-							<div class="site_venue_space_detail_services_box">
-								<i class="fas fa-phone"></i> Conference Phone
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-12">
-							<a data-toggle="collapse" href="#collapseExample" id="site_showall" class="site_venue_space_detail_services_showall">
-								Show All
-							</a>
-						</div>
+						@endforeach
 					</div>
 					<div class="row">
 						<div class="col-lg-12">

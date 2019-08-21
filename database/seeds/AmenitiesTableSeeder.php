@@ -15,35 +15,43 @@ class AmenitiesTableSeeder extends Seeder
         if (Amenity::count() == 0) {
 
         	Amenity::insert([
-	            'name' => 'Wifi'
+	            'name' => 'Wifi',
+	            'icon' => '<i class="fas fa-wifi"></i>'
 	        ]);
 
         	Amenity::insert([
-	            'name' => 'Screen'
+	            'name' => 'Screen',
+	            'icon' => '<i class="fas fa-tv"></i>'
 	        ]);
 
         	Amenity::insert([
-	            'name' => 'Coffee'
+	            'name' => 'Coffee',
+	            'icon' => '<i class="fas fa-coffee"></i>'
 	        ]);
 
         	Amenity::insert([
-	            'name' => 'Whiteboard'
+	            'name' => 'Whiteboard',
+	            'icon' => '<i class="fas fa-chalkboard"></i>'
 	        ]);
 
         	Amenity::insert([
-	            'name' => 'Table'
+	            'name' => 'Table',
+	            'icon' => '<i class="fas fa-table"></i>'
 	        ]);
 
         	Amenity::insert([
-	            'name' => 'Restroom'
+	            'name' => 'Restroom',
+	            'icon' => '<i class="fas fa-toilet-paper"></i>'
 	        ]);
 
         	Amenity::insert([
-	            'name' => 'Chairs'
+	            'name' => 'Chairs',
+	            'icon' => '<i class="fas fa-chair"></i>'
 	        ]);
 
         	Amenity::insert([
-	            'name' => 'Conference Phone'
+	            'name' => 'Conference Phone',
+	            'icon' => '<i class="fas fa-phone"></i>'
 	        ]);
 	    }
     }

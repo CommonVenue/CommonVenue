@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use App\Models\Address;
 use App\Models\User;
+use App\Models\Amenity;
 use App\Models\Review;
 use Auth;
 use Illuminate\Support\Facades\Cache;
@@ -62,12 +63,13 @@ class PropertiesController extends Controller
     public function show(Property $property)
     {
         $reviews = Review::where('parent_id', $property->id)->limit(4)->get();
+        $amenities = Amenity::all();
 
         foreach ($reviews as $review) {
             $user = User::where('id', $review->user_id)->first();
 
             if ($user) {
-                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user]);
+                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user ,'amenities' => $amenities]);
             }
         }
 
