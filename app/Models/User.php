@@ -9,7 +9,7 @@ use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends \TCG\Voyager\Models\User
 {
     use Billable;
     use Notifiable;
@@ -21,16 +21,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 
-        'last_name', 
-        'avatar', 
-        'description', 
-        'country', 
-        'postal_code', 
-        'industry', 
-        'job_title', 
-        'organization', 
-        'email', 
+        'first_name',
+        'last_name',
+        'avatar',
+        'description',
+        'country',
+        'postal_code',
+        'industry',
+        'job_title',
+        'organization',
+        'email',
         'phone_number',
         'password'
     ];

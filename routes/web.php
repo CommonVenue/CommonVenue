@@ -57,3 +57,7 @@ Route::group(['middleware' => array('auth')],function(){
 	Route::get('/invoices', 'PaymentController@invoices'); 
 	Route::get('/invoice/{invoice_id}', 'PaymentController@invoice');
 });
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

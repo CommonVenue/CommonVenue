@@ -17,7 +17,7 @@ class AddPersonalFieldToUsersTable extends Migration
             $table->dropColumn('name');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('avatar')->nullable();
+            // $table->string('avatar')->nullable();
             $table->text('description')->nullable();
             $table->string('country')->nullable();
             $table->string('postal_code')->nullable();
