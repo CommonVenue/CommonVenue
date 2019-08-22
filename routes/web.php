@@ -49,7 +49,13 @@ Route::group(['middleware' => array('auth')],function(){
 
 	Route::get('/properties/{property}/reviews', 'ReviewsController@index')->name('reviews');
 
-	Route::get('/properties/{property}/booking', 'BookingController@index')->name('booking');
+	Route::get('/bookings', 'BookingController@index')->name('bookings');
+	Route::get('/properties/{property}/booking/{booking}', 'BookingController@show')->name('booking.show');
+	Route::get('/properties/{property}/booking', 'BookingController@property_bookings')->name('property.bookings');
+	Route::get('/properties/{property}/booking/create', 'BookingController@create')->name('booking.create');
+	Route::post('/properties/{property}/booking', 'BookingController@store')->name('booking.store');
+	Route::get('/properties/{property}/booking/{booking}/edit', 'BookingController@edit')->name('booking.edit');
+	Route::put('/properties/{property}/booking/{booking}', 'BookingController@update')->name('booking.update');
 
 	Route::get('/payment', 'PaymentController@payWithStripe')->name('make:payment');
 	Route::post('/payment', 'PaymentController@payment');

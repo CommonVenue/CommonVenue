@@ -9,13 +9,13 @@
 			<div class="site_sticky_col col-lg-6">
 				<div class="site_venue_space_carousel owl-carousel owl-theme">
 					<div class="item">
-						<img src="{{ asset('/images/'.$booking->property->image) }}" class="img-fluid w-100" alt="">
+						<img src="{{ asset('/images/'.$property->image) }}" class="img-fluid w-100" alt="">
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="site_venue_space_detail_content">
-					<h1 class="site_venue_space_detail_title">{{ $booking->property->name }}</h1>
+					<h1 class="site_venue_space_detail_title">{{ $property->name }}</h1>
 					<div class="mb-4">
 						<div class="row">
 							<div class="col-lg-3 mb-4">

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use App\Http\Requests\Booking\StoreRequest;
+use App\Http\Requests\Booking\UpdateRequest;
 
 class BookingController extends Controller
 {
@@ -13,11 +15,21 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Property $property)
+    public function index()
     {
-        $booking = Booking::where('property_id', $property->id)->get();
+        $bookings = Booking::with('property')->where('user_id', auth()->id())->get();
 
-        return view('booking.index', ['booking' => $booking ,'property' => $property]);
+        return view('booking.index', [ 'bookings' => $bookings ]);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function property_bookings(Property $property)
+    {
+        $bookings = Booking::where('property_id', $property->id)->get();
+        return view('booking.property-bookings', [ 'bookings' => $bookings ,'property' => $property]);
     }
 
     /**
@@ -25,9 +37,11 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Property $property)
     {
-        //
+        $booking = Booking::where('property_id', $property->id)->get();
+
+        return view('booking.create', [ 'booking' => $booking ,'property' => $property ]);
     }
 
     /**
@@ -36,9 +50,14 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request, Property $property)
     {
-        //
+        try {
+            $booking = Booking::create($request->params());
+            return redirect()->route('bookings');
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        }
     }
 
     /**
@@ -47,9 +66,9 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function show(Booking $booking)
+    public function show(Property $property, Booking $booking)
     {
-        //
+        return view('booking.show', [ 'booking' => $booking ,'property' => $property ]);
     }
 
     /**
@@ -58,9 +77,9 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function edit(Booking $booking)
+    public function edit(Property $property, Booking $booking)
     {
-        //
+        return view('booking.edit', [ 'booking' => $booking ,'property' => $property ]);
     }
 
     /**
@@ -70,9 +89,14 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Booking $booking)
+    public function update(UpdateRequest $request, Property $property, Booking $booking)
     {
-        //
+        try {
+            $booking->update($request->params());
+            return view('booking.show', [ 'booking' => $booking ,'property' => $property ]);
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        }
     }
 
     /**

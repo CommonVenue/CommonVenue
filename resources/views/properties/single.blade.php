@@ -118,7 +118,7 @@
 							<ul class="list-inline mb-0">
 								<li class="list-inline-item">
 									@if (auth()->user())
-										<a href="/properties/{{$property->id}}/booking" class="btn btn-dark site_btn_lg">Booking</a>
+										<a href="/properties/{{$property->id}}/booking/create" class="btn btn-dark site_btn_lg">Booking</a>
 									@else
 										<a href="#" class="btn btn-dark site_btn_lg login_modal">Booking</a>
 									@endif
