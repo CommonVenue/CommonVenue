@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Category;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -11,6 +12,37 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Models\Category', 6)->create();
+        if (Category::count() == 0) {
+
+        	Category::insert([
+	            'name' => 'Bars',
+	            'image' => '/MaskGroup5.png'
+	        ]);
+
+        	Category::insert([
+	            'name' => 'Bars',
+	            'image' => '/MaskGroup4.png'
+	        ]);
+
+        	Category::insert([
+	            'name' => 'Birthday Parties',
+	            'image' => '/MaskGroup6.png'
+	        ]);
+
+        	Category::insert([
+	            'name' => 'Photoshoots',
+	            'image' => '/MaskGroup7.png'
+	        ]);
+
+        	Category::insert([
+	            'name' => 'Workshop',
+	            'image' => '/MaskGroup8.png'
+	        ]);
+
+        	Category::insert([
+	            'name' => 'Babyshowers',
+	            'image' => '/MaskGroup9.png'
+	        ]);
+	    }
     }
 }
