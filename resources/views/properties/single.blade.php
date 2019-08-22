@@ -1,6 +1,43 @@
 @extends('layouts.master')
 
 @section('content')
+  <!--login Modal-->
+  <div class="modelbackground"></div>
+  <div class="modal fade pt-9" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <!-- header -->
+        <button type="button" class="close text-right" data-dismiss="modal">&times;</button>
+
+
+        <!-- body -->
+        <div class="modal_body pt-7">
+          <div class="Modal_heading ">
+            <h3 class="modal_title text-center">Sign in to book this space</h3>
+            <p class="modal_para text-center">You won't be able to book a venue unless you login.</p>
+          </div>
+          <div class="signup_form">
+            <form class="text-center" novalidate="" method="POST" action="{{ route('login') }}">
+              @csrf
+              <div class="Email">
+                <input type="email" class="eMail @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+              </div>
+              <div class="Password">
+                <input type="password" class="passWord @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btn-block">{{ __('Log In') }}</button>
+              </div>
+            </form>
+          </div>
+          <div class="form-footer text-center">
+            <p class="footer-text">Don't have an account?<span><a href="/register">Sign up</a></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!---Login modal end-->
 <section class="site_section_wrapper py-0">
 	<div class="container-fluid px-0">
 		<div class="row no-gutters">
@@ -41,10 +78,14 @@
 								<div class="site_venue_space_detail_favorite">
 									<span>+Save</span>
 									<a href="#" data-id="{{ $property->id }}">
-										@if (isFavoriteProperty(Auth::user(), $property->id)) 
-											<i class="like-{{$property->id}} fas fa-heart"></i>
+										@if (auth()->user())
+											@if (isFavoriteProperty(Auth::user(), $property->id)) 
+												<i class="like-{{$property->id}} fas fa-heart"></i>
+											@else
+												<i class="like-{{$property->id}} far fa-heart"></i>
+											@endif
 										@else
-											<i class="like-{{$property->id}} far fa-heart"></i>
+											<a href="#" class="login_modal"><i class="like-{{$property->id}} far fa-heart"></i></a>
 										@endif
 									</a>
 								</div>
@@ -76,7 +117,11 @@
 						<div class="col-lg-12">
 							<ul class="list-inline mb-0">
 								<li class="list-inline-item">
-									<a href="/properties/{{$property->id}}/booking" class="btn btn-dark site_btn_lg">Booking</a>
+									@if (auth()->user())
+										<a href="/properties/{{$property->id}}/booking" class="btn btn-dark site_btn_lg">Booking</a>
+									@else
+										<a href="#" class="btn btn-dark site_btn_lg login_modal">Booking</a>
+									@endif
 								</li>
 								<li class="list-inline-item">
 									<div class="site_venue_space_detail_price">${{ $property->price }}<span>/hr</span>
@@ -308,36 +353,42 @@
 </section>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-  	$('[data-id]').click(function(e) {
-      e.preventDefault();
+	$(document).ready(function() {
+		$('[data-id]').click(function(e) {
+			e.preventDefault();
 
-      var self = $(this);
-      var id = self.data('id');
-      var url = '/favorite/properties/'+id;
+			var self = $(this);
+			var id = self.data('id');
+			var url = '/favorite/properties/'+id;
 
-      $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('.csrf-token').val()
-        },
-        type: "GET",
-        url: url,
-        dataType: "JSON",
-        data: { id: id },
-        success: function(res) {
-        	if ( $('i.like-'+id).hasClass('far') ){
-        		$('i.like-'+id).removeClass('far');
-        		$('i.like-'+id).addClass('fas');
-        	}else {
-        		$('i.like-'+id).removeClass('fas');
-        		$('i.like-'+id).addClass('far');
-        	}
-        },
-        error: function(error) {
-        	console.log(error)
-        }
-      });
-    });
-  })
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('.csrf-token').val()
+				},
+				type: "GET",
+				url: url,
+				dataType: "JSON",
+				data: { id: id },
+				success: function(res) {
+					if ( $('i.like-'+id).hasClass('far') ){
+						$('i.like-'+id).removeClass('far');
+						$('i.like-'+id).addClass('fas');
+					}else {
+						$('i.like-'+id).removeClass('fas');
+						$('i.like-'+id).addClass('far');
+					}
+				},
+				error: function(error) {
+					console.log(error)
+				}
+			});
+		});
+
+		$('a.login_modal').click(function(e) {
+			setTimeout(function(){
+				$('#myModal').modal('show');
+			});
+		});
+	})
 </script>
 @endsection
