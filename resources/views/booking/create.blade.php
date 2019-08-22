@@ -28,10 +28,10 @@
 					<div class="col-lg-10 mx-auto">
 						<div class="row">
 							<div class="col">
-								<div class="site_vsd_price_calc">$50.00 x 5 hours</div>
+								<div class="site_vsd_price_calc">${{ $property->price }} x <span class="hours"></span></div>
 							</div>
 							<div class="col">
-								<div class="site_vsd_price_amount">$250.00</div>
+								<div class="site_vsd_price_amount"></div>
 							</div>
 						</div>
 					</div>
@@ -43,7 +43,7 @@
 								<div class="site_vsd_price_processing">Processing <i class="fas fa-question-circle"></i></div>
 							</div>
 							<div class="col">
-								<div class="site_vsd_price_total">$45.00</div>
+								<div class="site_vsd_price_total"></div>
 							</div>
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 								<div class="site_vsd_price_total_title">Total</div>
 							</div>
 							<div class="col">
-								<div class="site_vsd_price_total_amount">$295.00</div>
+								<div class="site_vsd_price_total_amount"></div>
 							</div>
 						</div>
 					</div>	
@@ -70,16 +70,16 @@
 							<div class="row">
 								<div class="col-lg-3">
 									<label>Date</label>
-									<input type="date" class="form-control rounded-0" name="date">
-									<input type="hidden" class="form-control rounded-0" name="total_price" value="{{295.00}}">
+									<input type="date" class="form-control rounded-0 date_time" name="date">
+									<input type="hidden" class="form-control rounded-0" id="site_vsd_price_total_amount" name="total_price" value="">
 								</div>
 								<div class="col-lg-3">
 									<label>Start</label>
-									<input type="time" class="form-control rounded-0" name="from_date">
+									<input type="time" class="form-control rounded-0 start time" name="from_date">
 								</div>
 								<div class="col-lg-3">
 									<label>End</label> 
-									<input type="time" class="form-control rounded-0" name="to_date">
+									<input type="time" class="form-control rounded-0 end time" name="to_date">
 									<input type="hidden" class="form-control rounded-0" name="property_id" value="{{ $property->id }}">
 								</div>
 								<div class="col-lg-3">
@@ -194,4 +194,30 @@
 		</div>
 	</div>
 </section>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("input.time").focusout(function(){
+
+			var start_time = $('.start').val();
+			var end_time = $('.end').val();
+			var date = $('.date_time').val();
+			var price = {{ $property->price }};
+			var start_date = new Date(date + ' ' + start_time);
+			var end_date = new Date(date + ' ' + end_time);
+	    	var diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
+	    	var diff_date_span = diff_date + ' ' +'hours';
+	    	$('.hours').text(diff_date);
+
+	    	var big_price = price * diff_date;
+	    	var price_total = 45;
+	    	var price_total_amount = price_total+big_price;
+
+	    	$('.site_vsd_price_amount').text('$'+big_price);
+	    	$('.site_vsd_price_total').text('$'+ price_total);
+	    	$('.site_vsd_price_total_amount').text('$'+price_total_amount);
+	    	$('#site_vsd_price_total_amount').val(price_total_amount);
+		});
+	})
+</script>
 @endsection

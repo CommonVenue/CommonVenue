@@ -40,7 +40,7 @@ class BookingController extends Controller
     public function create(Property $property)
     {
         $booking = Booking::where('property_id', $property->id)->get();
-
+        
         return view('booking.create', [ 'booking' => $booking ,'property' => $property ]);
     }
 

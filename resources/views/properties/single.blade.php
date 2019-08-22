@@ -118,7 +118,7 @@
 							<ul class="list-inline mb-0">
 								<li class="list-inline-item">
 									@if (auth()->user())
-										<a href="/properties/{{$property->id}}/booking/create" class="btn btn-dark site_btn_lg">Booking</a>
+										<a href="/properties/{{$property->id}}/booking" class="btn btn-dark site_btn_lg">Booking</a>
 									@else
 										<a href="#" class="btn btn-dark site_btn_lg login_modal">Booking</a>
 									@endif
@@ -135,15 +135,15 @@
 							<div class="row">
 								<div class="col-lg-3 mb-4">
 									<label>Date</label>
-									<input type="date" class="form-control rounded-0">
+									<input type="date" class="form-control rounded-0 date_time">
 								</div>
 								<div class="col-lg-3 mb-4">
 									<label>Start</label>
-									<input type="time" class="form-control rounded-0">
+									<input type="time" class="form-control rounded-0 start time">
 								</div>
 								<div class="col-lg-3 mb-4">
 									<label>End</label>
-									<input type="time" class="form-control rounded-0">
+									<input type="time" class="form-control rounded-0 end time">
 								</div>
 								<div class="col-lg-3 mb-4">
 									<div class="mt-5"><a href="#">Extended a day</a></div>
@@ -158,10 +158,10 @@
 					</div>
 					<div class="row mb-1">
 						<div class="col">
-							<div class="site_vsd_price_calc">$50.00 x 5 hours</div>
+							<div class="site_vsd_price_calc">${{ $property->price }} x <span class="hours"></span></div>
 						</div>
 						<div class="col">
-							<div class="site_vsd_price_amount">$250.00</div>
+							<div class="site_vsd_price_amount"></div>
 						</div>
 					</div>
 					<div class="row mb-4">
@@ -169,14 +169,14 @@
 							<div class="site_vsd_price_processing">Processing <i class="fas fa-question-circle"></i></div>
 						</div>
 						<div class="col">
-							<div class="site_vsd_price_total">$45.00</div>
+							<div class="site_vsd_price_total"></div>
 						</div>
 						<div class="col-lg-12"><hr class="mb-4 bg-dark"></div>			  
 						<div class="col">
 							<div class="site_vsd_price_total_title">Total</div>
 						</div>
 						<div class="col">
-							<div class="site_vsd_price_total_amount">$295.00</div>
+							<div class="site_vsd_price_total_amount"></div>
 						</div>
 					</div>
 					<div class="row">
@@ -185,7 +185,7 @@
 						</div>
 						<div class="col">
 							<div class="site_vsd_request_book">
-								<a href="booking.html" class="btn btn-outline-primary">Request to Book</a>
+								<a href="/properties/{{$property->id}}/booking" class="btn btn-outline-primary">Request to Book</a>
 							</div>
 						</div>
 					</div>
@@ -388,6 +388,27 @@
 			setTimeout(function(){
 				$('#myModal').modal('show');
 			});
+		});
+
+		$("input.time").focusout(function(){
+
+			var start_time = $('.start').val();
+			var end_time = $('.end').val();
+			var date = $('.date_time').val();
+			var price = {{ $property->price }};
+			var start_date = new Date(date + ' ' + start_time);
+			var end_date = new Date(date + ' ' + end_time);
+	    	var diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
+	    	var diff_date_span = diff_date + ' ' +'hours';
+	    	$('.hours').text(diff_date);
+
+	    	var big_price = price * diff_date;
+	    	var price_total = 45;
+	    	var price_total_amount = price_total+big_price;
+
+	    	$('.site_vsd_price_amount').text('$'+big_price);
+	    	$('.site_vsd_price_total').text('$'+ price_total);
+	    	$('.site_vsd_price_total_amount').text('$'+price_total_amount);
 		});
 	})
 </script>

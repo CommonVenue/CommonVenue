@@ -51,9 +51,11 @@ Route::group(['middleware' => array('auth')],function(){
 
 	Route::get('/bookings', 'BookingController@index')->name('bookings');
 	Route::get('/properties/{property}/booking/{booking}', 'BookingController@show')->name('booking.show');
-	Route::get('/properties/{property}/booking', 'BookingController@property_bookings')->name('property.bookings');
-	Route::get('/properties/{property}/booking/create', 'BookingController@create')->name('booking.create');
+	Route::get('/properties/{property}/bookings', 'BookingController@property_bookings')->name('property.bookings');
+
+	Route::get('/properties/{property}/booking', 'BookingController@create')->name('booking.create');
 	Route::post('/properties/{property}/booking', 'BookingController@store')->name('booking.store');
+
 	Route::get('/properties/{property}/booking/{booking}/edit', 'BookingController@edit')->name('booking.edit');
 	Route::put('/properties/{property}/booking/{booking}', 'BookingController@update')->name('booking.update');
 

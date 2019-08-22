@@ -62,7 +62,7 @@ class PropertiesController extends Controller
      */
     public function show(Property $property)
     {
-        $reviews = Review::where('parent_id', $property->id)->limit(4)->get();
+        $reviews = Review::where('parent_id', $property->id)->limit(2)->get();
         $amenities = Amenity::all();
 
         foreach ($reviews as $review) {
