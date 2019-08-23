@@ -210,11 +210,11 @@
 	    	$('.hours').text(diff_date);
 
 	    	var big_price = price * diff_date;
-	    	var price_total = 45;
-	    	var price_total_amount = price_total+big_price;
+	    	var processing_price = 45;
+	    	var price_total_amount = processing_price+big_price;
 
 	    	$('.site_vsd_price_amount').text('$'+big_price);
-	    	$('.site_vsd_price_total').text('$'+ price_total);
+	    	$('.site_vsd_price_total').text('$'+ processing_price);
 	    	$('.site_vsd_price_total_amount').text('$'+price_total_amount);
 	    	$('#site_vsd_price_total_amount').val(price_total_amount);
 		});

@@ -203,14 +203,14 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="site_vsd_host_detail py-4">
-								<div class="site_vsd_host_agent_name mb-3">Shehroz H.</div>
-								<div class="site_vsd_host_agent_description">Lorem ipsum dolor sit amet, consetetur sadipscing</div>
+								<div class="site_vsd_host_agent_name mb-3">{{ $owner->first_name }}</div>
+								<div class="site_vsd_host_agent_description">{{ $owner ->description }}</div>
 							</div>
 						</div>
 						<div class="col-lg-5">
 							<div class="site_vsd_host_detail py-4">
-								<div class="site_vsd_host_agent_response mb-1">Response rate : 100%.</div>
-								<div class="site_vsd_host_agent_response_time mb-2">Response time : within an hour</div>
+								<div class="site_vsd_host_agent_response mb-1">Response rate : {{ $owner->response_rate }}%.</div>
+								<div class="site_vsd_host_agent_response_time mb-2">Response time : {{ $owner->response_time }}</div>
 								<a href="../vendor/inbox.html" class="btn btn-outline-primary">Meet Your Host</a>
 							</div>
 						</div>
@@ -400,14 +400,14 @@
 			var end_date = new Date(date + ' ' + end_time);
 	    	var diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
 	    	var diff_date_span = diff_date + ' ' +'hours';
-	    	$('.hours').text(diff_date);
+	    	$('.hours').text(diff_date_span);
 
 	    	var big_price = price * diff_date;
-	    	var price_total = 45;
-	    	var price_total_amount = price_total+big_price;
+	    	var processing_price = 45;
+	    	var price_total_amount = processing_price+big_price;
 
 	    	$('.site_vsd_price_amount').text('$'+big_price);
-	    	$('.site_vsd_price_total').text('$'+ price_total);
+	    	$('.site_vsd_price_total').text('$'+ processing_price);
 	    	$('.site_vsd_price_total_amount').text('$'+price_total_amount);
 		});
 	})
