@@ -38,7 +38,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Meetings',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -53,7 +53,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Film Shoots',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -68,7 +68,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Birthday Parties',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -83,7 +83,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Photoshoots',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -98,7 +98,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Workshops',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -113,7 +113,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Baby Showers',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -128,7 +128,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Dinners',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -143,7 +143,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Weddings',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -158,7 +158,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Team Offsite',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -173,7 +173,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Launch Parties',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -188,7 +188,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Outdoor Events',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -203,7 +203,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Performances',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -234,7 +234,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Toronto',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -310,7 +310,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'List your Space',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -325,7 +325,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Help & Support',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -356,7 +356,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'About',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -371,7 +371,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Terms & Conditions',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -386,7 +386,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Privacy',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
@@ -401,7 +401,7 @@ class FooterMenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => 'Careers',
-            'url'     => '',
+            'url'     => '#',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
