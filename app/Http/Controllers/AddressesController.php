@@ -19,15 +19,18 @@ class AddressesController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        try {
+        if(!is_null($request->params())) {
             $address = Address::create($request->params());
+        }
+        
+        try {
 
             $address = new Address();
-
-            //Converts address into Lat and Lng
             $client = new Client();
-            $result =(string) $client->post(`https://maps.googleapis.com/maps/api/geocode/json?address=$address`, [ ‘form_params’ => [‘key’=>’YOUR API KEY HERE’]])->getBody();
+
+            // $result = $client->post(`https://maps.googleapis.com/maps/api/geocode/json?address=$address`, [ ‘form_params’ => [‘key’=>’YOUR API KEY HERE’]])->getBody();
             $json =json_decode($result);
+
             $address->latitude =$json->results[0]->geometry->location->lat;
             $address->longitude =$json->results[0]->geometry->location->lng;
 

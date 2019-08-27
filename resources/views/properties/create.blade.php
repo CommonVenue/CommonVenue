@@ -6,7 +6,7 @@
 <section class="site_section_wrapper">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12"><h1 class="site_page_title">Edit</h1>  </div>  
+			<div class="col-lg-12"><h1 class="site_page_title">Create</h1>  </div>  
 		</div>  
 		<hr class="mt-2 mb-5">  
 		<div class="row mb-4">
