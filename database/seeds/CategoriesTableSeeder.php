@@ -16,11 +16,6 @@ class CategoriesTableSeeder extends Seeder
 
         	Category::insert([
 	            'name' => 'Bars',
-	            'image' => '/MaskGroup5.png'
-	        ]);
-
-        	Category::insert([
-	            'name' => 'Bars',
 	            'image' => '/MaskGroup4.png'
 	        ]);
 

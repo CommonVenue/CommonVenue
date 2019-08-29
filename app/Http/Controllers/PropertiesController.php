@@ -65,15 +65,16 @@ class PropertiesController extends Controller
         $reviews = Review::where('parent_id', $property->id)->limit(2)->get();
         $owner = User::where('id', $property->owner_id)->first();
         $amenities = Amenity::all();
+        $address = Address::where('id',$property->address_id)->first();
 
         foreach ($reviews as $review) {
             $user = User::where('id', $review->user_id)->first();
             if ($user) {
-                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user ,'amenities' => $amenities, 'owner' => $owner]);
+                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user ,'amenities' => $amenities, 'owner' => $owner, 'address' => $address]);
             }
         }
 
-        return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'amenities' => $amenities, 'owner' => $owner]);
+        return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'amenities' => $amenities, 'owner' => $owner, 'address' => $address]);
     }
 
     /**
