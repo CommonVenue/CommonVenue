@@ -23,7 +23,8 @@ class Property extends Model
         'price',
         'status',
         'address_id',
-        'owner_id'
+        'owner_id',
+        'category_id'
     ];
 
     public function owner()

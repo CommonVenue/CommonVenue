@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\User;
 use App\Models\Amenity;
 use App\Models\Review;
+use App\Models\Category;
 use Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
@@ -35,7 +36,9 @@ class PropertiesController extends Controller
      */
     public function create()
     {
-        return view('properties.create');
+        $categories = Category::all();
+
+        return view('properties.create',[ 'categories' => $categories]);
     }
 
     /**

@@ -6,123 +6,38 @@
 <section class="site_section_wrapper">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12"><h1 class="site_page_title">Create</h1>  </div>  
-		</div>  
-		<hr class="mt-2 mb-5">  
-		<div class="row mb-4">
-			<div class="col-lg-12"><h4 class="site_select_category_title">Select Category</h4> </div>  
-		</div>  	
-		<div class="row">
-			<div class="col-lg-12">
-				<ul class="site_select_catgory_list list-unstyled row">
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/meetings-thumb.png" class="img-fluid" alt="">
-							<p>Meetings</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/outdoor-thumb.png" class="img-fluid" alt="">
-							<p>Outdoor</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/wedding-thumb.png" class="img-fluid" alt="">
-							<p>Weddings</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/meetings-thumb.png" class="img-fluid" alt="">
-							<p>Meetings</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/outdoor-thumb.png" class="img-fluid" alt="">
-							<p>Outdoor</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/wedding-thumb.png" class="img-fluid" alt="">
-							<p>Weddings</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/wedding-thumb.png" class="img-fluid" alt="">
-							<p>Weddings</p>
-						</a>	
-					</li>
-
-				</ul>
-
+			<div class="col-lg-12"><h1 class="site_page_title">Create</h1></div>
+		</div>
+		<hr class="mt-2 mb-5">
+		<form role="form" class="form-edit-add" method="POST" action="{{ route('addresses.store') }}">
+			@csrf
+			<div class="row mb-4">
+				<div class="col-lg-12"><h4 class="site_select_category_title">Select Category</h4> </div>
 			</div>
-
-		</div>  
-
+			<div class="row">
+				<div class="col-lg-12">
+					<ul class="site_select_catgory_list list-unstyled row">
+						@foreach($categories as $category)
+						<li class="col">
+							<a href="#">
+								<label for="category_{{$category->id}}">{{ $category->name }}
+									<img src="/images/{{ $category->image}}" class="img-fluid" alt="">
+								</label>
+	  							<input type="radio" name="category_id" id="category_{{$category->id}}" value="{{ $category->id }}"><br>
+							</a>
+						</li>
+						@endforeach
+					</ul>
+				</div>
+			</div>
+		</form>
+		
 		<div class="row mb-5">
 			<div class="col-lg-12">
 				<div class="site_mylist_card site_mylist_edit_card card mb-4">
 					<div class="card-body">
-						<form role="form" class="form-edit-add" method="POST" action="{{ route('addresses.store') }}">
-			            	@csrf
-							<label>Address</label>
-							<div class="row">
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Country</label>
-										<input type="text" class="form-control" name="country" value="{{ isset($address->country) ? $address->country : "" }}">
-									</div>				  
-								</div>
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">City</label>
-										<input type="text" class="form-control" name="city" value="{{ isset($address->city) ? $address->city : "" }}">
-									</div>				  
-								</div>
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">State</label>
-										<input type="text" class="form-control" name="state" value="{{ isset($address->state) ? $address->state : "" }}">
-									</div>				  
-								</div>
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Unit</label>
-										<input type="text" class="form-control" name="street_1" value="{{ isset($address->street_1) ? $address->street_1 : "" }}">
-									</div>				  
-								</div>
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Zip/Postal Code</label>
-										<input type="text" class="form-control" name="postal_code" value="{{ isset($address->postal_code) ? $address->postal_code : "" }}">
-									</div>				  
-								</div>
-								<div class="col-lg-6">
-									<div class="form-group">
-										<button id="hiddenButton" type="submit" class="btn btn-primary site_btn_lg" style="float: right;">Save</button>
-									</div>				  
-								</div>
-							</div>
-							<div class="form-group">
-							    <label for="address_address">Address</label>
-							    <input type="text" id="address-input" name="address" class="form-control map-input">
-							    <input type="hidden" name="latitude" id="address-latitude" value="0" />
-							    <input type="hidden" name="longitude" id="address-longitude" value="0" />
-							</div>
-							<div id="address-map-container" style="width:100%;height:400px; ">
-							    <div style="width: 100%; height: 100%" id="address-map"></div>
-							</div>
-						</form>
-					</div>	
-					<hr class="bg-dark my-0">
-					<div class="card-body">
-						<form method="POST" action="{{ route('properties.store') }}"  enctype="multipart/form-data">
-			            	@csrf
+						<form method="POST" action="{{ route('properties.store') }}"enctype="multipart/form-data">
+							@csrf
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
@@ -139,9 +54,9 @@
 									<div class="form-group">
 										<label>Description</label>
 										<textarea class="form-control" rows="5" placeholder="Lorium ipsum, Torronto" name="description"></textarea>
-									</div>				
+									</div>
 								</div>
-							</div>  
+							</div>
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group">
@@ -150,17 +65,70 @@
 											<i class="fas fa-plus-circle text-dark"></i>
 											<input type="file" name="image">
 										</div>
-									</div>					
-								</div>					
+									</div>
+								</div>
 							</div>
 							<div class="col-lg-12">
 								<div class="form-group">
 									<button class="btn btn-primary site_btn_lg save" style="float: right;">Save</button>
-								</div>		  
-							</div>		
+								</div>
+							</div>
 						</form>
 					</div>
-				</div>		  
+					<hr class="bg-dark my-0">
+					<div class="card-body">
+						<form role="form" class="form-edit-add" method="POST" action="{{ route('addresses.store') }}">
+							@csrf
+							<label>Address</label>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Country</label>
+										<input type="text" class="form-control" name="country" value="{{ isset($address->country) ? $address->country : "" }}">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">City</label>
+										<input type="text" class="form-control" name="city" value="{{ isset($address->city) ? $address->city : "" }}">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">State</label>
+										<input type="text" class="form-control" name="state" value="{{ isset($address->state) ? $address->state : "" }}">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Unit</label>
+										<input type="text" class="form-control" name="street_1" value="{{ isset($address->street_1) ? $address->street_1 : "" }}">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Zip/Postal Code</label>
+										<input type="text" class="form-control" name="postal_code" value="{{ isset($address->postal_code) ? $address->postal_code : "" }}">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<button id="hiddenButton" type="submit" class="btn btn-primary site_btn_lg" style="float: right;">Save</button>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="address_address">Address</label>
+								<input type="text" id="address-input" name="address" class="form-control map-input">
+								<input type="hidden" name="latitude" id="address-latitude" value="0" />
+								<input type="hidden" name="longitude" id="address-longitude" value="0" />
+							</div>
+							<div id="address-map-container" style="width:100%;height:400px; ">
+								<div style="width: 100%; height: 100%" id="address-map"></div>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
