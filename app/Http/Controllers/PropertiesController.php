@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Property\StoreRequest;
 use App\Http\Requests\Property\UpdateRequest;
 use App\Http\Requests\Property\AddFavoriteRequest;
+use Mapper;
 
 class PropertiesController extends Controller
 {
@@ -37,8 +38,10 @@ class PropertiesController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $amenities = Amenity::all();
+        Mapper::map(0, 0);
 
-        return view('properties.create',[ 'categories' => $categories]);
+        return view('properties.create',[ 'categories' => $categories, 'amenities' => $amenities]);
     }
 
     /**
@@ -51,7 +54,13 @@ class PropertiesController extends Controller
     {
         try {
             $property = Property::create($request->params());
-            return redirect()->route('properties.show', [ 'id' => $property->id ]);
+
+            return response()->json([
+                'success' => 'Property is successfuly created',
+            ]);
+            
+            // return $property;
+            // return redirect()->route('properties.show', [ 'id' => $property->id ]);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
@@ -68,16 +77,15 @@ class PropertiesController extends Controller
         $reviews = Review::where('parent_id', $property->id)->limit(2)->get();
         $owner = User::where('id', $property->owner_id)->first();
         $amenities = Amenity::all();
-        $address = Address::where('id',$property->address_id)->first();
 
         foreach ($reviews as $review) {
             $user = User::where('id', $review->user_id)->first();
             if ($user) {
-                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user ,'amenities' => $amenities, 'owner' => $owner, 'address' => $address]);
+                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user ,'amenities' => $amenities, 'owner' => $owner]);
             }
         }
 
-        return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'amenities' => $amenities, 'owner' => $owner, 'address' => $address]);
+        return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'amenities' => $amenities, 'owner' => $owner]);
     }
 
     /**

@@ -36,12 +36,14 @@ class StoreRequest extends FormRequest
     {
         $data = [
             'country' => $this->country,
-            'state' => $this->state,
             'city' => $this->city,
+            'state' => $this->state,
             'postal_code' => $this->postal_code,
             'street_1' => $this->street_1,
+            'address' => $this->address,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
         ];
-
         return $data;
     }
 }

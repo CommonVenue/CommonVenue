@@ -229,8 +229,8 @@
 							<div class="form-group">
 							    <label for="address_address">Address</label>
 							    <input type="hidden" id="address-input" name="address" class="form-control map-input">
-							    <input type="hidden" name="latitude" id="address-latitude" value="{{ $address->latitude }}" />
-							    <input type="hidden" name="longitude" id="address-longitude" value="{{ $address->longitude }}" />
+							    <input type="hidden" name="latitude" id="address-latitude" value="{{ $property->address->latitude }}" />
+							    <input type="hidden" name="longitude" id="address-longitude" value="{{ $property->address->longitude }}" />
 							</div>
 							<div id="address-map-container" style="width:100%;height:400px; ">
 							    <div style="width: 100%; height: 100%" id="address-map"></div>
