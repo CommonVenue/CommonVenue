@@ -14,8 +14,7 @@ class UpdateUsersTableEditNameField extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('name');
-            $table->string('name')->nullable();
+            $table->string('name')->nullable()->change();
         });
     }
 
