@@ -120,7 +120,7 @@
 									</div>
 									<div class="col-lg-4">
 										<div class="site_perk_field">
-											<input type="text" class="form-control" required id="" name="" placeholder="Perk - great lighting, ">
+											<input type="text" class="form-control" required id="name" name="name" placeholder="Perk - great lighting, ">
 										</div>
 									</div>
 								</div>
@@ -135,7 +135,7 @@
 										</ul>
 									</div>
 									<div class="col-lg-6">
-										<textarea class="form-control" rows="5"></textarea>
+										<textarea class="form-control" rows="5" id="description" name="description"></textarea>
 										<small class="text-danger">Required *</small>
 									</div>
 								</div>
@@ -144,11 +144,11 @@
 										<h4 class="site_add_desc_title">Who's allowed in your space?</h4>
 										<h6 class="site_add_desc_subtitle seprotext site_ls_2x mb-3">Typically, only venues that serve alcohol have a 21+ requirement.</h6>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+											<input class="form-check-input" type="radio" name="adult" id="inlineRadio1" value="false">
 											<label class="form-check-label" for="inlineRadio1">All ages</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+											<input class="form-check-input" type="radio" name="adult" id="inlineRadio2" value="true">
 											<label class="form-check-label" for="inlineRadio2">21+</label>
 										</div>
 									</div>
@@ -160,7 +160,12 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<input type="password" class="form-control" required="" id="" name="" placeholder="">
+											<input type="text" class="form-control" required="" id="wifi_name" name="wifi_name" placeholder="Wifi name">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<input type="password" class="form-control" required="" id="wifi_password" name="wifi_password" placeholder="Wifi Password">
 										</div>
 									</div>
 									<div class="col-lg-12"><p class="seprotext"><i class="fas fa-lock"></i> Don't worry, we'll only share this with guests after you have accepted their booking.</p></div>
@@ -175,7 +180,7 @@
 										</ul>
 									</div>
 									<div class="col-lg-6">
-										<textarea class="form-control" rows="5"></textarea>
+										<textarea class="form-control" rows="5" id="location_description" name="location_description"></textarea>
 									</div>
 								</div>
 							</div>
@@ -254,53 +259,36 @@
 											<li class="list-inline-item site_switch_position">
 												<div class="left-side">
 													<label class="switch">
-														<input type="checkbox" checked>
-														<span class="slider round"></span>
-													</label>
-												</div>
-											</li>
-											<li class="list-inline-item site_hours_position">
-												<p class="site_hours_day_title mb-0 seprotext">Sunday</p>
-												<p class="site_hours_status_title mb-0 text-success">Open</p>
-											</li>
-											<li class="list-inline-item">
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c1" value="option1">
-													<label class="form-check-label" for="c1">24 Hours</label>
-												</div>
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c2" value="option2">
-													<label class="form-check-label" for="c2">Set Hours</label>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="row site_hours_row_border">
-									<div class="col-lg-8">
-										<ul class="site_hours_list list-inline">
-											<li class="list-inline-item site_switch_position">
-												<div class="left-side">
-													<label class="switch">
-														<input type="checkbox" checked>
+														<input type="checkbox" class="monday_checkbox">
 														<span class="slider round"></span>
 													</label>
 												</div>
 											</li>
 											<li class="list-inline-item site_hours_position">
 												<p class="site_hours_day_title mb-0 seprotext">Monday</p>
-												<p class="site_hours_status_title mb-0 text-success">Open</p>
+												<p class="site_hours_status_title mb-0 text-success opened_monday" style="display: none;">Open</p>
+												<p class="site_hours_status_title mb-0 text-muted closed_monday">Closed</p>
 											</li>
-											<li class="list-inline-item">
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c1" value="option1">
-													<label class="form-check-label" for="c1">24 Hours</label>
-												</div>
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c2" value="option2">
-													<label class="form-check-label" for="c2">Set Hours</label>
-												</div>
-											</li>
+											<div class="monday" style="display: none;">
+												<li class="list-inline-item">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="monday_radio" id="monday_radio1">
+														<label class="form-check-label" for="monday_radio1">24 Hours</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="monday_radio" id="monday_radio2">
+														<label class="form-check-label" for="monday_radio2">Set Hours</label>
+													</div>
+												</li>
+												<li class="list-inline-item">
+													<div class="site_custom_hours_wrap">
+														<input type="time" class="form-control monday_from_time" name="from_time"> 
+														<div class="site_custom_hours_to">to</div>
+														<input type="time" class="form-control monday_to_time"  name="to_time">
+
+													</div>
+												</li>
+											</div>
 										</ul>
 									</div>
 								</div>
@@ -310,25 +298,36 @@
 											<li class="list-inline-item site_switch_position">
 												<div class="left-side">
 													<label class="switch">
-														<input type="checkbox" checked>
+														<input type="checkbox" class="tuesday_checkbox">
 														<span class="slider round"></span>
 													</label>
 												</div>
 											</li>
 											<li class="list-inline-item site_hours_position">
 												<p class="site_hours_day_title mb-0 seprotext">Tuesday</p>
-												<p class="site_hours_status_title mb-0 text-success">Open</p>
+												<p class="site_hours_status_title mb-0 text-success opened_tuesday" style="display: none;">Open</p>
+												<p class="site_hours_status_title mb-0 text-muted closed_tuesday">Closed</p>
 											</li>
-											<li class="list-inline-item">
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c1" value="option1">
-													<label class="form-check-label" for="c1">24 Hours</label>
-												</div>
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c2" value="option2">
-													<label class="form-check-label" for="c2">Set Hours</label>
-												</div>
-											</li>
+											<div class="tuesday" style="display: none;">
+												<li class="list-inline-item">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="tuesday_radio" id="tuesday_radio1">
+														<label class="form-check-label" for="tuesday_radio1">24 Hours</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="tuesday_radio" id="tuesday_radio2">
+														<label class="form-check-label" for="tuesday_radio2">Set Hours</label>
+													</div>
+												</li>
+												<li class="list-inline-item">
+													<div class="site_custom_hours_wrap">
+														<input type="time" class="form-control tuesday_from_time" name="from_time"> 
+														<div class="site_custom_hours_to">to</div>
+														<input type="time" class="form-control tuesday_to_time"  name="to_time">
+
+													</div>
+												</li>
+											</div>
 										</ul>
 									</div>
 								</div>
@@ -338,25 +337,36 @@
 											<li class="list-inline-item site_switch_position">
 												<div class="left-side">
 													<label class="switch">
-														<input type="checkbox" checked>
+														<input type="checkbox" class="wednesday_checkbox">
 														<span class="slider round"></span>
 													</label>
 												</div>
 											</li>
 											<li class="list-inline-item site_hours_position">
 												<p class="site_hours_day_title mb-0 seprotext">Wednesday</p>
-												<p class="site_hours_status_title mb-0 text-success">Open</p>
+												<p class="site_hours_status_title mb-0 text-success opened_wednesday" style="display: none;">Open</p>
+												<p class="site_hours_status_title mb-0 text-muted closed_wednesday">Closed</p>
 											</li>
-											<li class="list-inline-item">
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c1" value="option1">
-													<label class="form-check-label" for="c1">24 Hours</label>
-												</div>
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c2" value="option2">
-													<label class="form-check-label" for="c2">Set Hours</label>
-												</div>
-											</li>
+											<div class="wednesday" style="display: none;">
+												<li class="list-inline-item">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="wednesday_radio" id="wednesday_radio1">
+														<label class="form-check-label" for="wednesday_radio1">24 Hours</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="wednesday_radio" id="wednesday_radio2">
+														<label class="form-check-label" for="wednesday_radio2">Set Hours</label>
+													</div>
+												</li>
+												<li class="list-inline-item">
+													<div class="site_custom_hours_wrap">
+														<input type="time" class="form-control wednesday_from_time" name="from_time"> 
+														<div class="site_custom_hours_to">to</div>
+														<input type="time" class="form-control wednesday_to_time"  name="to_time">
+
+													</div>
+												</li>
+											</div>
 										</ul>
 									</div>
 								</div>
@@ -366,89 +376,36 @@
 											<li class="list-inline-item site_switch_position">
 												<div class="left-side">
 													<label class="switch">
-														<input type="checkbox" checked>
+														<input type="checkbox" class="thursday_checkbox">
 														<span class="slider round"></span>
 													</label>
 												</div>
 											</li>
 											<li class="list-inline-item site_hours_position">
 												<p class="site_hours_day_title mb-0 seprotext">Thursdsay</p>
-												<p class="site_hours_status_title mb-0 text-success">Open</p>
+												<p class="site_hours_status_title mb-0 text-success opened_thursday" style="display: none;">Open</p>
+												<p class="site_hours_status_title mb-0 text-muted closed_thursday">Closed</p>
 											</li>
-											<li class="list-inline-item">
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c1" value="option1">
-													<label class="form-check-label" for="c1">24 Hours</label>
-												</div>
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c2" value="option2">
-													<label class="form-check-label" for="c2">Set Hours</label>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="row site_hours_row_border">
-									<div class="col-lg-8">
-										<ul class="site_hours_list list-inline">
-											<li class="list-inline-item site_switch_position">
-												<div class="left-side">
-													<label class="switch">
-														<input type="checkbox" checked>
-														<span class="slider round"></span>
-													</label>
-												</div>
-											</li>
-											<li class="list-inline-item site_hours_position">
-												<p class="site_hours_day_title mb-0 seprotext">Friday</p>
-												<p class="site_hours_status_title mb-0 text-success">Open</p>
-											</li>
-											<li class="list-inline-item">
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c1" value="option1">
-													<label class="form-check-label" for="c1">24 Hours</label>
-												</div>
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c2" value="option2">
-													<label class="form-check-label" for="c2">Set Hours</label>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="row site_hours_row_border">
-									<div class="col-lg-8">
-										<ul class="site_hours_list list-inline">
-											<li class="list-inline-item site_switch_position">
-												<div class="left-side">
-													<label class="switch">
-														<input type="checkbox" checked>
-														<span class="slider round"></span>
-													</label>
-												</div>
-											</li>
-											<li class="list-inline-item site_hours_position">
-												<p class="site_hours_day_title mb-0 seprotext">Friday</p>
-												<p class="site_hours_status_title mb-0 text-success">Open</p>
-											</li>
-											<li class="list-inline-item">
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c1" value="option1">
-													<label class="form-check-label" for="c1">24 Hours</label>
-												</div>
-												<div class="form-check form-check-inline">
-													<input class="form-check-input" type="radio" name="inlineRadioOptions" id="c2" value="option2">
-													<label class="form-check-label" for="c2">Set Hours</label>
-												</div>
-											</li>
-											<li class="list-inline-item">
-												<div class="site_custom_hours_wrap">
-													<input type="time" class="form-control" name="usr_time"> 
-													<div class="site_custom_hours_to">to</div>
-													<input type="time" class="form-control"  name="usr_time">
+											<div class="thursdsay" style="display: none;">
+												<li class="list-inline-item">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="thursday_radio" id="thursday_radio1">
+														<label class="form-check-label" for="thursday_radio1">24 Hours</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="thursday_radio" id="thursday_radio2">
+														<label class="form-check-label" for="thursday_radio2">Set Hours</label>
+													</div>
+												</li>
+												<li class="list-inline-item">
+													<div class="site_custom_hours_wrap">
+														<input type="time" class="form-control thursdsay_from_time" name="from_time"> 
+														<div class="site_custom_hours_to">to</div>
+														<input type="time" class="form-control thursdsay_to_time"  name="to_time">
 
-												</div>
-											</li>
+													</div>
+												</li>
+											</div>
 										</ul>
 									</div>
 								</div>
@@ -458,15 +415,113 @@
 											<li class="list-inline-item site_switch_position">
 												<div class="left-side">
 													<label class="switch">
-														<input type="checkbox" checked>
+														<input type="checkbox" class="friday_checkbox">
+														<span class="slider round"></span>
+													</label>
+												</div>
+											</li>
+											<li class="list-inline-item site_hours_position">
+												<p class="site_hours_day_title mb-0 seprotext">Friday</p>
+												<p class="site_hours_status_title mb-0 text-success opened_friday" style="display: none;">Open</p>
+												<p class="site_hours_status_title mb-0 text-muted closed_friday">Closed</p>
+											</li>
+											<div class="friday" style="display: none;">
+												<li class="list-inline-item">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="friday_radio" id="friday_radio1">
+														<label class="form-check-label" for="friday_radio1">24 Hours</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="friday_radio" id="friday_radio2">
+														<label class="form-check-label" for="friday_radio2">Set Hours</label>
+													</div>
+												</li>
+												<li class="list-inline-item">
+													<div class="site_custom_hours_wrap">
+														<input type="time" class="form-control friday_from_time" name="from_time"> 
+														<div class="site_custom_hours_to">to</div>
+														<input type="time" class="form-control friday_to_time"  name="to_time">
+
+													</div>
+												</li>
+											</div>
+										</ul>
+									</div>
+								</div>
+								<div class="row site_hours_row_border">
+									<div class="col-lg-8">
+										<ul class="site_hours_list list-inline">
+											<li class="list-inline-item site_switch_position">
+												<div class="left-side">
+													<label class="switch">
+														<input type="checkbox" class="saturday_checkbox">
 														<span class="slider round"></span>
 													</label>
 												</div>
 											</li>
 											<li class="list-inline-item site_hours_position">
 												<p class="site_hours_day_title mb-0 seprotext">Saturday</p>
-												<p class="site_hours_status_title mb-0 text-muted">Closed</p>
+												<p class="site_hours_status_title mb-0 text-success opened_saturday" style="display: none;">Open</p>
+												<p class="site_hours_status_title mb-0 text-muted closed_saturday">Closed</p>
 											</li>
+											<div class="saturday" style="display: none;">
+												<li class="list-inline-item">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="saturday_radio" id="saturday_radio1">
+														<label class="form-check-label" for="saturday_radio1">24 Hours</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="saturday_radio" id="saturday_radio2">
+														<label class="form-check-label" for="saturday_radio2">Set Hours</label>
+													</div>
+												</li>
+												<li class="list-inline-item">
+													<div class="site_custom_hours_wrap">
+														<input type="time" class="form-control saturday_from_time" name="from_time"> 
+														<div class="site_custom_hours_to">to</div>
+														<input type="time" class="form-control saturday_to_time"  name="to_time">
+
+													</div>
+												</li>
+											</div>
+										</ul>
+									</div>
+								</div>
+								<div class="row site_hours_row_border">
+									<div class="col-lg-8">
+										<ul class="site_hours_list list-inline">
+											<li class="list-inline-item site_switch_position">
+												<div class="left-side">
+													<label class="switch">
+														<input type="checkbox" class="sunday_checkbox">
+														<span class="slider round"></span>
+													</label>
+												</div>
+											</li>
+											<li class="list-inline-item site_hours_position">
+												<p class="site_hours_day_title mb-0 seprotext">Sunday</p>
+												<p class="site_hours_status_title mb-0 text-success opened_sunday" style="display: none;">Open</p>
+												<p class="site_hours_status_title mb-0 text-muted closed_sunday">Closed</p>
+											</li>
+											<div class="sunday" style="display: none;">
+												<li class="list-inline-item">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="sunday_radio" id="sunday_radio1">
+														<label class="form-check-label" for="sunday_radio1">24 Hours</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="sunday_radio" id="sunday_radio2">
+														<label class="form-check-label" for="sunday_radio2">Set Hours</label>
+													</div>
+												</li>
+												<li class="list-inline-item">
+													<div class="site_custom_hours_wrap">
+														<input type="time" class="form-control sunday_from_time" name="from_time"> 
+														<div class="site_custom_hours_to">to</div>
+														<input type="time" class="form-control sunday_to_time"  name="to_time">
+													</div>
+												</li>
+											</div>
 										</ul>
 									</div>
 								</div>
@@ -666,14 +721,9 @@
 									<div class="input-group">
 										<input type="text" class="form-control" placeholder="Optional" aria-label="Username" aria-describedby="basic-addon6">
 										<div class="input-group-prepend">
-											<span class="input-group-text" id="basic-addon6">Add</span>
+											<button class="input-group-text" id="basic-addon6">Add</button>
 										</div>
 									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-lg-3 ml-auto">
-									<a href="#" class="btn btn-primary rounded-0 btn-block">Save <i class="fas fa-arrow-right ml-2"></i></a>
 								</div>
 							</div>
 						</div>
@@ -846,9 +896,7 @@
 <!-- Section 1 end --> 
 {{-- <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script> --}}
 <script type="text/javascript">
-	/* Form steps */
-
-	$(document).ready(function(){  
+	$(document).ready(function(){
 		var form_count = 1, form_count_form, next_form, total_forms;
 		total_forms = $("fieldset").length;  
 		$(".next").click(function(){
@@ -949,7 +997,96 @@
 	} else {
 		return true;	
 	}    
-}); */ 
+}); */
+
+	
+	$('.monday_checkbox:checkbox').click(function(){
+        if($(this).prop("checked") == true){
+			$('.closed_monday').hide();
+			$('.opened_monday').show();
+			$('.monday').css('display','inline-block');
+        }
+        else if($(this).prop("checked") == false){
+        	$('.closed_monday').show();
+			$('.opened_monday').hide();
+			$('.monday').hide();
+        }
+    });
+	$('.tuesday_checkbox:checkbox').click(function(){
+        if($(this).prop("checked") == true){
+			$('.closed_tuesday').hide();
+			$('.opened_tuesday').show();
+			$('.tuesday').css('display','inline-block');
+        }
+        else if($(this).prop("checked") == false){
+        	$('.closed_tuesday').show();
+			$('.opened_tuesday').hide();
+			$('.tuesday').hide();
+        }
+    });
+	$('.wednesday_checkbox:checkbox').click(function(){
+        if($(this).prop("checked") == true){
+			$('.closed_wednesday').hide();
+			$('.opened_wednesday').show();
+			$('.wednesday').css('display','inline-block');
+        }
+        else if($(this).prop("checked") == false){
+        	$('.closed_wednesday').show();
+			$('.opened_wednesday').hide();
+			$('.wednesday').hide();
+        }
+    });
+	$('.thursday_checkbox:checkbox').click(function(){
+        if($(this).prop("checked") == true){
+			$('.closed_thursdsay').hide();
+			$('.opened_thursdsay').show();
+			$('.thursdsay').css('display','inline-block');
+        }
+        else if($(this).prop("checked") == false){
+        	$('.closed_thursdsay').show();
+			$('.opened_thursdsay').hide();
+			$('.thursdsay').hide();
+        }
+    });
+	$('.friday_checkbox:checkbox').click(function(){
+        if($(this).prop("checked") == true){
+			$('.closed_friday').hide();
+			$('.opened_friday').show();
+			$('.friday').css('display','inline-block');
+        }
+        else if($(this).prop("checked") == false){
+        	$('.closed_friday').show();
+			$('.opened_friday').hide();
+			$('.friday').hide();
+        }
+    });
+	$('.saturday_checkbox:checkbox').click(function(){
+        if($(this).prop("checked") == true){
+			$('.closed_saturday').hide();
+			$('.opened_saturday').show();
+			$('.saturday').css('display','inline-block');
+        }
+        else if($(this).prop("checked") == false){
+        	$('.closed_saturday').show();
+			$('.opened_saturday').hide();
+			$('.saturday').hide();
+        }
+    });
+	$('.sunday_checkbox:checkbox').click(function(){
+        if($(this).prop("checked") == true){
+			$('.closed_sunday').hide();
+			$('.opened_sunday').show();
+			$('.sunday').css('display','inline-block');
+        }
+        else if($(this).prop("checked") == false){
+        	$('.closed_sunday').show();
+			$('.opened_sunday').hide();
+			$('.sunday').hide();
+        }
+    });
+    // $('#monday_radio1').click(function() {
+	   // if($('#monday_radio1').is(':checked')) { alert("it's checked"); }
+	// });
 
 });		 
 </script>

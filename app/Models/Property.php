@@ -65,4 +65,12 @@ class Property extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * Get the working hours for the property.
+     */
+    public function working_hours()
+    {
+        return $this->hasMany(WorkingHours::class);
+    }
 }
