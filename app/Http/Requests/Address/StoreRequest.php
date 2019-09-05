@@ -25,10 +25,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'country'=>'required',
-            'state'=>'required',
             'city'=>'required',
             'postal_code'=>'required',
-            'street_1'=>'required'
+            'address_1'=>'required'
         ];
     }
 
@@ -38,9 +37,10 @@ class StoreRequest extends FormRequest
             'country' => $this->country,
             'city' => $this->city,
             'state' => $this->state,
+            'unit' => $this->unit,
             'postal_code' => $this->postal_code,
-            'street_1' => $this->street_1,
-            'address' => $this->address,
+            'address_1' => $this->address_1,
+            'address_2' => $this->address_2,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
         ];

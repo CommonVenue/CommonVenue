@@ -38,8 +38,6 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label for="address_address">Map</label>
-											{{-- <img src="images/Screenshot%20(1).png"  class="img-fluid-1" alt style="height: 148px width:318px";> --}}
-
 											{{-- <input type="text" id="address-input" name="address" class="form-control map-input">
 											<input type="hidden" name="latitude" id="address-latitude"/>
 											<input type="hidden" name="longitude" id="address-longitude"/> --}}
@@ -56,26 +54,38 @@
 											<input type="text" class="form-control" required id="city" name="city">
 										</div>
 									</div>
-								</div>
-								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>State</label>
 											<input type="text" class="form-control" required id="state" name="state">
 										</div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Unit</label>
-											<input type="text" class="form-control" required id="street_1" name="street_1">
+											<input type="text" class="form-control" required id="unit" name="unit">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Zip/Postal Code</label>
+											<input type="text" class="form-control" required id="postal_code" name="postal_code">
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label>Zip/Postal Code</label>
-											<input type="text" class="form-control" required id="postal_code" name="postal_code">
+											<label>Address 1</label>
+											<input type="text" class="form-control" required id="address_1" name="address_1">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Address 2</label>
+											<input type="text" class="form-control" required id="address_2" name="address_2">
 										</div>
 									</div>
 								</div>
@@ -883,12 +893,13 @@
 		$('.site_primary_step_btn_address').click(function(e) {
 			e.preventDefault();
 
-			var address = $("input[name=address]").val();
 			var country = $("input[name=country]").val();
 			var city = $("input[name=city]").val();
 			var state = $("input[name=state]").val();
-			var street_1 = $("input[name=street_1]").val();
+			var unit = $("input[name=unit]").val();
 			var postal_code = $("input[name=postal_code]").val();
+			var address_1 = $("input[name=address_1]").val();
+			var address_2 = $("input[name=address_2]").val();
 			var longitude = $("input[name=longitude]").val();
 			var latitude = $("input[name=latitude]").val();
 			$.ajax({
@@ -900,12 +911,13 @@
 				dataType: "JSON",
 				data:{
 					"_token": "{{ csrf_token() }}",
-					address:address,
 					country:country,
 					city:city,
 					state:state,
-					street_1:street_1,
+					unit:unit,
 					postal_code:postal_code,
+					address_1:address_1,
+					address_2:address_2,
 					longitude:longitude,
 					latitude:latitude
 				},

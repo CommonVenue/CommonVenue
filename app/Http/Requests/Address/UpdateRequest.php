@@ -25,10 +25,9 @@ class UpdateRequest extends FormRequest
     {
         return [
             'country'=>'required',
-            'state'=>'required',
             'city'=>'required',
             'postal_code'=>'required',
-            'street_1'=>'required'
+            'address_1'=>'required'
         ];
     }
 
@@ -36,12 +35,15 @@ class UpdateRequest extends FormRequest
     {
         $data = [
             'country' => $this->country,
-            'state' => $this->state,
             'city' => $this->city,
+            'state' => $this->state,
+            'unit' => $this->unit,
             'postal_code' => $this->postal_code,
-            'street_1' => $this->street_1,
+            'address_1' => $this->address_1,
+            'address_2' => $this->address_2,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
         ];
-
         return $data;
     }
 }
