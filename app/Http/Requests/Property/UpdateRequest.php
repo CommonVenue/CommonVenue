@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
         return [
             'name'=>'required',
             'description'=>'required',
-            'price'=>'required'
+            'address_id'=>'required',
         ];
     }
 
@@ -35,7 +35,12 @@ class UpdateRequest extends FormRequest
         $data = [
             'name' => $this->name,
             'description' => $this->description,
+            'adult' => $this->adult,
+            'wifi_name' => $this->wifi_name,
+            'wifi_password' => $this->wifi_password,
+            'location_description' => $this->location_description,
             'price' => $this->price,
+            'address_id' => $this->address_id,
             'owner_id'=> auth()->user()->id
         ];
 

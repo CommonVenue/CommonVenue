@@ -19,6 +19,11 @@ class Property extends Model
     protected $fillable = [
         'name',
         'description',
+        'adult',
+        'wifi_name',
+        'wifi_password',
+        'location_description',
+        'canceling_description',
         'image',
         'price',
         'status',

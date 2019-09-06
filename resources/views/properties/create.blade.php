@@ -144,11 +144,11 @@
 										<h4 class="site_add_desc_title">Who's allowed in your space?</h4>
 										<h6 class="site_add_desc_subtitle seprotext site_ls_2x mb-3">Typically, only venues that serve alcohol have a 21+ requirement.</h6>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="adult" id="inlineRadio1" value="false">
+											<input class="form-check-input" type="radio" name="adult" id="inlineRadio1" value="0">
 											<label class="form-check-label" for="inlineRadio1">All ages</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="adult" id="inlineRadio2" value="true">
+											<input class="form-check-input" type="radio" name="adult" id="inlineRadio2" value="1">
 											<label class="form-check-label" for="inlineRadio2">21+</label>
 										</div>
 									</div>
@@ -189,7 +189,7 @@
 						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
 							<i class="fas fa-arrow-left mr-2"></i> <span>Back</span>
 						</button>
-						<button type="button" class="next btn btn-primary site_primary_step_btn">
+						<button type="button" class="next btn btn-primary site_primary_step_btn site_primary_step_btn_property_1_step">
 							<span>Next</span> <i class="fas fa-arrow-right ml-2"></i>
 						</button>
 						<!-- Next or back button end -->
@@ -382,11 +382,11 @@
 												</div>
 											</li>
 											<li class="list-inline-item site_hours_position">
-												<p class="site_hours_day_title mb-0 seprotext">Thursdsay</p>
+												<p class="site_hours_day_title mb-0 seprotext">Thursday</p>
 												<p class="site_hours_status_title mb-0 text-success opened_thursday" style="display: none;">Open</p>
 												<p class="site_hours_status_title mb-0 text-muted closed_thursday">Closed</p>
 											</li>
-											<div class="thursdsay" style="display: none;">
+											<div class="thursday" style="display: none;">
 												<li class="list-inline-item">
 													<div class="form-check form-check-inline">
 														<input class="form-check-input" type="radio" name="thursday_radio" id="thursday_radio1">
@@ -399,9 +399,9 @@
 												</li>
 												<li class="list-inline-item">
 													<div class="site_custom_hours_wrap">
-														<input type="time" class="form-control thursdsay_from_time" name="from_time"> 
+														<input type="time" class="form-control thursday_from_time" name="from_time"> 
 														<div class="site_custom_hours_to">to</div>
-														<input type="time" class="form-control thursdsay_to_time"  name="to_time">
+														<input type="time" class="form-control thursday_to_time"  name="to_time">
 
 													</div>
 												</li>
@@ -937,7 +937,11 @@
 			$('.site_percentage').css("width",percent+"%").html(percent+"% Completed");	  
 		} 
 		
-		
+		/*
+		* Create address for property
+		*/
+		var address_id;
+
 		$('.site_primary_step_btn_address').click(function(e) {
 			e.preventDefault();
 
@@ -970,7 +974,7 @@
 					latitude:latitude
 				},
 				success: function(res) {
-					console.log(res)
+					address_id = res.id
 				},
 				error: function(error) {
 					console.log(error)
@@ -978,6 +982,45 @@
 			});
 		});
 
+		/*
+		* Create property
+		*/
+		$('.site_primary_step_btn_property_1_step').click(function(e) {
+			e.preventDefault();
+			var name = $("input[name=name]").val();
+			var description = $("#description").val();
+			var adult = $('input[name=adult]:checked').val();
+
+			var wifi_name = $("input[name=wifi_name]").val();
+			var wifi_password = $("input[name=wifi_password]").val();
+			var location_description = $("#location_description").val();
+			var address = address_id;
+			console.log(adult)
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('.csrf-token').val()
+				},
+				type: "POST",
+				url: "{{ url('properties/store') }}",
+				dataType: "JSON",
+				data:{
+					"_token": "{{ csrf_token() }}",
+					name:name,
+					description:description,
+					adult:adult,
+					wifi_name:wifi_name,
+					wifi_password:wifi_password,
+					address_id:address,
+					location_description:location_description,
+				},
+				success: function(res) {
+					console.log(res)
+				},
+				error: function(error) {
+					console.log(error)
+				}
+			});
+		});
   // Handle form submit and validation
   /*$( "#user_form" ).submit(function(event) {    
 	var error_message = '';
@@ -1038,14 +1081,14 @@
     });
 	$('.thursday_checkbox:checkbox').click(function(){
         if($(this).prop("checked") == true){
-			$('.closed_thursdsay').hide();
-			$('.opened_thursdsay').show();
-			$('.thursdsay').css('display','inline-block');
+			$('.closed_thursday').hide();
+			$('.opened_thursday').show();
+			$('.thursday').css('display','inline-block');
         }
         else if($(this).prop("checked") == false){
-        	$('.closed_thursdsay').show();
-			$('.opened_thursdsay').hide();
-			$('.thursdsay').hide();
+        	$('.closed_thursday').show();
+			$('.opened_thursday').hide();
+			$('.thursday').hide();
         }
     });
 	$('.friday_checkbox:checkbox').click(function(){
@@ -1084,10 +1127,126 @@
 			$('.sunday').hide();
         }
     });
-    // $('#monday_radio1').click(function() {
-	   // if($('#monday_radio1').is(':checked')) { alert("it's checked"); }
-	// });
 
+    $('#monday_radio1').click(function() {
+	   if ($('#monday_radio1').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	console.log(dt.getHours(), dt.getMinutes())
+	   	$('.monday_from_time').val(fromTime);
+	   	$('.monday_to_time').val(fromTime);
+	   }
+	});
+    $('#monday_radio2').click(function() {
+	   if ($('#monday_radio2').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.monday_from_time').val('');
+	   	$('.monday_to_time').val('');
+	   }
+	});
+
+    $('#tuesday_radio1').click(function() {
+	   if ($('#tuesday_radio1').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.tuesday_from_time').val(fromTime);
+	   	$('.tuesday_to_time').val(fromTime);
+	   }
+	});
+    $('#tuesday_radio2').click(function() {
+	   if ($('#tuesday_radio2').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.tuesday_from_time').val('');
+	   	$('.tuesday_to_time').val('');
+	   }
+	});
+
+    $('#wednesday_radio1').click(function() {
+	   if ($('#wednesday_radio1').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.wednesday_from_time').val(fromTime);
+	   	$('.wednesday_to_time').val(fromTime);
+	   }
+	});
+    $('#wednesday_radio2').click(function() {
+	   if ($('#wednesday_radio2').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.wednesday_from_time').val('');
+	   	$('.wednesday_to_time').val('');
+	   }
+	});
+
+    $('#thursday_radio1').click(function() {
+	   if ($('#thursday_radio1').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.thursday_from_time').val(fromTime);
+	   	$('.thursday_to_time').val(fromTime);
+	   }
+	});
+    $('#thursday_radio2').click(function() {
+	   if ($('#thursday_radio2').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.thursday_from_time').val('');
+	   	$('.thursday_to_time').val('');
+	   }
+	});
+
+    $('#friday_radio1').click(function() {
+	   if ($('#friday_radio1').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.friday_from_time').val(fromTime);
+	   	$('.friday_to_time').val(fromTime);
+	   }
+	});
+    $('#friday_radio2').click(function() {
+	   if ($('#friday_radio2').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.friday_from_time').val('');
+	   	$('.friday_to_time').val('');
+	   }
+	});
+
+    $('#saturday_radio1').click(function() {
+	   if ($('#saturday_radio1').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.saturday_from_time').val(fromTime);
+	   	$('.saturday_to_time').val(fromTime);
+	   }
+	});
+    $('#saturday_radio2').click(function() {
+	   if ($('#saturday_radio2').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.saturday_from_time').val('');
+	   	$('.saturday_to_time').val('');
+	   }
+	});
+
+    $('#sunday_radio1').click(function() {
+	   if ($('#sunday_radio1').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.sunday_from_time').val(fromTime);
+	   	$('.sunday_to_time').val(fromTime);
+	   }
+	});
+    $('#sunday_radio2').click(function() {
+	   if ($('#sunday_radio2').is(':checked')) {
+	   	var dt = new Date();
+		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	$('.sunday_from_time').val('');
+	   	$('.sunday_to_time').val('');
+	   }
+	});
 });		 
 </script>
 @endsection
