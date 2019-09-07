@@ -105,7 +105,9 @@
 			@foreach($properties as $property)
 			<div class="col-lg-3 mb-4">
 				<div class="site_venue_box card">
-					<img src="{{ asset('/images/'.$property->image) }}" class="card-img-top" alt="">
+					@foreach($property->images as $image)
+						<img src="{{ asset('/images/'.$image->url) }}" class="card-img-top" alt="">
+					@endforeach
 					<div class="card-body">
 						<p class="site_venue_title"><a href="{!! route('properties.show',[$property->id]) !!}">{{ $property->name }}</a></p>
 						<p class="site_venue_address mb-1">{{ $property->address->country }} {{ $property->address->state }} {{ $property->address->city }}</p>
@@ -174,7 +176,7 @@
 
 			$.ajax({
 				headers: {
-					'X-CSRF-TOKEN': $('.csrf-token').val()
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				},
 				type: "GET",
 				url: url,

@@ -18,7 +18,7 @@
 				<!-- Success msg end -->   		  		  
 
 				<!-- Form start -->  
-				<form id="user_form" novalidate action=""  method="post">
+				<form id="user_form" novalidate action=""  method="post" enctype="multipart/form-data">
 				@csrf
 					<!-- Step 1 start -->
 					<fieldset class="d-none0">
@@ -226,7 +226,7 @@
 											<p class="text-muted">Please add at least 4 photos of your venue</p>
 											<div class="site_input_file btn btn-lg btn-primary">
 												Upload
-												<input type="file" name="file"/>
+												<input type="file" name="url" id="propery_image"/>
 											</div>
 										</div>
 									</div>
@@ -234,10 +234,10 @@
 							</div>
 						</div>
 						<!-- Next or back button start -->
-						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
+						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn ">
 							<i class="fas fa-arrow-left mr-2"></i> <span>Back</span>
 						</button>
-						<button type="button" class="next btn btn-primary site_primary_step_btn">
+						<button type="button" class="next btn btn-primary site_primary_step_btn site_primary_step_btn_upload_image">
 							<span>Next</span> <i class="fas fa-arrow-right ml-2"></i>
 						</button>
 						<!-- Next or back button end -->
@@ -285,7 +285,6 @@
 														<input type="time" class="form-control monday_from_time" name="from_time"> 
 														<div class="site_custom_hours_to">to</div>
 														<input type="time" class="form-control monday_to_time"  name="to_time">
-
 													</div>
 												</li>
 											</div>
@@ -531,7 +530,7 @@
 						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
 							<i class="fas fa-arrow-left mr-2"></i> <span>Back</span>
 						</button>
-						<button type="button" class="next btn btn-primary site_primary_step_btn">
+						<button type="button" class="next btn btn-primary site_primary_step_btn site_primary_step_btn_working_hours">
 							<span>Next</span> <i class="fas fa-arrow-right ml-2"></i>
 						</button>
 						<!-- Next or back button end -->
@@ -769,13 +768,16 @@
 										<h5 class="site_profile_photo_title seprotext mb-4">Add a profile photo with your face</h5>
 										<ul class="list-inline">
 											<li class="list-inline-item">
-												<img src="images/user.png" class="site_your_profile_thumb img-fluid" alt=""></li>
+												<img src="images/user.png" class="site_your_profile_thumb img-fluid" alt="">
+											</li>
 											<li class="list-inline-item">
 												<div class="site_input_file btn btn-lg btn-primary">
 													Upload
 													<input type="file" name="file">
 												</div>
 											</li>
+											<button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
+											<button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
 										</ul>
 									</div>
 								</div>
@@ -956,7 +958,7 @@
 			var latitude = $("input[name=latitude]").val();
 			$.ajax({
 				headers: {
-					'X-CSRF-TOKEN': $('.csrf-token').val()
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				},
 				type: "POST",
 				url: "{{ url('addresses/store') }}",
@@ -985,6 +987,8 @@
 		/*
 		* Create property
 		*/
+		var property_id;
+
 		$('.site_primary_step_btn_property_1_step').click(function(e) {
 			e.preventDefault();
 			var name = $("input[name=name]").val();
@@ -995,10 +999,9 @@
 			var wifi_password = $("input[name=wifi_password]").val();
 			var location_description = $("#location_description").val();
 			var address = address_id;
-			console.log(adult)
 			$.ajax({
 				headers: {
-					'X-CSRF-TOKEN': $('.csrf-token').val()
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				},
 				type: "POST",
 				url: "{{ url('properties/store') }}",
@@ -1014,10 +1017,44 @@
 					location_description:location_description,
 				},
 				success: function(res) {
+					property_id = res.property.id
+				},
+				error: function(error) {
+					// console.log(error)
+				}
+			});
+		});
+
+		/*
+		* Upload images for property
+		*/
+		$('.site_primary_step_btn_upload_image').click(function(e) {
+					console.log(property_id)
+
+			e.preventDefault();
+			let form_data = new FormData();
+
+			let property = property_id;
+      		let url = $("#propery_image")[0].files[0];
+      		console.log(property)
+			form_data.append('url', url);
+			form_data.append('property_id', property);
+
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				type: "POST",
+				url: "{{ url('/property/images/store') }}",
+		        processData: false,
+        		contentType: false,
+				dataType: "JSON",
+				data:form_data,
+				success: function(res) {
 					console.log(res)
 				},
 				error: function(error) {
-					console.log(error)
+					// console.log(error)
 				}
 			});
 		});
@@ -1246,6 +1283,29 @@
 	   	$('.sunday_from_time').val('');
 	   	$('.sunday_to_time').val('');
 	   }
+	});
+	/*
+	* Save working hours for property
+	*/
+	$('.site_primary_step_btn_working_hours').click(function(e) {
+		e.preventDefault();
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			type: "POST",
+			url: "{{ url('/property/images/store') }}",
+	        processData: false,
+    		contentType: false,
+			dataType: "JSON",
+			data:form_data,
+			success: function(res) {
+				console.log(res)
+			},
+			error: function(error) {
+				// console.log(error)
+			}
+		});
 	});
 });		 
 </script>

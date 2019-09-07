@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Amenity;
 use App\Models\Review;
 use App\Models\Category;
+use App\Models\PropertyImage;
 use Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        $properties = Property::all();
+        $properties = Property::with('images')->get();
 
         return view('properties.index', ['properties' => $properties]);
     }
@@ -57,9 +58,9 @@ class PropertiesController extends Controller
 
             return response()->json([
                 'success' => 'Property is successfuly created',
+                'property' => $property
             ]);
             
-            // return $property;
             // return redirect()->route('properties.show', [ 'id' => $property->id ]);
         } catch (\Exception $ex) {
             return $ex->getMessage();
@@ -77,15 +78,17 @@ class PropertiesController extends Controller
         $reviews = Review::where('parent_id', $property->id)->limit(2)->get();
         $owner = User::where('id', $property->owner_id)->first();
         $amenities = Amenity::all();
+        $images = PropertyImage::where('property_id',$property->id)->get();
+        Mapper::map(0, 0);
 
         foreach ($reviews as $review) {
             $user = User::where('id', $review->user_id)->first();
             if ($user) {
-                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user ,'amenities' => $amenities, 'owner' => $owner]);
+                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user ,'amenities' => $amenities, 'owner' => $owner, 'images' => $images]);
             }
         }
 
-        return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'amenities' => $amenities, 'owner' => $owner]);
+        return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'amenities' => $amenities, 'owner' => $owner, 'images' => $images]);
     }
 
     /**

@@ -37,6 +37,8 @@ Route::group(['middleware' => array('auth')],function(){
 	Route::get('/properties/{property}/edit', 'PropertiesController@edit')->name('properties.edit');
 	Route::put('/properties/{property}', 'PropertiesController@update')->name('properties.update');
 	
+	Route::post('/property/images/store', 'PropertyImagesController@store');
+
 	Route::prefix('favorite')->name('favorite.')->group(function() {
 	    Route::get('/properties', 'PropertiesController@favorites')->name('properties.favorites');
 	    Route::get('/properties/{property}', 'PropertiesController@toggleFavorite')->name('properties.toggle');

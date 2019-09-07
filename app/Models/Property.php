@@ -73,9 +73,17 @@ class Property extends Model
 
     /**
      * Get the working hours for the property.
-     */
+    */
     public function working_hours()
     {
         return $this->hasMany(WorkingHours::class);
+    }
+
+    /**
+     * Get the images for the property.
+    */
+    public function images()
+    {
+        return $this->hasMany(PropertyImage::class);
     }
 }

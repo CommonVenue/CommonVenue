@@ -41,13 +41,15 @@
 <section class="site_section_wrapper py-0">
 	<div class="container-fluid px-0">
 		<div class="row no-gutters">
+			@foreach($images as $image)
 			<div class="site_sticky_col col-lg-6">
 				<div class="site_venue_space_carousel owl-carousel owl-theme">
 					<div class="item">
-						<img src="{{ asset('/images/'.$property->image) }}" class="img-fluid w-100" alt="">
+						<img src="{{ asset('/images/'.$image->url) }}" class="img-fluid w-100" alt="">
 					</div>
 				</div>
 			</div>
+			@endforeach
 			<div class="col-lg-6">
 				<div class="site_venue_space_detail_content">
 					<h1 class="site_venue_space_detail_title">{{ $property->name }}</h1>
@@ -199,7 +201,7 @@
 					</div>
 					<div class="row"> 
 						<div class="col-lg-3">
-							<div class="site_vsd_host_thumb"><img src="../vendor/images/circle-img.png" class="img-fluid" alt=""></div>
+							{{-- <div class="site_vsd_host_thumb"><img src="../vendor/images/circle-img.png" class="img-fluid" alt=""></div> --}}
 						</div>
 						<div class="col-lg-4">
 							<div class="site_vsd_host_detail py-4">
@@ -225,19 +227,12 @@
 							<a href="#" class="btn btn-dark site_btn_lg">
 								Location
 							</a>
-
-							<div class="form-group">
-							    <label for="address_address">Address</label>
-							    <input type="hidden" id="address-input" name="address" class="form-control map-input">
-							    <input type="hidden" name="latitude" id="address-latitude" value="{{ $property->address->latitude }}" />
-							    <input type="hidden" name="longitude" id="address-longitude" value="{{ $property->address->longitude }}" />
-							</div>
-							<div id="address-map-container" style="width:100%;height:400px; ">
-							    <div style="width: 100%; height: 100%" id="address-map"></div>
+							<div style="width: 318px; height: 148px;">
+								{!! Mapper::render() !!}
 							</div>
 						</div>
 						<div class="col-lg-12">
-							<img src="../vendor/images/map-img.png" class="img-fluid w-100" alt="">
+							<img src="#/vendor/images/map-img.png" class="img-fluid w-100" alt="">
 						</div>
 					</div>
 					<div class="row">
@@ -361,101 +356,18 @@
 		</div>
 	</div>
 </section>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
 <script type="text/javascript">
-
-		function initialize() {
-
-		$('form').on('keyup keypress', function(e) {
-			var keyCode = e.keyCode || e.which;
-			if (keyCode === 13) {
-				e.preventDefault();
-				return false;
-			}
-		});
-		const locationInputs = document.getElementsByClassName("map-input");
-
-		const autocompletes = [];
-		const geocoder = new google.maps.Geocoder;
-		for (let i = 0; i < locationInputs.length; i++) {
-
-			const input = locationInputs[i];
-			const fieldKey = input.id.replace("-input", "");
-			const isEdit = document.getElementById(fieldKey + "-latitude").value != '' && document.getElementById(fieldKey + "-longitude").value != '';
-
-			const latitude = parseFloat(document.getElementById(fieldKey + "-latitude").value) || -33.8688;
-			const longitude = parseFloat(document.getElementById(fieldKey + "-longitude").value) || 151.2195;
-
-			const map = new google.maps.Map(document.getElementById(fieldKey + '-map'), {
-				center: {lat: latitude, lng: longitude},
-				zoom: 13
-			});
-			const marker = new google.maps.Marker({
-				map: map,
-				position: {lat: latitude, lng: longitude},
-			});
-
-			marker.setVisible(isEdit);
-
-			const autocomplete = new google.maps.places.Autocomplete(input);
-			autocomplete.key = fieldKey;
-			autocompletes.push({input: input, map: map, marker: marker, autocomplete: autocomplete});
-		}
-
-		for (let i = 0; i < autocompletes.length; i++) {
-			const input = autocompletes[i].input;
-			const autocomplete = autocompletes[i].autocomplete;
-			const map = autocompletes[i].map;
-			const marker = autocompletes[i].marker;
-
-			google.maps.event.addListener(autocomplete, 'place_changed', function () {
-				marker.setVisible(false);
-				const place = autocomplete.getPlace();
-
-				geocoder.geocode({'placeId': place.place_id}, function (results, status) {
-					if (status === google.maps.GeocoderStatus.OK) {
-						const lat = results[0].geometry.location.lat();
-						const lng = results[0].geometry.location.lng();
-						setLocationCoordinates(autocomplete.key, lat, lng);
-					}
-				});
-
-				if (!place.geometry) {
-					window.alert("No details available for input: '" + place.name + "'");
-					input.value = "";
-					return;
-				}
-
-				if (place.geometry.viewport) {
-					map.fitBounds(place.geometry.viewport);
-				} else {
-					map.setCenter(place.geometry.location);
-					map.setZoom(17);
-				}
-				marker.setPosition(place.geometry.location);
-				marker.setVisible(true);
-
-			});
-		}
-	}
-
-	function setLocationCoordinates(key, lat, lng) {
-		const latitudeField = document.getElementById(key + "-" + "latitude");
-		const longitudeField = document.getElementById(key + "-" + "longitude");
-		latitudeField.value = lat;
-		longitudeField.value = lng;
-	}
 	$(document).ready(function() {
+			console.log('url')
 		$('[data-id]').click(function(e) {
 			e.preventDefault();
 
 			var self = $(this);
 			var id = self.data('id');
 			var url = '/favorite/properties/'+id;
-
 			$.ajax({
 				headers: {
-					'X-CSRF-TOKEN': $('.csrf-token').val()
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				},
 				type: "GET",
 				url: url,
@@ -487,7 +399,9 @@
 			var start_time = $('.start').val();
 			var end_time = $('.end').val();
 			var date = $('.date_time').val();
-			var price = {{ $property->price }};
+			// if ({{ $property->price }}) {
+				// var price = {{ $property->price }};
+			// }
 			var start_date = new Date(date + ' ' + start_time);
 			var end_date = new Date(date + ' ' + end_time);
 	    	var diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
