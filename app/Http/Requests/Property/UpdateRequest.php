@@ -24,9 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
-            'description'=>'required',
-            'address_id'=>'required',
+            //
         ];
     }
 
@@ -39,22 +37,12 @@ class UpdateRequest extends FormRequest
             'wifi_name' => $this->wifi_name,
             'wifi_password' => $this->wifi_password,
             'location_description' => $this->location_description,
+            'canceling_flexible' => $this->canceling_flexible,
+            'category_id' => $this->category_id,
             'price' => $this->price,
             'address_id' => $this->address_id,
             'owner_id'=> auth()->user()->id
         ];
-
-        if ($this->hasFile('image')) {
-
-            $image = $this->file('image');
-            $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('images');
-
-            $imagePath = $destinationPath. "/".  $name;
-            $image->move($destinationPath, $name);
-            
-            $data['image'] = $name;
-        }
 
         return $data;
     }

@@ -44,18 +44,6 @@ class StoreRequest extends FormRequest
             'owner_id'=> auth()->user()->id
         ];
 
-        if ($this->hasFile('image')) {
-
-            $image = $this->file('image');
-            $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('images');
-
-            $imagePath = $destinationPath. "/".  $name;
-            $image->move($destinationPath, $name);
-            
-            $data['image'] = $name;
-        }
-
         return $data;
     }
 }

@@ -17,20 +17,22 @@ class Property extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'description',
-        'adult',
-        'wifi_name',
-        'wifi_password',
-        'location_description',
-        'canceling_description',
-        'image',
-        'price',
-        'status',
-        'address_id',
-        'owner_id',
-        'category_id'
+        "name",
+        "description",
+        "image",
+        "price",
+        "status",
+        "address_id",
+        "owner_id",
+        "category_id",
+        "adult",
+        "wifi_name",
+        "wifi_password",
+        "location_description",
+        "canceling_flexible",
     ];
+
+
 
     public function owner()
     {

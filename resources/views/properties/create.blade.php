@@ -282,6 +282,7 @@
 												</li>
 												<li class="list-inline-item">
 													<div class="site_custom_hours_wrap">
+														<input class="form-check-input monday_day" type="hidden" name="monday" value="monday">
 														<input type="time" class="form-control monday_from_time" name="from_time"> 
 														<div class="site_custom_hours_to">to</div>
 														<input type="time" class="form-control monday_to_time"  name="to_time">
@@ -320,6 +321,7 @@
 												</li>
 												<li class="list-inline-item">
 													<div class="site_custom_hours_wrap">
+														<input class="form-check-input tuesday_day" type="hidden" name="tuesday" value="tuesday">
 														<input type="time" class="form-control tuesday_from_time" name="from_time"> 
 														<div class="site_custom_hours_to">to</div>
 														<input type="time" class="form-control tuesday_to_time"  name="to_time">
@@ -359,6 +361,7 @@
 												</li>
 												<li class="list-inline-item">
 													<div class="site_custom_hours_wrap">
+														<input class="form-check-input wednesday_day" type="hidden" name="wednesday" value="wednesday">
 														<input type="time" class="form-control wednesday_from_time" name="from_time"> 
 														<div class="site_custom_hours_to">to</div>
 														<input type="time" class="form-control wednesday_to_time"  name="to_time">
@@ -398,6 +401,7 @@
 												</li>
 												<li class="list-inline-item">
 													<div class="site_custom_hours_wrap">
+														<input class="form-check-input thursday_day" type="hidden" name="thursday" value="thursday">
 														<input type="time" class="form-control thursday_from_time" name="from_time"> 
 														<div class="site_custom_hours_to">to</div>
 														<input type="time" class="form-control thursday_to_time"  name="to_time">
@@ -437,10 +441,10 @@
 												</li>
 												<li class="list-inline-item">
 													<div class="site_custom_hours_wrap">
+														<input class="form-check-input friday_day" type="hidden" name="friday" value="friday">
 														<input type="time" class="form-control friday_from_time" name="from_time"> 
 														<div class="site_custom_hours_to">to</div>
 														<input type="time" class="form-control friday_to_time"  name="to_time">
-
 													</div>
 												</li>
 											</div>
@@ -476,10 +480,10 @@
 												</li>
 												<li class="list-inline-item">
 													<div class="site_custom_hours_wrap">
+														<input class="form-check-input saturday_day" type="hidden" name="saturday" value="saturday">
 														<input type="time" class="form-control saturday_from_time" name="from_time"> 
 														<div class="site_custom_hours_to">to</div>
 														<input type="time" class="form-control saturday_to_time"  name="to_time">
-
 													</div>
 												</li>
 											</div>
@@ -515,6 +519,7 @@
 												</li>
 												<li class="list-inline-item">
 													<div class="site_custom_hours_wrap">
+														<input class="form-check-input sunday_day" type="hidden" name="sunday" value="sunday">
 														<input type="time" class="form-control sunday_from_time" name="from_time"> 
 														<div class="site_custom_hours_to">to</div>
 														<input type="time" class="form-control sunday_to_time"  name="to_time">
@@ -548,7 +553,7 @@
 								<ul class="site_cancellation_list list-unstyled pl-2">
 									<li>
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+											<input class="form-check-input canceling_flexible" type="checkbox" name="canceling_flexible">
 											<label class="form-check-label" for="defaultCheck2">
 												<strong>Flexible</strong>
 												<p>Guests may cancel their Booking until 7 days before the event start time and will receive a full refund
@@ -571,7 +576,7 @@
 						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
 							<i class="fas fa-arrow-left mr-2"></i> <span>Back</span>
 						</button>
-						<button type="button" class="next btn btn-primary site_primary_step_btn">
+						<button type="button" class="next btn btn-primary site_primary_step_btn site_primary_step_btn_flexible">
 							<span>Next</span> <i class="fas fa-arrow-right ml-2"></i>
 						</button>
 						<!-- Next or back button end -->
@@ -591,7 +596,8 @@
 								<li class="list-inline-item">
 									<div class="form-check">
 										<button type="button" class="btn btn-primary1">
-											<img src="/images/{{ $category->image}}" class="img-fluid" alt="">
+										    {{-- <input type="hidden" name="category_id" value="{{ $category->id}}"> --}}
+											<img src="/images/{{ $category->image}}" class="img-fluid property_image" alt="" data-id="{{ $category->id}}">
 											{{$category->name}}
 										</button>
 										<label class="form-check-label" for="btn btn-primary1">
@@ -606,7 +612,7 @@
 						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
 							<i class="fas fa-arrow-left mr-2"></i> <span>Back</span>
 						</button>
-						<button type="button" class="next btn btn-primary site_primary_step_btn">
+						<button type="button" class="next btn btn-primary site_primary_step_btn site_primary_step_btn_category">
 							<span>Next</span> <i class="fas fa-arrow-right ml-2"></i>
 						</button>
 						<!-- Next or back button end -->
@@ -899,7 +905,7 @@
 {{-- <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script> --}}
 <script type="text/javascript">
 	$(document).ready(function(){
-		var form_count = 1, form_count_form, next_form, total_forms;
+		let form_count = 1, form_count_form, next_form, total_forms;
 		total_forms = $("fieldset").length;  
 		$(".next").click(function(){
 
@@ -930,7 +936,7 @@
 		});
 		setProgressBar(form_count);  
 		function setProgressBar(curStep){
-			var percent = parseFloat(100 / total_forms) * curStep;
+			let percent = parseFloat(100 / total_forms) * curStep;
 
 			$('.site_step_count').html("Step "+form_count);	  
 
@@ -942,20 +948,20 @@
 		/*
 		* Create address for property
 		*/
-		var address_id;
+		let address_id;
 
 		$('.site_primary_step_btn_address').click(function(e) {
 			e.preventDefault();
 
-			var country = $("input[name=country]").val();
-			var city = $("input[name=city]").val();
-			var state = $("input[name=state]").val();
-			var unit = $("input[name=unit]").val();
-			var postal_code = $("input[name=postal_code]").val();
-			var address_1 = $("input[name=address_1]").val();
-			var address_2 = $("input[name=address_2]").val();
-			var longitude = $("input[name=longitude]").val();
-			var latitude = $("input[name=latitude]").val();
+			let country = $("input[name=country]").val();
+			let city = $("input[name=city]").val();
+			let state = $("input[name=state]").val();
+			let unit = $("input[name=unit]").val();
+			let postal_code = $("input[name=postal_code]").val();
+			let address_1 = $("input[name=address_1]").val();
+			let address_2 = $("input[name=address_2]").val();
+			let longitude = $("input[name=longitude]").val();
+			let latitude = $("input[name=latitude]").val();
 			$.ajax({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -987,18 +993,18 @@
 		/*
 		* Create property
 		*/
-		var property_id;
+		let property_id;
 
 		$('.site_primary_step_btn_property_1_step').click(function(e) {
 			e.preventDefault();
-			var name = $("input[name=name]").val();
-			var description = $("#description").val();
-			var adult = $('input[name=adult]:checked').val();
+			let name = $("input[name=name]").val();
+			let description = $("#description").val();
+			let adult = $('input[name=adult]:checked').val();
 
-			var wifi_name = $("input[name=wifi_name]").val();
-			var wifi_password = $("input[name=wifi_password]").val();
-			var location_description = $("#location_description").val();
-			var address = address_id;
+			let wifi_name = $("input[name=wifi_name]").val();
+			let wifi_password = $("input[name=wifi_password]").val();
+			let location_description = $("#location_description").val();
+			let address = address_id;
 			$.ajax({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1029,14 +1035,11 @@
 		* Upload images for property
 		*/
 		$('.site_primary_step_btn_upload_image').click(function(e) {
-					console.log(property_id)
-
 			e.preventDefault();
 			let form_data = new FormData();
 
 			let property = property_id;
       		let url = $("#propery_image")[0].files[0];
-      		console.log(property)
 			form_data.append('url', url);
 			form_data.append('property_id', property);
 
@@ -1060,7 +1063,7 @@
 		});
   // Handle form submit and validation
   /*$( "#user_form" ).submit(function(event) {    
-	var error_message = '';
+	let error_message = '';
 	if(!$("#email").val()) {
 		error_message+="Please Fill Email Address";
 	}
@@ -1084,11 +1087,13 @@
         if($(this).prop("checked") == true){
 			$('.closed_monday').hide();
 			$('.opened_monday').show();
+			$('.monday').addClass('checked');
 			$('.monday').css('display','inline-block');
         }
         else if($(this).prop("checked") == false){
         	$('.closed_monday').show();
 			$('.opened_monday').hide();
+			$('.monday').removeClass('checked');
 			$('.monday').hide();
         }
     });
@@ -1096,11 +1101,13 @@
         if($(this).prop("checked") == true){
 			$('.closed_tuesday').hide();
 			$('.opened_tuesday').show();
+			$('.tuesday').addClass('checked');
 			$('.tuesday').css('display','inline-block');
         }
         else if($(this).prop("checked") == false){
         	$('.closed_tuesday').show();
 			$('.opened_tuesday').hide();
+			$('.tuesday').removeClass('checked');
 			$('.tuesday').hide();
         }
     });
@@ -1108,11 +1115,13 @@
         if($(this).prop("checked") == true){
 			$('.closed_wednesday').hide();
 			$('.opened_wednesday').show();
+			$('.wednesday').addClass('checked');
 			$('.wednesday').css('display','inline-block');
         }
         else if($(this).prop("checked") == false){
         	$('.closed_wednesday').show();
 			$('.opened_wednesday').hide();
+			$('.wednesday').removeClass('checked');
 			$('.wednesday').hide();
         }
     });
@@ -1120,11 +1129,13 @@
         if($(this).prop("checked") == true){
 			$('.closed_thursday').hide();
 			$('.opened_thursday').show();
+			$('.thursday').addClass('checked');
 			$('.thursday').css('display','inline-block');
         }
         else if($(this).prop("checked") == false){
         	$('.closed_thursday').show();
 			$('.opened_thursday').hide();
+			$('.thursday').removeClass('checked');
 			$('.thursday').hide();
         }
     });
@@ -1132,11 +1143,13 @@
         if($(this).prop("checked") == true){
 			$('.closed_friday').hide();
 			$('.opened_friday').show();
+			$('.friday').addClass('checked');
 			$('.friday').css('display','inline-block');
         }
         else if($(this).prop("checked") == false){
         	$('.closed_friday').show();
 			$('.opened_friday').hide();
+			$('.friday').removeClass('checked');
 			$('.friday').hide();
         }
     });
@@ -1144,11 +1157,13 @@
         if($(this).prop("checked") == true){
 			$('.closed_saturday').hide();
 			$('.opened_saturday').show();
+			$('.saturday').addClass('checked');
 			$('.saturday').css('display','inline-block');
         }
         else if($(this).prop("checked") == false){
         	$('.closed_saturday').show();
 			$('.opened_saturday').hide();
+			$('.saturday').removeClass('checked');
 			$('.saturday').hide();
         }
     });
@@ -1156,28 +1171,37 @@
         if($(this).prop("checked") == true){
 			$('.closed_sunday').hide();
 			$('.opened_sunday').show();
+			$('.sunday').addClass('checked');
 			$('.sunday').css('display','inline-block');
         }
         else if($(this).prop("checked") == false){
         	$('.closed_sunday').show();
 			$('.opened_sunday').hide();
+			$('.sunday').removeClass('checked');
 			$('.sunday').hide();
         }
     });
 
     $('#monday_radio1').click(function() {
 	   if ($('#monday_radio1').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
-	   	console.log(dt.getHours(), dt.getMinutes())
-	   	$('.monday_from_time').val(fromTime);
-	   	$('.monday_to_time').val(fromTime);
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
+	   	let monday_from_time_value = $('.monday_from_time').val(fromTime);
+	   	let monday_to_time_value =$('.monday_to_time').val(fromTime);
 	   }
 	});
     $('#monday_radio2').click(function() {
 	   if ($('#monday_radio2').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
 	   	$('.monday_from_time').val('');
 	   	$('.monday_to_time').val('');
 	   }
@@ -1185,16 +1209,24 @@
 
     $('#tuesday_radio1').click(function() {
 	   if ($('#tuesday_radio1').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
-	   	$('.tuesday_from_time').val(fromTime);
-	   	$('.tuesday_to_time').val(fromTime);
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
+	   	let tuesday_from_time_value = $('.tuesday_from_time').val(fromTime);
+	   	let tuesday_to_time_value = $('.tuesday_to_time').val(fromTime);
 	   }
 	});
     $('#tuesday_radio2').click(function() {
 	   if ($('#tuesday_radio2').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
 	   	$('.tuesday_from_time').val('');
 	   	$('.tuesday_to_time').val('');
 	   }
@@ -1202,16 +1234,24 @@
 
     $('#wednesday_radio1').click(function() {
 	   if ($('#wednesday_radio1').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
-	   	$('.wednesday_from_time').val(fromTime);
-	   	$('.wednesday_to_time').val(fromTime);
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
+	   	let wednesday_from_time_value = $('.wednesday_from_time').val(fromTime);
+	   	let wednesday_to_time_value = $('.wednesday_to_time').val(fromTime);
 	   }
 	});
     $('#wednesday_radio2').click(function() {
 	   if ($('#wednesday_radio2').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
 	   	$('.wednesday_from_time').val('');
 	   	$('.wednesday_to_time').val('');
 	   }
@@ -1219,16 +1259,24 @@
 
     $('#thursday_radio1').click(function() {
 	   if ($('#thursday_radio1').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
-	   	$('.thursday_from_time').val(fromTime);
-	   	$('.thursday_to_time').val(fromTime);
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
+	   	let thursday_from_time_value = $('.thursday_from_time').val(fromTime);
+	   	let thursday_to_time_value = $('.thursday_to_time').val(fromTime);
 	   }
 	});
     $('#thursday_radio2').click(function() {
 	   if ($('#thursday_radio2').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
 	   	$('.thursday_from_time').val('');
 	   	$('.thursday_to_time').val('');
 	   }
@@ -1236,16 +1284,25 @@
 
     $('#friday_radio1').click(function() {
 	   if ($('#friday_radio1').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
-	   	$('.friday_from_time').val(fromTime);
-	   	$('.friday_to_time').val(fromTime);
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
+	   	let friday_from_time_value = $('.friday_from_time').val(fromTime);
+	   	let friday_to_time_value = $('.friday_to_time').val(fromTime);
+
 	   }
 	});
     $('#friday_radio2').click(function() {
 	   if ($('#friday_radio2').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
 	   	$('.friday_from_time').val('');
 	   	$('.friday_to_time').val('');
 	   }
@@ -1253,16 +1310,25 @@
 
     $('#saturday_radio1').click(function() {
 	   if ($('#saturday_radio1').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
-	   	$('.saturday_from_time').val(fromTime);
-	   	$('.saturday_to_time').val(fromTime);
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
+	   	let saturday_from_time_value = $('.saturday_from_time').val(fromTime);
+	   	let saturday_to_time_value = $('.saturday_to_time').val(fromTime);
+
 	   }
 	});
     $('#saturday_radio2').click(function() {
 	   if ($('#saturday_radio2').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
 	   	$('.saturday_from_time').val('');
 	   	$('.saturday_to_time').val('');
 	   }
@@ -1270,43 +1336,213 @@
 
     $('#sunday_radio1').click(function() {
 	   if ($('#sunday_radio1').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
-	   	$('.sunday_from_time').val(fromTime);
-	   	$('.sunday_to_time').val(fromTime);
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
+	   	let sunday_from_time_value = $('.sunday_from_time').val(fromTime);
+	   	let sunday_to_time_value = $('.sunday_to_time').val(fromTime);
 	   }
 	});
     $('#sunday_radio2').click(function() {
 	   if ($('#sunday_radio2').is(':checked')) {
-	   	var dt = new Date();
-		var fromTime = dt.getHours() + ":" + dt.getMinutes();
+	   	let dt = new Date();
+	   	let h = dt.getHours();
+	   	let m = dt.getMinutes();
+	   	if(h < 10) {h = '0' + h}; 
+	   	if(m < 10) {m = '0' + m}; 
+		let fromTime = h + ":" + m;
 	   	$('.sunday_from_time').val('');
 	   	$('.sunday_to_time').val('');
 	   }
 	});
+
 	/*
 	* Save working hours for property
 	*/
+		
 	$('.site_primary_step_btn_working_hours').click(function(e) {
 		e.preventDefault();
+		let working_days = [];
+
+		if ($('div.monday').hasClass('checked')) {
+			let monday_day = $('input[name=monday]').val();
+			let monday_from_time = $('.monday_from_time').val();
+			let monday_to_time = $('.monday_to_time').val();
+
+			let monday = {
+				'day': monday_day,
+				'from_time': monday_from_time,
+				'to_time': monday_to_time,
+				'property_id': property_id
+			} ;
+			working_days.push(monday);
+		}
+		if ($('div.tuesday').hasClass('checked')) {
+			let tuesday_day = $('input[name=tuesday]').val();
+			let tuesday_from_time = $('.tuesday_from_time').val();
+			let tuesday_to_time = $('.tuesday_to_time').val();
+
+			let tuesday = {
+				'day': tuesday_day,
+				'from_time': tuesday_from_time,
+				'to_time': tuesday_to_time,
+				'property_id': property_id
+			} ;
+			working_days.push(tuesday);
+		}
+		if ($('div.wednesday').hasClass('checked')) {
+			let wednesday_day = $('input[name=wednesday]').val();
+			let wednesday_from_time = $('.wednesday_from_time').val();
+			let wednesday_to_time = $('.wednesday_to_time').val();
+
+			let wednesday = {
+				'day': wednesday_day,
+				'from_time': wednesday_from_time,
+				'to_time': wednesday_to_time,
+				'property_id': property_id
+			};
+			working_days.push(wednesday);
+		}
+		if ($('div.thursday').hasClass('checked')) {
+			let thursday_day = $('input[name=thursday]').val();
+			let thursday_from_time = $('.thursday_from_time').val();
+			let thursday_to_time = $('.thursday_to_time').val();
+			let thursday = {
+				'day': thursday_day,
+				'from_time': thursday_from_time,
+				'to_time': thursday_to_time,
+				'property_id': property_id
+			};
+			working_days.push(thursday);
+		}
+		if ($('div.friday').hasClass('checked')) {
+			let friday_day = $('input[name=friday]').val();
+			let friday_from_time = $('.friday_from_time').val();
+			let friday_to_time = $('.friday_to_time').val();
+			let friday = {
+				'day': friday_day,
+				'from_time': friday_from_time,
+				'to_time': friday_to_time,
+				'property_id': property_id
+			} ;
+			working_days.push(friday);
+		}
+		if ($('div.saturday').hasClass('checked')) {
+			let saturday_day = $('input[name=saturday]').val();
+			let saturday_from_time = $('.saturday_from_time').val();
+			let saturday_to_time = $('.saturday_to_time').val();
+			let saturday = {
+				'day': saturday_day,
+				'from_time': saturday_from_time,
+				'to_time': saturday_to_time,
+				'property_id': property_id
+			} ;
+			working_days.push(saturday);
+		}
+		if ($('div.sunday').hasClass('checked')) {
+			let sunday_day = $('input[name=sunday]').val();
+			let sunday_from_time = $('.sunday_from_time').val();
+			let sunday_to_time = $('.sunday_to_time').val();
+			let sunday = {
+				'day': sunday_day,
+				'from_time': sunday_from_time,
+				'to_time': sunday_to_time,
+				'property_id': property_id
+			} ;
+			working_days.push(sunday);
+		}
+
+		var dataObject = {data: working_days};
+
+		console.log(dataObject)
+
 		$.ajax({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
 			type: "POST",
-			url: "{{ url('/property/images/store') }}",
-	        processData: false,
-    		contentType: false,
-			dataType: "JSON",
-			data:form_data,
+			url: "{{ url('/property/working-hours/store') }}",
+			data:dataObject,
 			success: function(res) {
 				console.log(res)
 			},
 			error: function(error) {
-				// console.log(error)
+				console.log(error)
 			}
 		});
 	});
+
+
+	/*
+	* Save canceling flexible for property
+	*/
+
+	$('.site_primary_step_btn_flexible').click(function(e) {
+		e.preventDefault();
+
+		let canceling_flexible = $('input[name=canceling_flexible]').is(':checked');
+		let property = property_id;
+
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			type: "PUT",
+			url: "/properties/"+property_id,
+			dataType: "JSON",
+			data:{
+				"_token": "{{ csrf_token() }}",
+				canceling_flexible:canceling_flexible,
+				property_id:property,
+			},
+			success: function(res) {
+				property_id = res.property.id
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+	});
+	/*
+	* Save category for property
+	*/
+	let category_id;
+
+	$('.property_image').click(function(){
+		 category_id = $(this).attr("data-id")
+		console.log(category_id)
+
+    });
+	$('.site_primary_step_btn_category').click(function(e) {
+		e.preventDefault();
+
+		let property = property_id;
+
+		console.log(category_id)
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			type: "PUT",
+			url: "/properties/"+property_id,
+			dataType: "JSON",
+			data:{
+				"_token": "{{ csrf_token() }}",
+				category_id:category_id,
+				property_id:property,
+			},
+			success: function(res) {
+				property_id = res.property.id
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+	});
+
 });		 
 </script>
 @endsection
