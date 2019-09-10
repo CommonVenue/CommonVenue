@@ -115,7 +115,12 @@ class PropertiesController extends Controller
     {
         try {
             $property->update($request->params());
-            return redirect()->route('properties.edit', $property->id);
+
+            return response()->json([
+                'success' => 'Property is successfuly updated',
+                'property' => $property
+            ]);
+            // return redirect()->route('properties.edit', $property->id);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

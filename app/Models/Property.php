@@ -30,6 +30,10 @@ class Property extends Model
         "wifi_password",
         "location_description",
         "canceling_flexible",
+        "min_hours",
+        "cleaning_fee",
+        "capacity",
+        "contact_person_id",
     ];
 
 

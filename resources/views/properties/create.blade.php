@@ -596,12 +596,12 @@
 								<li class="list-inline-item">
 									<div class="form-check">
 										<button type="button" class="btn btn-primary1">
-										    {{-- <input type="hidden" name="category_id" value="{{ $category->id}}"> --}}
-											<img src="/images/{{ $category->image}}" class="img-fluid property_image" alt="" data-id="{{ $category->id}}">
-											{{$category->name}}
+											<label class="form-check-label" for="{{ $category->id}}">
+												<img src="/images/{{ $category->image}}" class="img-fluid property_image" alt="" data-id="{{ $category->id}}">
+											    <input class="hidden" type="radio" id="{{ $category->id}}" name="category_id" value="{{ $category->id}}">
+													{{$category->name}}
+											</label>
 										</button>
-										<label class="form-check-label" for="btn btn-primary1">
-										</label>
 									</div>
 								</li>
 								@endforeach
@@ -633,7 +633,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="basic-addon1">$</span>
 										</div>
-										<input type="number" class="form-control" placeholder="2" aria-label="Username" aria-describedby="basic-addon1">
+										<input type="number" class="form-control" placeholder="2" name="price">
 									</div>
 								</div>
 								<div class="col-lg-6">
@@ -642,7 +642,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="basic-addon2"><i class="fas fa-calendar-day"></i></span>
 										</div>
-										<input type="number" class="form-control" placeholder="1-12 hours" aria-label="Username" aria-describedby="basic-addon2">
+										<input type="number" class="form-control" placeholder="1-12 hours" name="min_hours">
 									</div>
 								</div>
 							</div>
@@ -659,16 +659,16 @@
 											<div class="row">
 												<div class="col-lg-12 mb-1">
 													<div class="form-check">
-														<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-														<label class="form-check-label" for="exampleRadios1">
+														<input class="form-check-input" type="radio" name="cleaning_feeRadio" id="cleaning_feeRadio1">
+														<label class="form-check-label" for="cleaning_feeRadio1">
 															Included in hourly rate
 														</label>
 													</div>
 												</div>
 												<div class="col-lg-12">
 													<div class="form-check">
-														<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked>
-														<label class="form-check-label" for="exampleRadios2">
+														<input class="form-check-input" type="radio" name="cleaning_feeRadio" id="cleaning_feeRadio2">
+														<label class="form-check-label" for="cleaning_feeRadio2">
 															Additional flat fee
 														</label>
 													</div>
@@ -677,7 +677,7 @@
 										</div>
 										<div class="col-lg-3">
 											<div class="input-group">
-												<input type="number" class="form-control" placeholder="2" aria-label="Username" aria-describedby="basic-addon4">
+												<input type="number" class="form-control" placeholder="2" name="cleaning_fee" value="0">
 												<div class="input-group-prepend">
 													<span class="input-group-text" id="basic-addon4">$</span>
 												</div>
@@ -698,7 +698,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="basic-addon6"><i class="fas fa-user"></i></span>
 										</div>
-										<input type="number" class="form-control" placeholder="2" aria-label="Username" aria-describedby="basic-addon6">
+										<input type="number" class="form-control" placeholder="2" name="capacity">
 									</div>
 								</div>
 							</div>
@@ -736,7 +736,7 @@
 						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
 							<i class="fas fa-arrow-left mr-2"></i> <span>Back</span>
 						</button>
-						<button type="button" class="next btn btn-primary site_primary_step_btn">
+						<button type="button" class="next btn btn-primary site_primary_step_btn site_primary_step_btn_priceing">
 							<span>Next</span> <i class="fas fa-arrow-right ml-2"></i>
 						</button>
 						<!-- Next or back button end -->
@@ -753,19 +753,19 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>First Name</label>
-											<input type="text" class="form-control" required="" id="" name="" placeholder="Alice">
+											<input type="text" class="form-control" required="" id="" name="first_name" placeholder="Alice">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Last Name</label>
-											<input type="text" class="form-control" required="" id="" name="" placeholder="W Heideman">
+											<input type="text" class="form-control" required="" id="" name="last_name" placeholder="W Heideman">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Contact Number</label>
-											<input type="text" class="form-control" required="" id="" name="" placeholder="*********2332">
+											<input type="text" class="form-control" required="" id="" name="contact_number" placeholder="*********2332">
 										</div>
 									</div>
 								</div>
@@ -774,12 +774,9 @@
 										<h5 class="site_profile_photo_title seprotext mb-4">Add a profile photo with your face</h5>
 										<ul class="list-inline">
 											<li class="list-inline-item">
-												<img src="images/user.png" class="site_your_profile_thumb img-fluid" alt="">
-											</li>
-											<li class="list-inline-item">
 												<div class="site_input_file btn btn-lg btn-primary">
 													Upload
-													<input type="file" name="file">
+													<input type="file" name="image" id="contact_person">
 												</div>
 											</li>
 											<button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
@@ -867,7 +864,7 @@
 							<i class="fas fa-arrow-left mr-2"></i>
 							<span>Back</span>
 						</button>
-						<button type="button" class="next btn btn-primary site_primary_step_btn">
+						<button type="button" class="next btn btn-primary site_primary_step_btn site_primary_step_btn_contact_person">
 							<span>Next</span>
 							<i class="fas fa-arrow-right ml-2"></i>
 						</button>
@@ -882,9 +879,9 @@
 							<p class="site_yourlisting_desc">Your listing will be active shortly, get ready to host memorable events.</p>
 						</div>
 						<!-- Next or back button start -->
-				<!--button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
+				<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
 					<i class="fas fa-arrow-left mr-2"></i> <span>Back</span>
-				</button-->
+				</button>
 				<button type="submit" name="submit" class="submit btn btn-primary site_primary_step_btn">
 					<span>
 						Continue
@@ -1362,7 +1359,6 @@
 	/*
 	* Save working hours for property
 	*/
-		
 	$('.site_primary_step_btn_working_hours').click(function(e) {
 		e.preventDefault();
 		let working_days = [];
@@ -1457,8 +1453,6 @@
 
 		var dataObject = {data: working_days};
 
-		console.log(dataObject)
-
 		$.ajax({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1475,16 +1469,19 @@
 		});
 	});
 
-
 	/*
 	* Save canceling flexible for property
 	*/
-
 	$('.site_primary_step_btn_flexible').click(function(e) {
 		e.preventDefault();
-
-		let canceling_flexible = $('input[name=canceling_flexible]').is(':checked');
 		let property = property_id;
+		let canceling_flexible = $('input[name=canceling_flexible]').is(':checked');
+
+		if (canceling_flexible == true) {
+			canceling_flexible = 1;
+		}else{
+			canceling_flexible = 0;
+		}
 
 		$.ajax({
 			headers: {
@@ -1492,7 +1489,7 @@
 			},
 			type: "PUT",
 			url: "/properties/"+property_id,
-			dataType: "JSON",
+			// dataType: "JSON",
 			data:{
 				"_token": "{{ csrf_token() }}",
 				canceling_flexible:canceling_flexible,
@@ -1506,6 +1503,7 @@
 			}
 		});
 	});
+
 	/*
 	* Save category for property
 	*/
@@ -1513,15 +1511,11 @@
 
 	$('.property_image').click(function(){
 		 category_id = $(this).attr("data-id")
-		console.log(category_id)
-
     });
 	$('.site_primary_step_btn_category').click(function(e) {
 		e.preventDefault();
-
 		let property = property_id;
 
-		console.log(category_id)
 		$.ajax({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1535,7 +1529,7 @@
 				property_id:property,
 			},
 			success: function(res) {
-				property_id = res.property.id
+				console.log(res.property)
 			},
 			error: function(error) {
 				console.log(error)
@@ -1543,6 +1537,103 @@
 		});
 	});
 
+	/*
+	* Save price for property
+	*/
+    $('#cleaning_feeRadio1').click(function() {
+	   if ($('#cleaning_feeRadio1').is(':checked')) {
+		let cleaning_fee = $('input[name=cleaning_fee]').val('0');
+	   }
+	});
+	$('.site_primary_step_btn_priceing').click(function(e) {
+		e.preventDefault();
+		let price = $('input[name=price]').val();
+		let min_hours = $('input[name=min_hours]').val();
+		let capacity = $('input[name=capacity]').val();
+		let cleaning_fee = $('input[name=cleaning_fee]').val();
+
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			type: "PUT",
+			url: "/properties/"+property_id,
+			dataType: "JSON",
+			data:{
+				"_token": "{{ csrf_token() }}",
+				price:price,
+				min_hours:min_hours,
+				cleaning_fee:cleaning_fee,
+				capacity:capacity,
+				property_id:property_id,
+			},
+			success: function(res) {
+				console.log(res.property)
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+	});
+
+	/*
+	* Save constact person for property
+	*/
+	$('.site_primary_step_btn_contact_person').click(function(e) {
+		e.preventDefault();
+		let form_data = new FormData();
+
+
+		let first_name = $('input[name=first_name]').val();
+		let last_name = $('input[name=last_name]').val();
+		let contact_number = $('input[name=contact_number]').val();
+  		let image = $("#contact_person")[0].files[0];
+        
+		form_data.append('first_name', first_name);
+		form_data.append('last_name', last_name);
+		form_data.append('contact_number', contact_number);
+		form_data.append('image', image);
+        form_data.append('_token', '{{csrf_token()}}');
+
+        let contact_person_id;
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			type: "POST",
+			url: "{{ url('/property/contact-person/store') }}",
+			processData: false,
+			contentType: false,
+			dataType: "JSON",
+			data:form_data,
+			success: function(res) {
+				contact_person_id = res.person.id
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type: "PUT",
+					url: "/properties/"+property_id,
+					dataType: "JSON",
+					data:{
+						"_token": "{{ csrf_token() }}",
+						contact_person_id:contact_person_id,
+						property_id:property_id,
+					},
+					success: function(res) {
+						console.log(res.property)
+					},
+					error: function(error) {
+						console.log(error)
+					}
+				});
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+	});
 });		 
 </script>
 @endsection

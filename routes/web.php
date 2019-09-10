@@ -39,6 +39,7 @@ Route::group(['middleware' => array('auth')],function(){
 	
 	Route::post('/property/images/store', 'PropertyImagesController@store');
 	Route::post('/property/working-hours/store', 'WorkingHoursController@store');
+	Route::post('/property/contact-person/store', 'ContactPersonsController@store');
 
 	Route::prefix('favorite')->name('favorite.')->group(function() {
 	    Route::get('/properties', 'PropertiesController@favorites')->name('properties.favorites');
