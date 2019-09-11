@@ -26,6 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'name'=>'required',
             'description'=>'required',
+            'adult'=>'required',
             'address_id'=>'required',
         ];
     }
