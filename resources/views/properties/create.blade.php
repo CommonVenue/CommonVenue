@@ -1041,16 +1041,18 @@
 		});
 
 		/*
-		* Upload images for property
+		* Upload multiple images for property
 		*/
 		$('.site_primary_step_btn_upload_image').click(function(e) {
 			e.preventDefault();
 			let form_data = new FormData();
+			let TotalImages = $('#propery_image')[0].files.length;
+		    let images = $('#propery_image')[0];
 
-			let property = property_id;
-			let url = $("#propery_image")[0].files[0];
-			form_data.append('url', url);
-			form_data.append('property_id', property);
+		    for (let i = 0; i < TotalImages; i++) {
+	            form_data.append('images['+i+']', images.files[i]);
+		    }
+			form_data.append('property_id', property_id);
 			
 			$.ajax({
 				headers: {
@@ -1074,14 +1076,10 @@
 					$( 'html, body' ).animate( {
 						scrollTop: $( ".site_step_form_column" ).offset().top - 10
 					}, 500 );
-
-					console.log(res)
 				},
 				error: function(error) {
 					$('#validation-msg').html('');
-					$.each(error.responseJSON.errors, function(key,value) {
-						$('#validation-msg').append('<div class="alert alert-danger">Please add photos of your venue</div');
-					});
+					$('#validation-msg').append('<div class="alert alert-danger">Please add photos of your venue</div');
 				}
 			});
 		});
@@ -1676,7 +1674,7 @@ $('#sunday_radio2').click(function() {
 		let last_name = $('input[name=last_name]').val();
 		let contact_number = $('input[name=contact_number]').val();
 		let image = $("#contact_person")[0].files[0];
-		
+
 		form_data.append('first_name', first_name);
 		form_data.append('last_name', last_name);
 		form_data.append('contact_number', contact_number);

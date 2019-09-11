@@ -18,10 +18,12 @@ class PropertyImagesController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            $propertyImage = PropertyImage::create($request->params());
+            foreach ($request->params() as $image) {
+                $propertyImage = PropertyImage::create($image);
+            }
 
             return response()->json([
-                'success' => 'Property Image is successfuly uploaded',
+                'success' => 'Property Images are successfuly uploaded',
                 'image' => $propertyImage
             ]);
         } catch (\Exception $ex) {

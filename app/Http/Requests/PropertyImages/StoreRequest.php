@@ -24,21 +24,22 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'url' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            // 'url' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ];
     }
 
     public function params()
     {
-            $image = $this->file('url');
-            $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('images');
-            $imagePath = $destinationPath. "/".  $name;
-            $image->move($destinationPath, $name);
-            
-            $data['url'] = $name;
-            $data['property_id'] = $this->property_id;
+        $images = $this->images;
 
-            return $data;
+        foreach ($images as $key => $image) {
+            $name = time(). $key .'.'.$image->getClientOriginalExtension();
+            $image->move(storage_path('images'), $name);
+            
+            $data[$key]['url'] = $name;
+            $data[$key]['property_id'] = $this->property_id;
+        }
+        
+        return $data;
     }
 }
