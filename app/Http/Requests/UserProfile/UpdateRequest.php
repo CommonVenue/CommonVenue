@@ -39,10 +39,7 @@ class UpdateRequest extends FormRequest
 
             $image = $this->file('avatar');
             $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('images');
-
-            $imagePath = $destinationPath. "/".  $name;
-            $image->move($destinationPath, $name);
+            $image->move(storage_path('app/public/images'), $name);
             
             $data['avatar'] = $name;
         }

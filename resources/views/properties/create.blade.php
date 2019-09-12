@@ -882,12 +882,12 @@
 						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
 							<i class="fas fa-arrow-left mr-2"></i> <span>Back</span>
 						</button>
-						<button type="submit" name="submit" class="submit btn btn-primary site_primary_step_btn">
+						<a href="/properties" class="submit btn btn-primary site_primary_step_btn">
 							<span>
 								Continue
 							</span>
 							<i class="fas fa-arrow-right ml-2"></i>
-						</button>
+						</a>
 						<!-- Next or back button end -->
 					</fieldset>
 					<!-- Step 9 end -->

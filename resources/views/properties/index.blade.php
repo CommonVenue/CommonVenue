@@ -105,8 +105,8 @@
 			@foreach($properties as $property)
 			<div class="col-lg-3 mb-4">
 				<div class="site_venue_box card">
-					@foreach($property->images as $image)
-						<img src="{{ asset('/images/'.$image->url) }}" class="card-img-top" alt="">
+					@foreach($property->images->take(1) as $image)
+						<img src="{{ url('storage/images/'.$image->url) }}" class="card-img-top" alt="">
 					@endforeach
 					<div class="card-body">
 						<p class="site_venue_title"><a href="{!! route('properties.show',[$property->id]) !!}">{{ $property->name }}</a></p>

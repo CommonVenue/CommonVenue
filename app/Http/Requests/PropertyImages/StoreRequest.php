@@ -34,12 +34,12 @@ class StoreRequest extends FormRequest
 
         foreach ($images as $key => $image) {
             $name = time(). $key .'.'.$image->getClientOriginalExtension();
-            $image->move(storage_path('images'), $name);
+            $image->move(storage_path('app/public/images'), $name);
             
             $data[$key]['url'] = $name;
             $data[$key]['property_id'] = $this->property_id;
         }
-        
+
         return $data;
     }
 }

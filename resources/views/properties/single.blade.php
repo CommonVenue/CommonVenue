@@ -45,7 +45,7 @@
 			<div class="site_sticky_col col-lg-6">
 				<div class="site_venue_space_carousel owl-carousel owl-theme">
 					<div class="item">
-						<img src="{{ asset('/images/'.$image->url) }}" class="img-fluid w-100" alt="">
+						<img src="{{ url('storage/images/'.$image->url) }}" class="img-fluid w-100" alt="">
 					</div>
 				</div>
 			</div>
@@ -358,7 +358,6 @@
 </section>
 <script type="text/javascript">
 	$(document).ready(function() {
-			console.log('url')
 		$('[data-id]').click(function(e) {
 			e.preventDefault();
 
@@ -399,9 +398,9 @@
 			var start_time = $('.start').val();
 			var end_time = $('.end').val();
 			var date = $('.date_time').val();
-			// if ({{ $property->price }}) {
-				// var price = {{ $property->price }};
-			// }
+			if ({{ $property->price }}) {
+				var price = {{ $property->price }};
+			}
 			var start_date = new Date(date + ' ' + start_time);
 			var end_date = new Date(date + ' ' + end_time);
 	    	var diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
