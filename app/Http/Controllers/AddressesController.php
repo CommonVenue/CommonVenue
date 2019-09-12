@@ -22,7 +22,11 @@ class AddressesController extends Controller
         try {
             if($request->params()) {
                 $address = Address::create($request->params());
-                return $address;
+
+                return response()->json([
+                    'success' => 'Address is successfuly created',
+                    'address' => $address
+                ]);
             }
             $address = new Address();
             $client = new Client();
@@ -48,10 +52,12 @@ class AddressesController extends Controller
      */
     public function update(UpdateRequest $request, Address $address)
     {
-        $property = Property::where('address_id', $address->id)->first();
         try {
             $address->update($request->params());
-            return redirect()->route('properties.edit', $property->id);
+            return response()->json([
+                    'success' => 'Address is successfuly updated',
+                    'address' => $address
+            ]);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

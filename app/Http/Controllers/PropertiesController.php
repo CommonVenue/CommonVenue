@@ -55,13 +55,10 @@ class PropertiesController extends Controller
     {
         try {
             $property = Property::create($request->params());
-
             return response()->json([
                 'success' => 'Property is successfuly created',
                 'property' => $property
             ]);
-            
-            // return redirect()->route('properties.show', [ 'id' => $property->id ]);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
@@ -120,7 +117,6 @@ class PropertiesController extends Controller
                 'success' => 'Property is successfuly updated',
                 'property' => $property
             ]);
-            // return redirect()->route('properties.edit', $property->id);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

@@ -677,7 +677,7 @@
 										</div>
 										<div class="col-lg-3">
 											<div class="input-group">
-												<input type="number" class="form-control" placeholder="2" name="cleaning_fee" value="0">
+												<input type="number" class="form-control" placeholder="2" name="cleaning_fee">
 												<div class="input-group-prepend">
 													<span class="input-group-text" id="basic-addon4">$</span>
 												</div>
@@ -710,8 +710,8 @@
 										@foreach($amenities as $amenity)
 										<li class="list-inline-item">
 											<div class="form-check">
-												<input class="form-check-input" type="checkbox" value="" id="defaultCheck10" checked>
-												<label class="form-check-label" for="defaultCheck10">
+												<input class="form-check-input" type="checkbox" value="" id="defaultCheck{{$amenity->id}}" checked>
+												<label class="form-check-label" for="defaultCheck{{$amenity->id}}">
 													{{$amenity->name}}
 												</label>
 											</div>
@@ -753,19 +753,19 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>First Name</label>
-											<input type="text" class="form-control" required="" id="" name="first_name" placeholder="Alice">
+											<input type="text" class="form-control" required="" name="first_name" placeholder="Alice">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Last Name</label>
-											<input type="text" class="form-control" required="" id="" name="last_name" placeholder="W Heideman">
+											<input type="text" class="form-control" required="" name="last_name" placeholder="W Heideman">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Contact Number</label>
-											<input type="text" class="form-control" required="" id="" name="contact_number" placeholder="*********2332">
+											<input type="text" class="form-control" required="" name="contact_number" placeholder="*********2332">
 										</div>
 									</div>
 								</div>
@@ -790,8 +790,8 @@
 										<ul class="site_profile_check_list list-inline">
 											<li class="list-inline-item">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value="" id="defaultCheck10">
-													<label class="form-check-label" for="defaultCheck10">
+													<input class="form-check-input" type="checkbox" value="">
+													<label class="form-check-label" for="">
 														Billboard
 													</label>
 												</div>
@@ -929,6 +929,7 @@
 		* Create address for property
 		*/
 		let address_id;
+		let createdAddress;
 
 		$('.site_primary_step_btn_address').click(function(e) {
 			e.preventDefault();
@@ -942,53 +943,101 @@
 			let address_2 = $("input[name=address_2]").val();
 			let longitude = $("input[name=longitude]").val();
 			let latitude = $("input[name=latitude]").val();
-			$.ajax({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				},
-				type: "POST",
-				url: "{{ url('addresses/store') }}",
-				dataType: "JSON",
-				data:{
-					"_token": "{{ csrf_token() }}",
-					country:country,
-					city:city,
-					state:state,
-					unit:unit,
-					postal_code:postal_code,
-					address_1:address_1,
-					address_2:address_2,
-					longitude:longitude,
-					latitude:latitude
-				},
-				success: function(res) {
-					$('#validation-msg').html('');
-					form_count_form = $('.site_primary_step_btn_address').parent();
-					next_form = $('.site_primary_step_btn_address').parent().next();
-					next_form.show();
-					form_count_form.hide();
-					setProgressBar(++form_count);
+
+			if(createdAddress !== undefined ){
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type: "PUT",
+					url: "/addresses/"+createdAddress.id,
+					dataType: "JSON",
+					data:{
+						"_token": "{{ csrf_token() }}",
+						country:country,
+						city:city,
+						state:state,
+						unit:unit,
+						postal_code:postal_code,
+						address_1:address_1,
+						address_2:address_2,
+						longitude:longitude,
+						latitude:latitude
+					},
+					success: function(res) {
+						createdAddress = res.address;
+						$('#validation-msg').html('');
+						form_count_form = $('.site_primary_step_btn_address').parent();
+						next_form = $('.site_primary_step_btn_address').parent().next();
+						next_form.show();
+						form_count_form.hide();
+						setProgressBar(++form_count);
 
 
-					$( 'html, body' ).animate( {
-						scrollTop: $( ".site_step_form_column" ).offset().top - 10
-					}, 500 );
+						$( 'html, body' ).animate( {
+							scrollTop: $( ".site_step_form_column" ).offset().top - 10
+						}, 500 );
 
-					address_id = res.id
-				},
-				error: function(error) {
-					$('#validation-msg').html('');
-					$.each(error.responseJSON.errors, function(key,value) {
-						$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
-					});
-				}
-			});
+						address_id = res.address.id
+					},
+					error: function(error) {
+						$('#validation-msg').html('');
+						$.each(error.responseJSON.errors, function(key,value) {
+							$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
+						});
+					}
+				});
+			}else{
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type: "POST",
+					url: "{{ url('addresses/store') }}",
+					dataType: "JSON",
+					data:{
+						"_token": "{{ csrf_token() }}",
+						country:country,
+						city:city,
+						state:state,
+						unit:unit,
+						postal_code:postal_code,
+						address_1:address_1,
+						address_2:address_2,
+						longitude:longitude,
+						latitude:latitude
+					},
+					success: function(res) {
+						createdAddress = res.address;
+						$('#validation-msg').html('');
+						form_count_form = $('.site_primary_step_btn_address').parent();
+						next_form = $('.site_primary_step_btn_address').parent().next();
+						next_form.show();
+						form_count_form.hide();
+						setProgressBar(++form_count);
+
+
+						$( 'html, body' ).animate( {
+							scrollTop: $( ".site_step_form_column" ).offset().top - 10
+						}, 500 );
+
+						address_id = res.address.id
+					},
+					error: function(error) {
+						$('#validation-msg').html('');
+						$.each(error.responseJSON.errors, function(key,value) {
+							$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
+						});
+					}
+				});
+			}
 		});
 
 		/*
 		* Create property
 		*/
 		let property_id;
+		let createdProperty;
 
 		$('.site_primary_step_btn_property_1_step').click(function(e) {
 			e.preventDefault();
@@ -1000,44 +1049,87 @@
 			let wifi_password = $("input[name=wifi_password]").val();
 			let location_description = $("#location_description").val();
 			let address = address_id;
-			$.ajax({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				},
-				type: "POST",
-				url: "{{ url('properties/store') }}",
-				dataType: "JSON",
-				data:{
-					"_token": "{{ csrf_token() }}",
-					name:name,
-					description:description,
-					adult:adult,
-					wifi_name:wifi_name,
-					wifi_password:wifi_password,
-					address_id:address,
-					location_description:location_description,
-				},
-				success: function(res) {
-					$('#validation-msg').html('');
-					form_count_form = $('.site_primary_step_btn_property_1_step').parent();
-					next_form = $('.site_primary_step_btn_property_1_step').parent().next();
-					next_form.show();
-					form_count_form.hide();
-					setProgressBar(++form_count);
+			if (createdProperty !== undefined){
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type: "PUT",
+					url: "/properties/"+createdProperty.id,
+					dataType: "JSON",
+					data:{
+						"_token": "{{ csrf_token() }}",
+						name:name,
+						description:description,
+						adult:adult,
+						wifi_name:wifi_name,
+						wifi_password:wifi_password,
+						address_id:address,
+						location_description:location_description,
+					},
+					success: function(res) {
+						createdProperty = res.property
+						$('#validation-msg').html('');
+						form_count_form = $('.site_primary_step_btn_property_1_step').parent();
+						next_form = $('.site_primary_step_btn_property_1_step').parent().next();
+						next_form.show();
+						form_count_form.hide();
+						setProgressBar(++form_count);
 
 
-					$( 'html, body' ).animate( {
-						scrollTop: $( ".site_step_form_column" ).offset().top - 10
-					}, 500 );
-					property_id = res.property.id
-				},
-				error: function(error) {
-					$('#validation-msg').html('');
-					$.each(error.responseJSON.errors, function(key,value) {
-						$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
-					});
-				}
-			});
+						$( 'html, body' ).animate( {
+							scrollTop: $( ".site_step_form_column" ).offset().top - 10
+						}, 500 );
+						property_id = res.property.id
+					},
+					error: function(error) {
+						$('#validation-msg').html('');
+						$.each(error.responseJSON.errors, function(key,value) {
+							$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
+						});
+					}
+				});
+			}else{
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type: "POST",
+					url: "{{ url('properties/store') }}",
+					dataType: "JSON",
+					data:{
+						"_token": "{{ csrf_token() }}",
+						name:name,
+						description:description,
+						adult:adult,
+						wifi_name:wifi_name,
+						wifi_password:wifi_password,
+						address_id:address,
+						location_description:location_description,
+					},
+					success: function(res) {
+						createdProperty = res.property
+						$('#validation-msg').html('');
+						form_count_form = $('.site_primary_step_btn_property_1_step').parent();
+						next_form = $('.site_primary_step_btn_property_1_step').parent().next();
+						next_form.show();
+						form_count_form.hide();
+						setProgressBar(++form_count);
+
+
+						$( 'html, body' ).animate( {
+							scrollTop: $( ".site_step_form_column" ).offset().top - 10
+						}, 500 );
+						property_id = res.property.id
+					},
+					error: function(error) {
+						$('#validation-msg').html('');
+						$.each(error.responseJSON.errors, function(key,value) {
+							$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
+						});
+					}
+				});
+			}
 		});
 
 		/*
@@ -1047,11 +1139,11 @@
 			e.preventDefault();
 			let form_data = new FormData();
 			let TotalImages = $('#propery_image')[0].files.length;
-		    let images = $('#propery_image')[0];
+			let images = $('#propery_image')[0];
 
-		    for (let i = 0; i < TotalImages; i++) {
-	            form_data.append('images['+i+']', images.files[i]);
-		    }
+			for (let i = 0; i < TotalImages; i++) {
+				form_data.append('images['+i+']', images.files[i]);
+			}
 			form_data.append('property_id', property_id);
 			
 			$.ajax({
@@ -1084,303 +1176,281 @@
 			});
 		});
 
-  // Handle form submit and validation
-  /*$( "#user_form" ).submit(function(event) {    
-	let error_message = '';
-	if(!$("#email").val()) {
-		error_message+="Please Fill Email Address";
-	}
-	if(!$("#password").val()) {
-		error_message+="<br>Please Fill Password";
-	}
-	if(!$("#mobile").val()) {
-		error_message+="<br>Please Fill Mobile Number";
-	}*/
-	// Display error if any else submit form
-	/*if(error_message) {
-		$('.alert-success').removeClass('d-none').html(error_message);
-		return false;
-	} else {
-		return true;	
-	}    
-}); */
+		$('.monday_checkbox:checkbox').click(function(){
+			if($(this).prop("checked") == true){
+				$('.closed_monday').hide();
+				$('.opened_monday').show();
+				$('.monday').addClass('checked');
+				$('.monday').css('display','inline-block');
+			}
+			else if($(this).prop("checked") == false){
+				$('.closed_monday').show();
+				$('.opened_monday').hide();
+				$('.monday').removeClass('checked');
+				$('.monday').hide();
+			}
+		});
+		$('.tuesday_checkbox:checkbox').click(function(){
+			if($(this).prop("checked") == true){
+				$('.closed_tuesday').hide();
+				$('.opened_tuesday').show();
+				$('.tuesday').addClass('checked');
+				$('.tuesday').css('display','inline-block');
+			}
+			else if($(this).prop("checked") == false){
+				$('.closed_tuesday').show();
+				$('.opened_tuesday').hide();
+				$('.tuesday').removeClass('checked');
+				$('.tuesday').hide();
+			}
+		});
+		$('.wednesday_checkbox:checkbox').click(function(){
+			if($(this).prop("checked") == true){
+				$('.closed_wednesday').hide();
+				$('.opened_wednesday').show();
+				$('.wednesday').addClass('checked');
+				$('.wednesday').css('display','inline-block');
+			}
+			else if($(this).prop("checked") == false){
+				$('.closed_wednesday').show();
+				$('.opened_wednesday').hide();
+				$('.wednesday').removeClass('checked');
+				$('.wednesday').hide();
+			}
+		});
+		$('.thursday_checkbox:checkbox').click(function(){
+			if($(this).prop("checked") == true){
+				$('.closed_thursday').hide();
+				$('.opened_thursday').show();
+				$('.thursday').addClass('checked');
+				$('.thursday').css('display','inline-block');
+			}
+			else if($(this).prop("checked") == false){
+				$('.closed_thursday').show();
+				$('.opened_thursday').hide();
+				$('.thursday').removeClass('checked');
+				$('.thursday').hide();
+			}
+		});
+		$('.friday_checkbox:checkbox').click(function(){
+			if($(this).prop("checked") == true){
+				$('.closed_friday').hide();
+				$('.opened_friday').show();
+				$('.friday').addClass('checked');
+				$('.friday').css('display','inline-block');
+			}
+			else if($(this).prop("checked") == false){
+				$('.closed_friday').show();
+				$('.opened_friday').hide();
+				$('.friday').removeClass('checked');
+				$('.friday').hide();
+			}
+		});
+		$('.saturday_checkbox:checkbox').click(function(){
+			if($(this).prop("checked") == true){
+				$('.closed_saturday').hide();
+				$('.opened_saturday').show();
+				$('.saturday').addClass('checked');
+				$('.saturday').css('display','inline-block');
+			}
+			else if($(this).prop("checked") == false){
+				$('.closed_saturday').show();
+				$('.opened_saturday').hide();
+				$('.saturday').removeClass('checked');
+				$('.saturday').hide();
+			}
+		});
+		$('.sunday_checkbox:checkbox').click(function(){
+			if($(this).prop("checked") == true){
+				$('.closed_sunday').hide();
+				$('.opened_sunday').show();
+				$('.sunday').addClass('checked');
+				$('.sunday').css('display','inline-block');
+			}
+			else if($(this).prop("checked") == false){
+				$('.closed_sunday').show();
+				$('.opened_sunday').hide();
+				$('.sunday').removeClass('checked');
+				$('.sunday').hide();
+			}
+		});
 
+		$('#monday_radio1').click(function() {
+			if ($('#monday_radio1').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				let monday_from_time_value = $('.monday_from_time').val(fromTime);
+				let monday_to_time_value =$('.monday_to_time').val(fromTime);
+			}
+		});
+		$('#monday_radio2').click(function() {
+			if ($('#monday_radio2').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				$('.monday_from_time').val('');
+				$('.monday_to_time').val('');
+			}
+		});
 
-$('.monday_checkbox:checkbox').click(function(){
-	if($(this).prop("checked") == true){
-		$('.closed_monday').hide();
-		$('.opened_monday').show();
-		$('.monday').addClass('checked');
-		$('.monday').css('display','inline-block');
-	}
-	else if($(this).prop("checked") == false){
-		$('.closed_monday').show();
-		$('.opened_monday').hide();
-		$('.monday').removeClass('checked');
-		$('.monday').hide();
-	}
-});
-$('.tuesday_checkbox:checkbox').click(function(){
-	if($(this).prop("checked") == true){
-		$('.closed_tuesday').hide();
-		$('.opened_tuesday').show();
-		$('.tuesday').addClass('checked');
-		$('.tuesday').css('display','inline-block');
-	}
-	else if($(this).prop("checked") == false){
-		$('.closed_tuesday').show();
-		$('.opened_tuesday').hide();
-		$('.tuesday').removeClass('checked');
-		$('.tuesday').hide();
-	}
-});
-$('.wednesday_checkbox:checkbox').click(function(){
-	if($(this).prop("checked") == true){
-		$('.closed_wednesday').hide();
-		$('.opened_wednesday').show();
-		$('.wednesday').addClass('checked');
-		$('.wednesday').css('display','inline-block');
-	}
-	else if($(this).prop("checked") == false){
-		$('.closed_wednesday').show();
-		$('.opened_wednesday').hide();
-		$('.wednesday').removeClass('checked');
-		$('.wednesday').hide();
-	}
-});
-$('.thursday_checkbox:checkbox').click(function(){
-	if($(this).prop("checked") == true){
-		$('.closed_thursday').hide();
-		$('.opened_thursday').show();
-		$('.thursday').addClass('checked');
-		$('.thursday').css('display','inline-block');
-	}
-	else if($(this).prop("checked") == false){
-		$('.closed_thursday').show();
-		$('.opened_thursday').hide();
-		$('.thursday').removeClass('checked');
-		$('.thursday').hide();
-	}
-});
-$('.friday_checkbox:checkbox').click(function(){
-	if($(this).prop("checked") == true){
-		$('.closed_friday').hide();
-		$('.opened_friday').show();
-		$('.friday').addClass('checked');
-		$('.friday').css('display','inline-block');
-	}
-	else if($(this).prop("checked") == false){
-		$('.closed_friday').show();
-		$('.opened_friday').hide();
-		$('.friday').removeClass('checked');
-		$('.friday').hide();
-	}
-});
-$('.saturday_checkbox:checkbox').click(function(){
-	if($(this).prop("checked") == true){
-		$('.closed_saturday').hide();
-		$('.opened_saturday').show();
-		$('.saturday').addClass('checked');
-		$('.saturday').css('display','inline-block');
-	}
-	else if($(this).prop("checked") == false){
-		$('.closed_saturday').show();
-		$('.opened_saturday').hide();
-		$('.saturday').removeClass('checked');
-		$('.saturday').hide();
-	}
-});
-$('.sunday_checkbox:checkbox').click(function(){
-	if($(this).prop("checked") == true){
-		$('.closed_sunday').hide();
-		$('.opened_sunday').show();
-		$('.sunday').addClass('checked');
-		$('.sunday').css('display','inline-block');
-	}
-	else if($(this).prop("checked") == false){
-		$('.closed_sunday').show();
-		$('.opened_sunday').hide();
-		$('.sunday').removeClass('checked');
-		$('.sunday').hide();
-	}
-});
+		$('#tuesday_radio1').click(function() {
+			if ($('#tuesday_radio1').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				let tuesday_from_time_value = $('.tuesday_from_time').val(fromTime);
+				let tuesday_to_time_value = $('.tuesday_to_time').val(fromTime);
+			}
+		});
+		$('#tuesday_radio2').click(function() {
+			if ($('#tuesday_radio2').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				$('.tuesday_from_time').val('');
+				$('.tuesday_to_time').val('');
+			}
+		});
 
-$('#monday_radio1').click(function() {
-	if ($('#monday_radio1').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		let monday_from_time_value = $('.monday_from_time').val(fromTime);
-		let monday_to_time_value =$('.monday_to_time').val(fromTime);
-	}
-});
-$('#monday_radio2').click(function() {
-	if ($('#monday_radio2').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		$('.monday_from_time').val('');
-		$('.monday_to_time').val('');
-	}
-});
+		$('#wednesday_radio1').click(function() {
+			if ($('#wednesday_radio1').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				let wednesday_from_time_value = $('.wednesday_from_time').val(fromTime);
+				let wednesday_to_time_value = $('.wednesday_to_time').val(fromTime);
+			}
+		});
+		$('#wednesday_radio2').click(function() {
+			if ($('#wednesday_radio2').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				$('.wednesday_from_time').val('');
+				$('.wednesday_to_time').val('');
+			}
+		});
 
-$('#tuesday_radio1').click(function() {
-	if ($('#tuesday_radio1').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		let tuesday_from_time_value = $('.tuesday_from_time').val(fromTime);
-		let tuesday_to_time_value = $('.tuesday_to_time').val(fromTime);
-	}
-});
-$('#tuesday_radio2').click(function() {
-	if ($('#tuesday_radio2').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		$('.tuesday_from_time').val('');
-		$('.tuesday_to_time').val('');
-	}
-});
+		$('#thursday_radio1').click(function() {
+			if ($('#thursday_radio1').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				let thursday_from_time_value = $('.thursday_from_time').val(fromTime);
+				let thursday_to_time_value = $('.thursday_to_time').val(fromTime);
+			}
+		});
+		$('#thursday_radio2').click(function() {
+			if ($('#thursday_radio2').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				$('.thursday_from_time').val('');
+				$('.thursday_to_time').val('');
+			}
+		});
 
-$('#wednesday_radio1').click(function() {
-	if ($('#wednesday_radio1').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		let wednesday_from_time_value = $('.wednesday_from_time').val(fromTime);
-		let wednesday_to_time_value = $('.wednesday_to_time').val(fromTime);
-	}
-});
-$('#wednesday_radio2').click(function() {
-	if ($('#wednesday_radio2').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		$('.wednesday_from_time').val('');
-		$('.wednesday_to_time').val('');
-	}
-});
+		$('#friday_radio1').click(function() {
+			if ($('#friday_radio1').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				let friday_from_time_value = $('.friday_from_time').val(fromTime);
+				let friday_to_time_value = $('.friday_to_time').val(fromTime);
 
-$('#thursday_radio1').click(function() {
-	if ($('#thursday_radio1').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		let thursday_from_time_value = $('.thursday_from_time').val(fromTime);
-		let thursday_to_time_value = $('.thursday_to_time').val(fromTime);
-	}
-});
-$('#thursday_radio2').click(function() {
-	if ($('#thursday_radio2').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		$('.thursday_from_time').val('');
-		$('.thursday_to_time').val('');
-	}
-});
+			}
+		});
+		$('#friday_radio2').click(function() {
+			if ($('#friday_radio2').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				$('.friday_from_time').val('');
+				$('.friday_to_time').val('');
+			}
+		});
 
-$('#friday_radio1').click(function() {
-	if ($('#friday_radio1').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		let friday_from_time_value = $('.friday_from_time').val(fromTime);
-		let friday_to_time_value = $('.friday_to_time').val(fromTime);
+		$('#saturday_radio1').click(function() {
+			if ($('#saturday_radio1').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				let saturday_from_time_value = $('.saturday_from_time').val(fromTime);
+				let saturday_to_time_value = $('.saturday_to_time').val(fromTime);
 
-	}
-});
-$('#friday_radio2').click(function() {
-	if ($('#friday_radio2').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		$('.friday_from_time').val('');
-		$('.friday_to_time').val('');
-	}
-});
+			}
+		});
+		$('#saturday_radio2').click(function() {
+			if ($('#saturday_radio2').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				$('.saturday_from_time').val('');
+				$('.saturday_to_time').val('');
+			}
+		});
 
-$('#saturday_radio1').click(function() {
-	if ($('#saturday_radio1').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		let saturday_from_time_value = $('.saturday_from_time').val(fromTime);
-		let saturday_to_time_value = $('.saturday_to_time').val(fromTime);
-
-	}
-});
-$('#saturday_radio2').click(function() {
-	if ($('#saturday_radio2').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		$('.saturday_from_time').val('');
-		$('.saturday_to_time').val('');
-	}
-});
-
-$('#sunday_radio1').click(function() {
-	if ($('#sunday_radio1').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		let sunday_from_time_value = $('.sunday_from_time').val(fromTime);
-		let sunday_to_time_value = $('.sunday_to_time').val(fromTime);
-	}
-});
-$('#sunday_radio2').click(function() {
-	if ($('#sunday_radio2').is(':checked')) {
-		let dt = new Date();
-		let h = dt.getHours();
-		let m = dt.getMinutes();
-		if(h < 10) {h = '0' + h}; 
-		if(m < 10) {m = '0' + m}; 
-		let fromTime = h + ":" + m;
-		$('.sunday_from_time').val('');
-		$('.sunday_to_time').val('');
-	}
-});
+		$('#sunday_radio1').click(function() {
+			if ($('#sunday_radio1').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				let sunday_from_time_value = $('.sunday_from_time').val(fromTime);
+				let sunday_to_time_value = $('.sunday_to_time').val(fromTime);
+			}
+		});
+		$('#sunday_radio2').click(function() {
+			if ($('#sunday_radio2').is(':checked')) {
+				let dt = new Date();
+				let h = dt.getHours();
+				let m = dt.getMinutes();
+				if(h < 10) {h = '0' + h}; 
+				if(m < 10) {m = '0' + m}; 
+				let fromTime = h + ":" + m;
+				$('.sunday_from_time').val('');
+				$('.sunday_to_time').val('');
+			}
+		});
 
 	/*
 	* Save working hours for property
@@ -1609,9 +1679,13 @@ $('#sunday_radio2').click(function() {
 	* Save price for property
 	*/
 	$('#cleaning_feeRadio1').click(function() {
+		$('#cleaning_feeRadio1').prop("checked", true);
 		if ($('#cleaning_feeRadio1').is(':checked')) {
 			let cleaning_fee = $('input[name=cleaning_fee]').val('0');
 		}
+	});
+	$('input[name=cleaning_fee]').change(function() {
+		$('#cleaning_feeRadio2').prop("checked", true);
 	});
 	$('.site_primary_step_btn_priceing').click(function(e) {
 		e.preventDefault();
