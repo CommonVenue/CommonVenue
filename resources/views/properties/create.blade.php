@@ -553,7 +553,7 @@
 								<ul class="site_cancellation_list list-unstyled pl-2">
 									<li>
 										<div class="form-check">
-											<input class="form-check-input canceling_flexible" type="checkbox" name="canceling_flexible">
+											<input class="form-check-input canceling_flexible" type="checkbox" name="canceling_flexible" value="0">
 											<label class="form-check-label" for="defaultCheck2">
 												<strong>Flexible</strong>
 												<p>Guests may cancel their Booking until 7 days before the event start time and will receive a full refund
@@ -1587,14 +1587,15 @@
 	$('.site_primary_step_btn_flexible').click(function(e) {
 		e.preventDefault();
 		let property = property_id;
-		let canceling_flexible = $('input[name=canceling_flexible]').is(':checked');
-
-		if (canceling_flexible == true) {
-			canceling_flexible = 1;
-		}else{
-			canceling_flexible = 0;
-		}
-
+		let canceling_flexible;
+		console.log($(".canceling_flexible").is(':checked'))
+		if($(".canceling_flexible").is(':checked') == true) {
+	    	canceling_flexible = 1;
+			console.log(canceling_flexible)
+	    }else{
+	    	canceling_flexible = 0;
+			console.log(canceling_flexible)
+	    }
 		$.ajax({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

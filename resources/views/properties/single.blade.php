@@ -41,15 +41,15 @@
 <section class="site_section_wrapper py-0">
 	<div class="container-fluid px-0">
 		<div class="row no-gutters">
-			@foreach($images as $image)
 			<div class="site_sticky_col col-lg-6">
 				<div class="site_venue_space_carousel owl-carousel owl-theme">
-					<div class="item">
-						<img src="{{ url('storage/images/'.$image->url) }}" class="img-fluid w-100" alt="">
-					</div>
+					@foreach($images as $image)
+						<div class="item">
+							<img src="{{ url('storage/images/'.$image->url) }}" class="img-fluid w-100" alt="">
+						</div>
+					@endforeach
 				</div>
 			</div>
-			@endforeach
 			<div class="col-lg-6">
 				<div class="site_venue_space_detail_content">
 					<h1 class="site_venue_space_detail_title">{{ $property->name }}</h1>
@@ -65,14 +65,14 @@
 										<i class="fas fa-star"></i>
 										<i class="fas fa-star site_light_color"></i>
 										<span class="site_venue_rewiews">212 reviews</span>
-									</div>					  
+									</div>
 								</li>
 								<li class="list-inline-item">
 									<i class="fas fa-user-friends mr-1"></i> 22
-								</li>	
+								</li>
 								<li class="list-inline-item">
 									<i class="far fa-clock mr-1"></i> 1hr
-								</li>	
+								</li>
 							</ul>
 						</div>
 						<div class="site_venue_space_detail_favorite_col col-lg-3">

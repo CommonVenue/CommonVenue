@@ -77,6 +77,11 @@ class UpdateRequest extends FormRequest
         if ($this->contact_person_id) {
             $data['contact_person_id'] = $this->contact_person_id;
         }
+        
+        $data['property_id'] = $this->property_id;
+        if(isset($this->all()['canceling_flexible']) && !isset($data['canceling_flexible'])){
+            $data['canceling_flexible'] = "0";
+        }
 
         return $data;
     }

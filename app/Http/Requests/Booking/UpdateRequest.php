@@ -24,10 +24,10 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'date'=>'required',
-            'from_date'=>'required',
-            'to_date'=>'required',
-            'property_id'=>'required',
+            'date' => 'required',
+            'from_date' => 'required',
+            'to_date' => 'required',
+            'property_id' => 'required',
         ];
     }
 
