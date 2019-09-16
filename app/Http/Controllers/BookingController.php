@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\PropertyImage;
 use App\Models\Property;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Booking\StoreRequest;
 use App\Http\Requests\Booking\UpdateRequest;
@@ -19,7 +21,7 @@ class BookingController extends Controller
     {
         $bookings = Booking::with('property')->where('user_id', auth()->id())->get();
 
-        return view('booking.index', [ 'bookings' => $bookings ]);
+        return view('booking.index', ['bookings' => $bookings]);
     }
     /**
      * Display a listing of the resource.
@@ -29,7 +31,10 @@ class BookingController extends Controller
     public function property_bookings(Property $property)
     {
         $bookings = Booking::where('property_id', $property->id)->get();
-        return view('booking.property-bookings', [ 'bookings' => $bookings ,'property' => $property]);
+        return view('booking.property-bookings', [
+            'bookings' => $bookings,
+            'property' => $property
+        ]);
     }
 
     /**
@@ -40,8 +45,15 @@ class BookingController extends Controller
     public function create(Property $property)
     {
         $booking = Booking::where('property_id', $property->id)->get();
+        $propertyImage = PropertyImage::where('property_id', $property->id)->get();
+        $categories = Category::all();
         
-        return view('booking.create', [ 'booking' => $booking ,'property' => $property ]);
+        return view('booking.create', [
+            'booking' => $booking,
+            'property' => $property,
+            'categories' => $categories,
+            'propertyImage' => $propertyImage
+        ]);
     }
 
     /**
@@ -68,7 +80,10 @@ class BookingController extends Controller
      */
     public function show(Property $property, Booking $booking)
     {
-        return view('booking.show', [ 'booking' => $booking ,'property' => $property ]);
+        return view('booking.show', [
+            'booking' => $booking,
+            'property' => $property
+        ]);
     }
 
     /**
@@ -79,7 +94,10 @@ class BookingController extends Controller
      */
     public function edit(Property $property, Booking $booking)
     {
-        return view('booking.edit', [ 'booking' => $booking ,'property' => $property ]);
+        return view('booking.edit', [
+            'booking' => $booking,
+            'property' => $property
+        ]);
     }
 
     /**
@@ -93,7 +111,10 @@ class BookingController extends Controller
     {
         try {
             $booking->update($request->params());
-            return view('booking.show', [ 'booking' => $booking ,'property' => $property ]);
+            return view('booking.show', [
+                'booking' => $booking,
+                'property' => $property
+            ]);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

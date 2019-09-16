@@ -11,7 +11,11 @@
 						<h5 class="site_booking_detail_subtitle mb-0">{{ $property->name }}</h5>
 					</div>
 					<div class="col-lg-12 my-3">
-						<div class="site_booking_thumbnail"><img src="{{ asset('/images/'.$property->image) }}" class="img-fluid w-100" alt=""></div>
+						<div class="site_booking_thumbnail">
+							@foreach($propertyImage as $image)
+							<img src="{{ Storage::url('/images/'.$image->url) }}" class="img-fluid w-100" alt="">
+							@endforeach
+						</div>
 					</div>
 					<div class="col-lg-10 mx-auto">
 						<h4 class="site_booking_detail_date_title">Date & Time</h4>
@@ -97,7 +101,11 @@
 					<div class="row mb-5">
 						<div class="col-lg-12"><h4 class="site_booking_activit_title mb-4">2. What are you planning?</h4></div>
 						<div class="col-lg-5">
-							<input type="tetxt" class="form-control border-0 rounded-0 border-light" placeholder="Meeting, Workshop, Retreat...">
+							<select class="form-control border-0 rounded-0 border-light" name="" id="">
+								@foreach($categories as $category)
+									<option value="{{ $category->id }}">{{ $category->name }}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="row"> 
@@ -121,7 +129,7 @@
 					<div class="row mb-4">
 						<div class="col-lg-6">
 							<label>How many people will attend?</label>
-							<input type="text" class="form-control border-0 rounded-0 border-light" placeholder="Max capacity is 25">
+							<input type="text" class="form-control border-0 rounded-0 border-light" placeholder="Max capacity is {{$property->capacity}}">
 						</div>
 					</div>
 					<div class="row mb-4">

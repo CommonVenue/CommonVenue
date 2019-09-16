@@ -13,11 +13,11 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" href="{{ route('properties') }}">Find A Venue</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('properties.create') }}">List A Venue</a></li>		  
+        <li class="nav-item"><a class="nav-link" href="{{ route('properties.create') }}">List A Venue</a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="signin.html">Inbox</a></li>		  
-        <li class="nav-item"><a class="nav-link" href="signup.html">Bookings</a></li>
+        <li class="nav-item"><a class="nav-link" href="signin.html">Inbox</a></li>
+        <li class="nav-item"><a class="nav-link" href="/bookings">Bookings</a></li>
 		    <li class="nav-item site_user_dropdown_li dropdown">
           <a class="nav-link site_user_dropdown dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="site_user_circle"><i class="far fa-user"></i></div>
@@ -30,7 +30,7 @@
             <a class="dropdown-item" href="#">Add a space</a>
             <a class="dropdown-item" href="/logout">Logout</a>
           </div>
-        </li>		  
+        </li>
       </ul>
     </div>
   </div>
@@ -58,5 +58,5 @@
     </div>
   </div>
 </nav>
-<!-- Header end --> 
+<!-- Header end -->
 @endif

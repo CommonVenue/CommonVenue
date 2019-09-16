@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4301dfd1ad5d56cf558b3adc6a95f787",
+    "content-hash": "612cb2bb626b56233a105c46ec01c103",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -1722,16 +1722,16 @@
         },
         {
             "name": "laravel/cashier",
-            "version": "v10.2.0",
+            "version": "v10.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/cashier.git",
-                "reference": "f0b5bf36323422d811b95a9881c3d97c85ddeb84"
+                "reference": "e9048ec79f0952679b919956e36f0856d45370a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier/zipball/f0b5bf36323422d811b95a9881c3d97c85ddeb84",
-                "reference": "f0b5bf36323422d811b95a9881c3d97c85ddeb84",
+                "url": "https://api.github.com/repos/laravel/cashier/zipball/e9048ec79f0952679b919956e36f0856d45370a8",
+                "reference": "e9048ec79f0952679b919956e36f0856d45370a8",
                 "shasum": ""
             },
             "require": {
@@ -1791,7 +1791,7 @@
                 "laravel",
                 "stripe"
             ],
-            "time": "2019-09-03T19:00:40+00:00"
+            "time": "2019-09-10T19:46:13+00:00"
         },
         {
             "name": "laravel/framework",

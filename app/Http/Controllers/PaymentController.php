@@ -22,7 +22,6 @@ class PaymentController extends Controller
             Stripe::setApiKey(env('STRIPE_SECRET'));
 
             $token = $request->get('stripe_token');
-
             $customer = Customer::create([
                 'email' => $request->stripeEmail,
                 'source' => $request->stripeToken
