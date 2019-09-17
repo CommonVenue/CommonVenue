@@ -2,6 +2,9 @@
 /public/hot
 /public/storage
 /public/images
+/public/css
+/public/js
+/public/mix-manifest.json
 /storage/images
 /storage/*.key
 /vendor
@@ -12,3 +15,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+composer.lock

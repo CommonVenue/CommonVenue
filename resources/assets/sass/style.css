@@ -128,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: left;
 }
 
-.site_booking_dropdown 
+.site_booking_dropdown
 {
 	min-width: 7rem;
 	padding: 0px;
@@ -1079,24 +1079,46 @@ h1, h2, h3, h4, h5, h6 {
 		border-color: #C0C0BF;
 		color: #1E76BC;
 	}
-	.site_venue_space_carousel {
-		position: relative;
+	.site_venue_space_swiper_img {
+		width: 100%;
+		height: calc(100vh - 105px);
+		object-fit: cover;
 	}
-	.site_venue_space_carousel .owl-nav {
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		margin-right: 20px;
+	.site_venue_space_swiper .swiper-button-next,
+	.site_venue_space_swiper .swiper-button-prev {
+		background-image: none;
+		outline: none;
+		width: auto;
+		height: auto;
+		top: auto;
+		bottom: 30px;
 	}
-	.site_venue_space_carousel .owl-nav button.owl-next, .site_venue_space_carousel .owl-nav button.owl-prev {
-		font-size: 50px;
-		color: #fff;
-		margin: 10px;
-		outline: none !important;
+	.site_venue_space_swiper .swiper-button-next {
+		right: 40px;
 	}
-	.site_venue_space_carousel .owl-nav button.owl-next:hover, .site_venue_space_carousel .owl-nav button.owl-prev:hover {
-		background-color: transparent;
-		outline: none !important;
+	.site_venue_space_swiper .swiper-button-prev {
+		right: 60px;
+		left: auto;
+	}
+	.site_venue_space_swiper .arrow {
+		font-size: 20px;
+		color: white;
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-top: 1px solid white;
+		border-left: 1px solid white;
+		transition: all 250ms ease-in-out;
+	}
+	.site_venue_space_swiper .arrow.next {
+	  transform: rotate(135deg);
+	}
+	.site_venue_space_swiper .arrow.prev {
+	  transform: rotate(-45deg);
+	}
+	.site_venue_space_scroll_bar {
+		height: calc(100vh - 330px);
+		overflow-y: scroll;
 	}
 	.site_venue_space_detail_content {
 		padding: 40px;
@@ -1349,7 +1371,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	.site_form_heading_subtitle
 	{
-		font-family: SFProTextSemibold;	
+		font-family: SFProTextSemibold;
 		letter-spacing: 2px;
 		color: #323643;
 	}
@@ -1372,7 +1394,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	.site_give_list
 	{
-		font-family: SFProTextSemibold;		
+		font-family: SFProTextSemibold;
 
 		color: #323643;
 	}
@@ -1384,7 +1406,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	.seprotext
 	{
-		font-family: SFProTextSemibold;		
+		font-family: SFProTextSemibold;
 	}
 
 	.site_ls_2x
@@ -1454,7 +1476,7 @@ h1, h2, h3, h4, h5, h6 {
 		height: 24px;
 	}
 
-	.switch input { 
+	.switch input {
 		opacity: 0;
 		width: 0;
 		height: 0;
@@ -1556,7 +1578,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	.site_hours_row_border
 	{
-		padding: 20px 0; 
+		padding: 20px 0;
 		border-bottom: solid 1px #bebebe;
 	}
 
@@ -1567,7 +1589,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	.site_70percent_row_border
 	{
-		padding: 20px 0; 
+		padding: 20px 0;
 		border-bottom: solid 1px #bebebe;
 	}
 
@@ -1626,7 +1648,7 @@ h1, h2, h3, h4, h5, h6 {
 	{
 		padding: 10px;
 		transform: scale(2);
-		
+
 	}
 
 	.site_cancellation_list .form-check-label
@@ -1696,14 +1718,14 @@ h1, h2, h3, h4, h5, h6 {
 
 	.site_profile_check_list .list-inline-item:not(:last-child)
 	{
-		margin-right: 1rem;		
+		margin-right: 1rem;
 	}
 
 	.site_activites_box
 	{
 		background-color: #fff;
 		padding: 30px;
-		
+
 	}
 
 	.site_activites_price_title
@@ -1720,7 +1742,7 @@ h1, h2, h3, h4, h5, h6 {
 		border-radius: 0px;
 		border-color: #3DA2CF;
 		color: #fff;
-		
+
 	}
 
 	.site_activites_box .form-control
@@ -1805,8 +1827,8 @@ h1, h2, h3, h4, h5, h6 {
 		padding: 1.2rem .75rem;
 		font-size: 12px;
 		vertical-align: middle;
-		
-		
+
+
 	}
 
 	.site_search_venue_thumb
@@ -1823,7 +1845,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	.site_search_venue_title strong
 	{
-		
+
 		font-size: 14px;
 		color: #393C40;
 	}
@@ -1947,7 +1969,7 @@ h1, h2, h3, h4, h5, h6 {
 		text-align: center;
 		border-bottom: solid 1px #707070;
 		color: #8A8C8E;
-		font-size: 16px;	
+		font-size: 16px;
 	}
 
 	.site_views_active_list span
@@ -1956,7 +1978,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 
 	.site_select_category_title
-	{	
+	{
 		font-family: Acumin Pro Regular;
 	}
 
@@ -1982,7 +2004,7 @@ h1, h2, h3, h4, h5, h6 {
 		margin-bottom: 10px;
 		-webkit-box-shadow: 0px 0px 5px 0px rgba(196,188,196,1);
 		-moz-box-shadow: 0px 0px 5px 0px rgba(196,188,196,1);
-		box-shadow: 0px 0px 5px 0px rgba(196,188,196,1);	
+		box-shadow: 0px 0px 5px 0px rgba(196,188,196,1);
 	}
 
 	.site_select_catgory_list p
@@ -1992,7 +2014,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	.site_mylist_edit_card
 	{
-		
+
 	}
 
 	.site_mylist_edit_card label
@@ -2020,7 +2042,7 @@ h1, h2, h3, h4, h5, h6 {
 	.site_credit_card_text , .site_common_venue_text , .site_common_venue_text
 	{
 		color: #A4A4A4;
-		
+
 	}
 
 	.site_reviews_list
@@ -2050,7 +2072,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 
 
-	.site_reviews_username 
+	.site_reviews_username
 	{
 		font-size: 18px;
 		color: #183882;
@@ -2063,7 +2085,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	.site_booking_request_box
 	{
-		
+
 
 		border: solid 1px #A4A4A4;
 	}
@@ -2116,13 +2138,13 @@ h1, h2, h3, h4, h5, h6 {
 
 	.site_booking_request_date_time
 	{
-		font-family: Acumin Pro Regular;	
+		font-family: Acumin Pro Regular;
 	}
 
 	.site_booking_request_date_time li:first-child , .site_booking_request_date_time li:last-child
 	{
 		width: 17%;
-		
+
 	}
 
 	.site_booking_request_date_time span
@@ -2188,12 +2210,12 @@ h1, h2, h3, h4, h5, h6 {
 			height: auto;
 			padding: 50px 0;
 		}
-		
+
 		.site_left_right_border:before ,  .site_left_right_border:after
 		{
 			display: none;
 		}
-		
+
 		.site_choosehow_box {
 			margin: auto;
 		}
@@ -2203,13 +2225,13 @@ h1, h2, h3, h4, h5, h6 {
 		.modal-body {
 			padding: 1rem 2rem;
 		}
-		
+
 		.site_all_read_title
 		{
 			text-align: center;
 		}
-		
-		
+
+
 		.site_section_img_box img
 		{
 			width: 100%;
@@ -2221,12 +2243,12 @@ h1, h2, h3, h4, h5, h6 {
 			margin: 25px 0;
 			text-align: center;
 		}
-		
+
 		.site_search_wrap {
 			padding-left: 13px;
 		}
-		
-		
+
+
 		.site_chat_view_box {
 			padding: 30px;
 			height: auto;
@@ -2237,101 +2259,101 @@ h1, h2, h3, h4, h5, h6 {
 			position: relative;
 			width: auto;
 		}
-		
+
 		.site_chat_editor
 		{
 			margin: auto;
 		}
-		
+
 		.site_sticky_col_booking
 		{
 			position: relative;
 			top:0px;
 			padding: 40px !important;
 		}
-		
+
 		.site_pagination_nav
 		{
 			justify-content: center;
 		}
-		
+
 		.site_join_title
 		{
 			text-align: center;
 		}
-		
+
 		.site_fullheight_wrapper {
 			height: auto;
 		}
-		
+
 		.site_login_content , .site_login_wrapper
 		{
 			padding: 30px;
 		}
-		
+
 		.site_alerady_account_wrap {
 			position: relative;
 			top: 0px;
 			margin-bottom: 30px;
 		}
-		
-		
+
+
 		.site_login_content_subtitle > br
 		{
 			display: none;
-			
+
 		}
-		
+
 		.site_sticky_col
 		{
 			position: relative;
 			top: 0;
 		}
-		
+
 		.site_venue_space_detail_col
 		{
 			margin-bottom: 20px;
 		}
-		
+
 		.site_venue_space_detail_favorite
 		{
 			text-align: left;
 			margin-bottom: 20px;
-			
+
 		}
-		
+
 		.site_form_heading_title
 		{
 			font-size: 22px;
 		}
-		
+
 		.site_form_heading_subtitle
 		{
 			font-size: 16px;
 		}
-		
+
 		.site_add_desc_title
 		{
 			font-size: 22px;
 		}
-		
+
 		.site_hours_list .list-inline-item:not(:last-child)
 		{
 			margin-right: 12px !important;
 			margin-bottom: 10px;
 		}
-		
+
 		.site_page_title
 		{
 			text-align: center;
 		}
-		
+
 		.site_filter_btn_list li {
 			margin-right: 0px;
 			width: 100%;
 			margin-bottom: 10px;
 		}
-		
+
 		.site_filter_btn
 		{
 			width: 100%;
@@ -2342,17 +2364,17 @@ h1, h2, h3, h4, h5, h6 {
 		{
 			padding: 0px;
 		}
-		
+
 		.site_booking_request_box
 		{
 			text-align: center;
 		}
-		
+
 		.site_booking_request_thumb {
 			display: block;
 
 		}
-		
+
 		.site_booking_request_desc , .site_booking_request_date_time
 		{
 			margin: 15px 0;
@@ -2445,103 +2467,103 @@ h1, h2, h3, h4, h5, h6 {
 
 		.site_modal_title {
 			font-size: 30px;
-		}	
+		}
 
 		.site_modal_subtitle , .site_modal_about_text
 		{
 			font-size: 16px;
 		}
-		
+
 		.site_no_messages_box
 		{
 			padding: 50px 25px;
 		}
-		
+
 		.site_banner_search_box {
 			padding: 20px;
 		}
-		
+
 		.site_hiw_title
 		{
 			margin-bottom: 0px;
 			font-size: 30px;
 		}
-		
+
 		.site_section_img_box img
 		{
 			width: 100%;
 		}
-		
-		.site_listings_grey_box 
+
+		.site_listings_grey_box
 		{
 			padding: 20px;
 		}
-		
+
 		.site_listings_grey_box_btn
 		{
 			text-align: left;
 		}
-		
+
 		.site_booking_detail_title , .site_venue_space_detail_title
 		{
 			font-size: 30px;
 		}
-		
+
 		.site_booking_activit_title
 		{
 			font-size: 18px;
 		}
-		
+
 		.site_payment_successful_tid
 		{
 			font-size: 26px;
 		}
-		
+
 		.site_login_content_title {
 			font-size: 30px;
 			line-height: inherit;
 		}
-		
-		.site_activities_check_list , .site_profile_check_list 
+
+		.site_activities_check_list , .site_profile_check_list
 		{
 			width: 100%;
 			display:inline-block;
 			margin-bottom: 0px;
 		}
-		
+
 		.site_activities_check_list li , .site_profile_check_list li {
 			width: 45%;
 			float: left;
 			margin-bottom: 10px;
 		}
-		
+
 		.site_reviews_thumb
 		{
 			width: 100%;
 		}
-		
+
 		.site_reviews_list li
 		{
 			display: block;
 			text-align: center;
 		}
-		
-		.site_reviews_username 
+
+		.site_reviews_username
 		{
 			margin-bottom: 10px;
 		}
-		
+
 		.site_reviews_list li p
 		{
 			font-size: 14px;
 		}
-		
+
 		.site_reply_btn
 		{
 			text-align: center;
 			margin-top: 20px;
 		}
-		
+
 		.site_page_title
 		{
 			font-size: 30px;
@@ -2551,60 +2573,60 @@ h1, h2, h3, h4, h5, h6 {
 		{
 			text-align: center;
 		}
-		
+
 		.site_select_photo_list
 		{
 			text-align: center;
 			margin-bottom: 30px;
 		}
-		
+
 		.site_select_category_title
 		{
 			text-align: center;
 		}
-		
+
 		.site_detail_title
 		{
 			text-align: center;
 			font-size: 30px;
 		}
-		
+
 		.site_add_images_list li
 		{
 			margin-bottom: 10px;
-			
+
 		}
-		
+
 		.site_add_images_list img {
 			width: 90px;
 		}
-		
+
 		.site_mylist_title
 		{
 			font-size: 30px;
 			margin-bottom: 20px !important;
 		}
-		
+
 		.site_search_venue_thumb {
 			float: none;
 			margin: auto;
 			width: 50px;
 		}
-		
+
 		.site_search_venue_title {
 			margin: 10px 0;
 		}
-		
+
 		.site_search_venue_title strong , .site_mylist_created_date
 		{
 			font-size: 12px;
 		}
-		
+
 		.site_booking_request_date_time li:first-child, .site_booking_request_date_time li:last-child {
 			width: 30%;
 		}
-		
-		
+
+
 	}
 
 
@@ -2617,13 +2639,13 @@ h1, h2, h3, h4, h5, h6 {
 	.modal{
 		background: rgba(255, 255, 255, 0.7);
 		border:none;
-		
-		
+
+
 	}
 	.intro{
 		filter: blur(8px);
 		-webkit-filter: blur(8px);
-		
+
 	}
 	.modal-content {
 		padding: 26px;
@@ -2694,7 +2716,7 @@ h1, h2, h3, h4, h5, h6 {
 	.top-row{
 		padding: 20px;
 		margin-bottom: 20px;
-	}    
+	}
 	.img-info {
 		padding-left: 30px;
 	}
@@ -2716,8 +2738,8 @@ h1, h2, h3, h4, h5, h6 {
 	.site-profile span{
 
 		font-size: 17px;
-		
-		
+
+
 
 	}
 	.site_booking_request_box_1{
@@ -2725,7 +2747,7 @@ h1, h2, h3, h4, h5, h6 {
 		/*    padding: 10px;*/
 	}
 	.review_1{
-		
+
 		padding: 40px;
 	}
 
@@ -2761,7 +2783,7 @@ h1, h2, h3, h4, h5, h6 {
 		margin-top: 13px;
 		letter-spacing: 1.5px;
 		text-align: left;
-		
+
 	}
 	.review-date {
 		position: absolute;
@@ -2783,16 +2805,16 @@ h1, h2, h3, h4, h5, h6 {
 			margin-top: -44px;
 		}
 		.rating {
-			
+
 			top: 83%;}
-			
+
 			.second-title {
 				position: absolute;
 				top: 20%;
 				left: 33%;
 			}
 			.review-date {
-				
+
 				top: 27%;
 				left: 33%;
 			}
