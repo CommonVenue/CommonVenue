@@ -18,7 +18,11 @@ class Booking extends Model
         'to_date',
         'total_price',
         'payment_id',
-        'date'
+        'date',
+        'category_id',
+        'capacity',
+        'adult',
+        'message'
     ];
 
     /**
@@ -35,5 +39,13 @@ class Booking extends Model
     public function property()
     {
         return $this->belongsTo(Property::class);
+    }
+
+    /**
+     * Get the booking that owns the category.
+     */
+    public function category()
+    {
+        return $this->hasOne(Catgeory::class);
     }
 }

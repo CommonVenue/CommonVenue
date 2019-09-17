@@ -9,7 +9,7 @@ class Property extends Model
 {
     use Favoriteable;
 
-	protected $with = ['address'];
+	protected $with = ['address','category','working_hours'];
 
     /**
      * The attributes that are mass assignable.

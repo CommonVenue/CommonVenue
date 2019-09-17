@@ -27,24 +27,30 @@ class StoreRequest extends FormRequest
             'date' => 'required',
             'from_date' => 'required',
             'to_date' => 'required',
-            'property_id' => 'required',
+            'total_price' => 'required',
+            'payment_id' => 'required',
+            'category_id' => 'required',
+            'capacity' => 'required',
+            'adult' => 'required',
+            'property_id' => 'required'
         ];
     }
 
-    public function params()
-    {
-        $data = [
-            'date' => $this->date,
-            'from_date' => $this->from_date,
-            'to_date' => $this->to_date,
-            'property_id' => $this->property_id,
-            'total_price' => $this->total_price,
-            'user_id' => auth()->id(),
-        ];
+    // public function params()
+    // {
+    //     dd($this->all());
+    //     $data = [
+    //         'date' => $this->date,
+    //         'from_date' => $this->from_date,
+    //         'to_date' => $this->to_date,
+    //         'property_id' => $this->property_id,
+    //         'total_price' => $this->total_price,
+    //         'user_id' => auth()->id(),
+    //     ];
 
-        if ($this->payment_id) {
-            $data['payment_id'] = $this->payment_id;
-        }
-        return $data;
-    }
+    //     if ($this->payment_id) {
+    //         $data['payment_id'] = $this->payment_id;
+    //     }
+    //     return $data;
+    // }
 }

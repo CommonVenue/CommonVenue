@@ -6,6 +6,11 @@ use App\Models\Booking;
 use App\Models\PropertyImage;
 use App\Models\Property;
 use App\Models\Category;
+use App\Models\User;
+use App\Models\ContactPerson;
+use Stripe\Stripe;
+use Stripe\Customer;
+use Stripe\Charge;
 use Illuminate\Http\Request;
 use App\Http\Requests\Booking\StoreRequest;
 use App\Http\Requests\Booking\UpdateRequest;
@@ -46,13 +51,13 @@ class BookingController extends Controller
     {
         $booking = Booking::where('property_id', $property->id)->get();
         $propertyImage = PropertyImage::where('property_id', $property->id)->get();
-        $categories = Category::all();
-        
+        $contactPerson = ContactPerson::where('id', $property->contact_person_id)->first();
+
         return view('booking.create', [
             'booking' => $booking,
             'property' => $property,
-            'categories' => $categories,
-            'propertyImage' => $propertyImage
+            'propertyImage' => $propertyImage,
+            'contactPerson' => $contactPerson
         ]);
     }
 
@@ -62,11 +67,29 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request, Property $property)
+    public function store(Request $request, Property $property)
     {
         try {
-            $booking = Booking::create($request->params());
-            return redirect()->route('bookings');
+            $stripeSecret = Stripe::setApiKey('sk_test_EyPHobPO1Q0avvf51K0ugfIp00GOvMgQQA');
+            $token = $request->get('stripeToken');
+
+            $customer = Customer::create([
+                'email' => $request->stripeEmail,
+                'source' => $request->stripeToken
+            ]);
+            $charge = Charge::create([
+                'customer' => $customer->id,
+                'amount' => $request->total_price,
+                'currency' => 'usd',
+                'description' => $request->message,
+            ]);
+
+            try {
+                $booking = Booking::create($request->all());
+                return redirect()->route('bookings');
+            } catch (\Exception $ex) {
+                return $ex->getMessage();
+            }
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

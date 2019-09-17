@@ -19,20 +19,20 @@ class PaymentController extends Controller
     public function payment(Request $request)
     {
         try {
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+            $stripeSecret = Stripe::setApiKey('sk_test_EyPHobPO1Q0avvf51K0ugfIp00GOvMgQQA');
+            $token = $request->get('stripeToken');
 
-            $token = $request->get('stripe_token');
             $customer = Customer::create([
                 'email' => $request->stripeEmail,
                 'source' => $request->stripeToken
             ]);
-
+            // dd($request->all());
             $charge = Charge::create([
                 'customer' => $customer->id,
                 'amount' => 1*1000,
                 'currency' => 'usd',
                 'description' => 'Example charge',
-                'source' => $token,
+                // 'source' => $token,
             ]);
 
             /*// Create a Transfer to a connected account (later):
@@ -44,7 +44,7 @@ class PaymentController extends Controller
             ]);*/
 
             session()->flash('success', 'Payment Successful');
-            return redirect()->route('make:payment');
+            // return redirect()->route('make:payment');
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

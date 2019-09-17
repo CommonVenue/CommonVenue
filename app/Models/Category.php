@@ -17,4 +17,13 @@ class Category extends Model
     {
         return $this->hasMany(Property::class);
     }
+
+
+    /**
+     * Get the booking that owns the category.
+     */
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
+    }
 }
