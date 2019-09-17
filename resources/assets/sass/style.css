@@ -1080,6 +1080,7 @@ h1, h2, h3, h4, h5, h6 {
 		color: #1E76BC;
 	}
 	.site_venue_space_swiper_img {
+		width: 100%;
 		height: calc(100vh - 105px);
 		object-fit: cover;
 	}
