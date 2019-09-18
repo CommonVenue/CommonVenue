@@ -46,6 +46,6 @@ class Booking extends Model
      */
     public function category()
     {
-        return $this->hasOne(Catgeory::class);
+        return $this->hasOne(PropertyCatgeory::class);
     }
 }

@@ -597,8 +597,8 @@
 									<div class="form-check">
 										<button type="button" class="btn btn-primary1">
 											<label class="form-check-label" for="{{ $category->id}}">
-												<img src="/images/{{ $category->image}}" class="img-fluid property_image" alt="" data-id="{{ $category->id}}">
-												<input class="hidden" type="radio" id="{{ $category->id}}" name="category_id" value="{{ $category->id}}">
+												<img src="/images/{{ $category->image}}" class="img-fluid property_image property_image_{{ $category->id}}" alt="" data-id="{{ $category->id}}" data-name="{{ $category->name}}">
+												<input class="category-{{$category->id}}" type="checkbox" id="{{ $category->id }}" name="category_id" value="{{ $category->id}}">
 												{{$category->name}}
 											</label>
 										</button>
@@ -1588,13 +1588,11 @@
 		e.preventDefault();
 		let property = property_id;
 		let canceling_flexible;
-		console.log($(".canceling_flexible").is(':checked'))
+
 		if($(".canceling_flexible").is(':checked') == true) {
 	    	canceling_flexible = 1;
-			console.log(canceling_flexible)
 	    }else{
 	    	canceling_flexible = 0;
-			console.log(canceling_flexible)
 	    }
 		$.ajax({
 			headers: {
@@ -1602,7 +1600,6 @@
 			},
 			type: "PUT",
 			url: "/properties/"+property_id,
-			// dataType: "JSON",
 			data:{
 				"_token": "{{ csrf_token() }}",
 				canceling_flexible:canceling_flexible,
@@ -1632,26 +1629,46 @@
 	* Save category for property
 	*/
 	let category_id;
+	let category_name;
+	let categories = [];
 
 	$('.property_image').click(function(){
 		category_id = $(this).attr("data-id")
+		category_name = $(this).attr("data-name")
+
+		if (!$('.category-'+category_id).is(':checked')) {
+			let category = {
+				'category_id': category_id,
+				'property_id': property_id,
+				'name': category_name
+			};
+
+			categories.push(category);
+		}else if ($('.category-'+category_id).is(':checked')) {
+			function findWithAttr(array, attr, value) {
+			    for(var i = 0; i < array.length; i += 1) {
+			        if(array[i][attr] === value) {
+			        	array.splice(i, 1);
+			        }
+			    }
+			}
+			findWithAttr(categories, 'category_id', category_id);
+		}
 	});
 	$('.site_primary_step_btn_category').click(function(e) {
 		e.preventDefault();
-		let property = property_id;
-		if (category_id !== undefined) {
+
+		var dataObject = {data: categories};
+
+		
+		if(dataObject.data != 0) {
 			$.ajax({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				},
-				type: "PUT",
-				url: "/properties/"+property_id,
-				dataType: "JSON",
-				data:{
-					"_token": "{{ csrf_token() }}",
-					category_id:category_id,
-					property_id:property,
-				},
+				type: "POST",
+				url: "{{ url('/property/categories/store') }}",
+				data:dataObject,
 				success: function(res) {
 					$('#validation-msg').html('');
 					form_count_form = $('.site_primary_step_btn_category').parent();
@@ -1672,7 +1689,7 @@
 			});
 		}else{
 			$('#validation-msg').html('');
-			$('#validation-msg').append('<div class="alert alert-danger">Please select activity</div');
+			$('#validation-msg').append('<div class="alert alert-danger">Please select some categories </div');
 		}
 	});
 

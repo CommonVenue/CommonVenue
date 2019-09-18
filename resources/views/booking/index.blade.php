@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-
 <section class="site_section_wrapper py-0">
 	<div class="container-fluid px-0">
 		<div class="row no-gutters">
@@ -9,7 +8,9 @@
 			<div class="site_sticky_col col-lg-6">
 				<div class="site_venue_space_carousel owl-carousel owl-theme">
 					<div class="item">
-						<img src="{{ asset('/images/'.$booking->property->image) }}" class="img-fluid w-100" alt="">
+						@foreach($booking->property->images as $image)
+							<img src="{{ Storage::url('/images/'.$image->url) }}" class="img-fluid w-100" alt="">
+						@endforeach
 					</div>
 				</div>
 			</div>

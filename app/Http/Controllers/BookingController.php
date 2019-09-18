@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\PropertyImage;
+use App\Models\PropertyCategory;
 use App\Models\Property;
-use App\Models\Category;
 use App\Models\User;
 use App\Models\ContactPerson;
 use Stripe\Stripe;
@@ -51,12 +51,14 @@ class BookingController extends Controller
     {
         $booking = Booking::where('property_id', $property->id)->get();
         $propertyImage = PropertyImage::where('property_id', $property->id)->get();
+        $propertyCategories = PropertyCategory::where('property_id', $property->id)->get();
         $contactPerson = ContactPerson::where('id', $property->contact_person_id)->first();
 
         return view('booking.create', [
             'booking' => $booking,
             'property' => $property,
             'propertyImage' => $propertyImage,
+            'propertyCategories' => $propertyCategories,
             'contactPerson' => $contactPerson
         ]);
     }
@@ -83,7 +85,7 @@ class BookingController extends Controller
                 'currency' => 'usd',
                 'description' => $request->message,
             ]);
-
+            
             try {
                 $booking = Booking::create($request->all());
                 return redirect()->route('bookings');

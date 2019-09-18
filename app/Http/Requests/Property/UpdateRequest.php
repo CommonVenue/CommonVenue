@@ -31,7 +31,7 @@ class UpdateRequest extends FormRequest
     public function params()
     {
         $data = [];
-
+        
         if ($this->name) {
             $data['name'] = $this->name;
         }

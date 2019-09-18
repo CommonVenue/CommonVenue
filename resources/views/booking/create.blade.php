@@ -114,13 +114,9 @@
 								</div>
 								<div class="col-lg-5">
 									<select class="form-control border-0 rounded-0 border-light" name="category_id" id="">
-										@if(is_array($property->category))
-											@foreach($property->category as $category)
-												<option value="{{ $category->id }}" name="category_id">{{ $category->name }}</option>
-											@endforeach
-										@else
-											<option value="{{ $property->category->id }}" >{{ $property->category->name }}</option>
-										@endif
+										@foreach($propertyCategories as $category)
+											<option value="{{ $category->id }}" name="category_id">{{ $category->name }}</option>
+										@endforeach
 									</select>
 								</div>
 							</div>
