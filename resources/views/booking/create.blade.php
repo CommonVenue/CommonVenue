@@ -182,29 +182,29 @@
 									<h4 class="site_booking_activit_title mb-4">3. How would you like to pay?</h4>
 								</div>
 								<div class="col-lg-6">
-									<!-- <select class="form-control border-0 border-light">
+									<select class="form-control border-0 border-light">
 										<option>Add Card</option>
-											{{-- <option>{{ $creditCard->card_brand }}</option> --}}
+											<option>
+												<script 
+							                        src = "https://checkout.stripe.com/checkout.js" class="stripe-button" 
+							                        data-key = "{{config ('services.stripe.key')}}" 
+							                        data-name = "Booking" 
+							                        id = "pay" 
+							                        data-amount = ""
+							                        data-description = "Proof of booking" 
+							                        data-image = "https://stripe.com/img/documentation/checkout/marketplace.png" 
+							                        data-locale = "auto">
+							                    </script>
+											</option>
 											<option>Option 2</option>
-									</select> -->
+									</select>
 								</div>
 							</div>
 						<div class="row mb-4">
 							<div class="col-lg-6">
-			                    <script 
-			                        src = " https://checkout.stripe.com/checkout.js " class = "stripe-button" 
-			                        data-key = "{{config ('services.stripe.key')}}" 
-			                        data-name =" Booking " 
-			                        id="pay" 
-			                        data-amount = ""
-			                        data-description =" Proof of booking  " 
-			                        data-image =" https://stripe.com/img/documentation/checkout/marketplace.png " 
-			                        data-locale =" auto ">
-			                    </script>
-			                {{-- </form> --}}
+			                    
 							</div>
 						</div>
-						</form>
 
 						<div class="row"> <div class="col-lg-12"><hr class="my-4"></div></div>				  				  
 						<div class="row"> 
@@ -232,6 +232,7 @@
 								which includes the Community Guidelines, and Cancellation and Refund Policy.</p>
 							</div>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>
