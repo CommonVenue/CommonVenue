@@ -18,13 +18,10 @@ class ContactPersonsController extends Controller
     {
         try {
             $contactPerson = ContactPerson::create($request->params());
-
             return response()->json([
                 'success' => 'Person is successfuly created',
                 'person' => $contactPerson
             ]);
-            
-            // return redirect()->route('properties.show', [ 'id' => $property->id ]);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

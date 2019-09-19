@@ -42,7 +42,10 @@ class PropertiesController extends Controller
         $amenities = Amenity::all();
         Mapper::map(0, 0);
 
-        return view('properties.create',[ 'categories' => $categories, 'amenities' => $amenities]);
+        return view('properties.create', [
+          'categories' => $categories,
+          'amenities' => $amenities
+        ]);
     }
 
     /**
@@ -81,11 +84,24 @@ class PropertiesController extends Controller
         foreach ($reviews as $review) {
             $user = User::where('id', $review->user_id)->first();
             if ($user) {
-                return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'user' => $user ,'amenities' => $amenities, 'owner' => $owner, 'images' => $images]);
+                return view('properties.single', [
+                  'property' => $property,
+                  'reviews' => $reviews,
+                  'user' => $user ,
+                  'amenities' => $amenities,
+                  'owner' => $owner,
+                  'images' => $images
+                ]);
             }
         }
 
-        return view('properties.single', ['property' => $property, 'reviews' => $reviews, 'amenities' => $amenities, 'owner' => $owner, 'images' => $images]);
+        return view('properties.single', [
+          'property' => $property,
+          'reviews' => $reviews,
+          'amenities' => $amenities,
+          'owner' => $owner,
+          'images' => $images
+        ]);
     }
 
     /**
@@ -98,7 +114,10 @@ class PropertiesController extends Controller
     {
         $address = Address::where('id', $property->address_id)->first();
 
-        return view('properties.edit', ['property' => $property, 'address' => $address]);
+        return view('properties.edit', [
+          'property' => $property,
+          'address' => $address
+        ]);
     }
 
     /**

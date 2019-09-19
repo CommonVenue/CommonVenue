@@ -26,7 +26,7 @@ class PaymentController extends Controller
                 'email' => $request->stripeEmail,
                 'source' => $request->stripeToken
             ]);
-            // dd($request->all());
+            
             $charge = Charge::create([
                 'customer' => $customer->id,
                 'amount' => 1*1000,

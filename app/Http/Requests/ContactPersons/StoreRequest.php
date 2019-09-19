@@ -33,17 +33,20 @@ class StoreRequest extends FormRequest
 
     public function params()
     {
-        $data = $this->only(['first_name','last_name', 'contact_number', 'image']);
+        $data = $this->only([
+          'first_name',
+          'last_name',
+          'contact_number',
+          'image'
+        ]);
 
         if ($this->hasFile('image')) {
-
             $image = $this->file('image');
             $name = time().'.'.$image->getClientOriginalExtension();
             $image->move(storage_path('app/public/images'), $name);
-            
             $data['image'] = $name;
         }
-        
+
         return $data;
     }
 }

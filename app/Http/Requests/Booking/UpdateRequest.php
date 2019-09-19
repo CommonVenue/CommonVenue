@@ -30,21 +30,4 @@ class UpdateRequest extends FormRequest
             'property_id' => 'required',
         ];
     }
-
-    public function params()
-    {
-        $data = [
-            'date' => $this->date,
-            'from_date' => $this->from_date,
-            'to_date' => $this->to_date,
-            'property_id' => $this->property_id,
-            'total_price' => $this->total_price,
-            'user_id' => auth()->id(),
-        ];
-
-        if ($this->payment_id) {
-            $data['payment_id'] = $this->payment_id;
-        }
-        return $data;
-    }
 }

@@ -33,17 +33,28 @@ class UpdateRequest extends FormRequest
 
     public function params()
     {
-        $data = $this->only(['first_name','last_name', 'phone_number', 'avatar', 'description','country','postal_code', 'industry', 'job_title', 'organization']);
+        $data = $this->only([
+          'first_name',
+          'last_name',
+          'phone_number',
+          'avatar',
+          'description',
+          'country',
+          'postal_code',
+          'industry',
+          'job_title',
+          'organization'
+        ]);
 
         if ($this->hasFile('avatar')) {
 
             $image = $this->file('avatar');
             $name = time().'.'.$image->getClientOriginalExtension();
             $image->move(storage_path('app/public/images'), $name);
-            
+
             $data['avatar'] = $name;
         }
-        
+
         return $data;
     }
 }

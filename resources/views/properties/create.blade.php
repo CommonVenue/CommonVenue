@@ -38,12 +38,7 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label for="address_address">Map</label>
-											{{-- <input type="text" id="address-input" name="address" class="form-control map-input">
-											<input type="hidden" name="latitude" id="address-latitude"/>
-											<input type="hidden" name="longitude" id="address-longitude"/> --}}
-											<div style="width: 318px; height: 148px;">
-												{!! Mapper::render() !!}
-											</div>
+											<div id="map" style="width: 318px; height: 148px;"></div>
 										</div>
 									</div>
 								</div>
@@ -897,7 +892,8 @@
 		</div>
 	</div>
 </section>
-<!-- Section 1 end --> 
+<!-- Section 1 end -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		let form_count = 1, form_count_form, next_form, total_forms;
@@ -926,6 +922,29 @@
 		}
 		
 		/*
+		* Google API
+		*/
+		let longitude;
+		let latitude;
+		window.onload = function() {
+		    var latlng = new google.maps.LatLng(51.4975941, -0.0803232);
+		    var map = new google.maps.Map(document.getElementById('map'), {
+		        center: latlng,
+		        zoom: 11,
+		        mapTypeId: google.maps.MapTypeId.ROADMAP
+		    });
+		    var marker = new google.maps.Marker({
+		        position: latlng,
+		        map: map,
+		        title: 'Set lat/lon values for this property',
+		        draggable: true
+		    });
+		    google.maps.event.addListener(marker, 'dragend', function(a) {
+		    	latitude = a.latLng.lat().toFixed(4);
+		    	longitude = a.latLng.lng().toFixed(4);
+		    });
+		};
+		/*
 		* Create address for property
 		*/
 		let address_id;
@@ -941,9 +960,7 @@
 			let postal_code = $("input[name=postal_code]").val();
 			let address_1 = $("input[name=address_1]").val();
 			let address_2 = $("input[name=address_2]").val();
-			let longitude = $("input[name=longitude]").val();
-			let latitude = $("input[name=latitude]").val();
-
+			
 			if(createdAddress !== undefined ){
 				$.ajax({
 					headers: {

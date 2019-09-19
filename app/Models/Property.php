@@ -9,7 +9,12 @@ class Property extends Model
 {
     use Favoriteable;
 
-	protected $with = ['address','category','working_hours','images'];
+	protected $with = [
+    'address',
+    'category',
+    'working_hours',
+    'images'
+  ];
 
     /**
      * The attributes that are mass assignable.
@@ -71,7 +76,7 @@ class Property extends Model
     {
         return $this->belongsToMany(Amenity::class);
     }
-    
+
     public function category()
     {
         return $this->belongsTo(Category::class);

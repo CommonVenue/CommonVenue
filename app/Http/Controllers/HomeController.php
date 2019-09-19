@@ -16,8 +16,8 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::all();
-           
-        return view('welcome', [ 'categories' => $categories ]);
+
+        return view('welcome', ['categories' => $categories]);
     }
 
     /**
@@ -29,6 +29,6 @@ class HomeController extends Controller
     {
         $categories = Category::all();
 
-        return view('home', [ 'categories' => $categories ]);
+        return view('home', ['categories' => $categories]);
     }
 }
