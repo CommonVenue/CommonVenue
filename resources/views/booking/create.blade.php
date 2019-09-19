@@ -73,7 +73,7 @@
 				<div class="col-lg-6">
 					<div class="site_venue_space_detail_content bg-light">
 						<h1 class="site_venue_space_detail_title mb-4">Request to Book</h1>
-						<form class="form-edit-add" method="POST" action="/properties/{{$property->id}}/booking">
+						<form class="form-edit-add" method="POST" action="/properties/{{$property->id}}/booking" id="/properties/{{$property->id}}/booking">
 						@csrf
 							<input type="hidden" name="user_id" value="{{auth()->id()}}">
 							<div class="mb-4">
@@ -180,25 +180,24 @@
 								<div class="col-lg-6">
 									<select class="form-control border-0 border-light">
 										<option>Add Card</option>
-											<option>
-												<script 
-							                        src = "https://checkout.stripe.com/checkout.js" class="stripe-button" 
-							                        data-key = "{{config ('services.stripe.key')}}" 
-							                        data-name = "Booking" 
-							                        id = "pay" 
-							                        data-amount = ""
-							                        data-description = "Proof of booking" 
-							                        data-image = "https://stripe.com/img/documentation/checkout/marketplace.png" 
-							                        data-locale = "auto">
-							                    </script>
-											</option>
 											<option>Option 2</option>
 									</select>
 								</div>
 							</div>
+						</form>
+
 						<div class="row mb-4">
-							<div class="col-lg-6">
-			                    
+							<div class="col-lg-12">
+			                    <form  id="payment-form">
+									<div class="form">
+										<label for="card-element">
+										  Credit or debit card
+										</label>
+										<div id="card-element"></div>
+										<div id="card-errors" role="alert"></div>
+									</div>
+									<button id="payment_button">Submit Payment</button>
+								</form>
 							</div>
 						</div>
 
@@ -221,23 +220,112 @@
 						<div class="row">
 							<div class="col-lg-12 mb-4"><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</p></div>
 							<div class="col-lg-12 mb-4">
-								<button type="submit" class="btn btn-outline-primary rounded-0 btn-block" id="card-button">Send Booking Request</button>
+								<button form="/properties/{{$property->id}}/booking" type="submit" class="btn btn-outline-primary rounded-0 btn-block" id="card-button">Send Booking Request</button>
 							</div>
 							<div class="col-lg-12">
 								<p>By clicking Send Booking Request, you agree to Common Venue's Services Agreement,
 								which includes the Community Guidelines, and Cancellation and Refund Policy.</p>
 							</div>
 						</div>
-						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 </section>
 <script src="https://js.stripe.com/v3/"></script>
-
 <script type="text/javascript">
 	$(document).ready(function() {
+		$('#card-button').attr("disabled", true);
+		var stripe = Stripe('pk_test_JMDrvC6Lqvpr14EJBDEF4G5R00VHfsHL8l');
+		var elements = stripe.elements();
+		var style = {
+			base: {
+				color: '#32325d',
+				fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+				fontSmoothing: 'antialiased',
+				fontSize: '16px',
+				'::placeholder': {
+					color: '#aab7c4'
+				}
+			},
+			invalid: {
+				color: '#fa755a',
+				iconColor: '#fa755a'
+			}
+		};
+
+		var card = elements.create('card', {style: style});
+		card.mount('#card-element');
+
+		// Handle real-time validation errors from the card Element.
+		$(card).change(function(event) {
+			var displayError = document.getElementById('card-errors');
+			if (event.error) {
+				displayError.textContent = event.error.message;
+			} else {
+				displayError.textContent = '';
+			}
+		})
+
+		// Handle form submission.
+		$('#payment-form').submit(function(e) {
+			event.preventDefault();
+
+			stripe.createToken(card).then(function(result) {
+				if (result.error) {
+					// Inform the user if there was an error.
+					var errorElement = document.getElementById('card-errors');
+					errorElement.textContent = result.error.message;
+				} else {
+					// Send the token to your server.
+					stripeTokenHandler(result.token);
+				}
+			});
+		});
+
+		let paymentSuccess;
+		// Submit the form with the token ID.
+		function stripeTokenHandler(token) {
+		  // Insert the token ID into the form so it gets submitted to the server
+		  var form =$('#payment-form');
+		  var hiddenInput = document.createElement('input');
+		  hiddenInput.setAttribute('type', 'hidden');
+		  hiddenInput.setAttribute('name', 'stripeToken');
+		  hiddenInput.setAttribute('value', token.id);
+
+		  let stripeId = token.card.id;
+		  let expMonth = token.card.exp_month;
+		  let expYear = token.card.exp_year;
+		  let last4 = token.card.last4;
+		  let userId = $('input[name=user_id]').val();
+
+		  $.ajax({
+		  	headers: {
+		  		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  	},
+		  	type: "POST",
+		  	url: "/properties/{property}/booking/charge",
+		  	dataType: "JSON",
+		  	data:{
+		  		stripe_id:stripeId,
+		  		exp_month:expMonth,
+		  		exp_year:expYear,
+		  		last4:last4,
+		  		user_id:userId,
+		  	},
+		  	success: function(res) {
+		  		paymentSuccess = res
+				$('#card-button').attr("disabled", false);
+				setTimeout(function(){
+					$('#payment_button').text('Success!'); 
+				}, 500);
+		  	},
+		  	error: function(error) {
+		  	}
+		  });
+
+		}
+
 		$("input.time").focusout(function(){
 
 			var start_time = $('.start').val();
@@ -284,6 +372,83 @@
 			$('.not_adult_message').show();
 		});
 
+		function getUrlParameter(sParam) {
+		    var sPageURL = window.location.search.substring(1),
+		        sURLVariables = sPageURL.split('&'),
+		        sParameterName,
+		        i;
+
+		    for (i = 0; i < sURLVariables.length; i++) {
+		        sParameterName = sURLVariables[i].split('=');
+
+		        if (sParameterName[0] === 'date') {
+					let dateForDate = $('input[name=date]').val(sParameterName[1]);
+		        }
+		        if (sParameterName[0] === 'from_date') {
+		        	console.log(sParameterName[1])
+
+					let timeForFromDate = $('input[name=from_date]').val(sParameterName[1]);
+		        }
+		        if (sParameterName[0] === 'to_date') {
+		        	console.log(sParameterName[1])
+
+					let timeForToDate = $('input[name=to_date]').val(sParameterName[1]);
+		        }
+		    }
+		};
+		var tech = getUrlParameter('date');
 	})
 </script>
+<style scoped>
+	/**
+	 * The CSS shown here will not be introduced in the Quickstart guide, but shows
+	 * how you can use CSS to style your Element's container.
+	 */
+	.StripeElement {
+	    box-sizing: border-box;
+	    height: 40px;
+	    padding: 10px 12px;
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	    background-color: white;
+	    box-shadow: 0 1px 3px 0 #e6ebf1;
+	    -webkit-transition: box-shadow 150ms ease;
+	    transition: box-shadow 150ms ease;
+	}
+	.StripeElement--focus {
+	  box-shadow: 0 1px 3px 0 #cfd7df;
+	}
+
+	.StripeElement--invalid {
+	  border-color: #fa755a;
+	}
+
+	.StripeElement--webkit-autofill {
+	  background-color: #fefde5 !important;
+	}
+	button {
+	    border: none;
+	    border-radius: 4px;
+	    outline: none;
+	    text-decoration: none;
+	    color: #fff;
+	    background: #32325d;
+	    white-space: nowrap;
+	    display: inline-block;
+	    height: 40px;
+	    line-height: 40px;
+	    padding: 0 14px;
+	    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+	    border-radius: 4px;
+	    font-size: 15px;
+	    font-weight: 600;
+	    letter-spacing: 0.025em;
+	    text-decoration: none;
+	    -webkit-transition: all 150ms ease;
+	    transition: all 150ms ease;
+	    float: left;
+	    margin-left: 12px;
+	    margin-top: 28px;
+	}
+</style>
 @endsection

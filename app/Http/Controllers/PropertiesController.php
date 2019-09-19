@@ -15,7 +15,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Property\StoreRequest;
 use App\Http\Requests\Property\UpdateRequest;
 use App\Http\Requests\Property\AddFavoriteRequest;
-use Mapper;
 
 class PropertiesController extends Controller
 {
@@ -40,7 +39,6 @@ class PropertiesController extends Controller
     {
         $categories = Category::all();
         $amenities = Amenity::all();
-        Mapper::map(0, 0);
 
         return view('properties.create', [
           'categories' => $categories,
@@ -79,7 +77,6 @@ class PropertiesController extends Controller
         $owner = User::where('id', $property->owner_id)->first();
         $amenities = Amenity::all();
         $images = PropertyImage::where('property_id',$property->id)->get();
-        Mapper::map(0, 0);
 
         foreach ($reviews as $review) {
             $user = User::where('id', $review->user_id)->first();

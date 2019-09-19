@@ -72,26 +72,8 @@ class BookingController extends Controller
     public function store(Request $request, Property $property)
     {
         try {
-            $stripeSecret = Stripe::setApiKey('sk_test_EyPHobPO1Q0avvf51K0ugfIp00GOvMgQQA');
-            $token = $request->get('stripeToken');
-
-            $customer = Customer::create([
-                'email' => $request->stripeEmail,
-                'source' => $request->stripeToken
-            ]);
-            $charge = Charge::create([
-                'customer' => $customer->id,
-                'amount' => $request->total_price,
-                'currency' => 'usd',
-                'description' => $request->message,
-            ]);
-            
-            try {
-                $booking = Booking::create($request->all());
-                return redirect()->route('bookings');
-            } catch (\Exception $ex) {
-                return $ex->getMessage();
-            }
+            $booking = Booking::create($request->all());
+            return redirect()->route('bookings');
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

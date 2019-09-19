@@ -44,7 +44,6 @@ class PaymentController extends Controller
             ]);*/
 
             session()->flash('success', 'Payment Successful');
-            // return redirect()->route('make:payment');
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
