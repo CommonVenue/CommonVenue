@@ -33,6 +33,7 @@
 										<div class="form-group">
 											<label>Country</label>
 											<input type="text" class="form-control" required id="country" name="country">
+											<span class="error-message-country"></span>
 										</div>
 									</div>
 									<div class="col-lg-6">
@@ -47,12 +48,14 @@
 										<div class="form-group">
 											<label>City</label>
 											<input type="text" class="form-control" required id="city" name="city">
+											<span class="error-message-city"></span>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>State</label>
 											<input type="text" class="form-control" required id="state" name="state">
+											<span class="error-message-state"></span>
 										</div>
 									</div>
 								</div>
@@ -61,12 +64,14 @@
 										<div class="form-group">
 											<label>Unit</label>
 											<input type="text" class="form-control" required id="unit" name="unit">
+											<span class="error-message-unit"></span>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Zip/Postal Code</label>
 											<input type="number" class="form-control" required id="postal_code" name="postal_code">
+											<span class="error-message-postal_code"></span>
 										</div>
 									</div>
 								</div>
@@ -75,12 +80,14 @@
 										<div class="form-group">
 											<label>Address 1</label>
 											<input type="text" class="form-control" required id="address_1" name="address_1">
+											<div class="error-message-address_1"></div>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Address 2</label>
 											<input type="text" class="form-control" required id="address_2" name="address_2">
+											<div class="error-message-address_2"></div>
 										</div>
 									</div>
 								</div>
@@ -116,6 +123,7 @@
 									<div class="col-lg-4">
 										<div class="site_perk_field">
 											<input type="text" class="form-control" required id="name" name="name" placeholder="Perk - great lighting, ">
+											<span class="error-message-name"></span>
 										</div>
 									</div>
 								</div>
@@ -131,6 +139,7 @@
 									</div>
 									<div class="col-lg-6">
 										<textarea class="form-control" rows="5" id="description" name="description"></textarea>
+										<span class="error-message-description"></span>
 										<small class="text-danger">Required *</small>
 									</div>
 								</div>
@@ -146,6 +155,7 @@
 											<input class="form-check-input" type="radio" name="adult" id="inlineRadio2" value="1">
 											<label class="form-check-label" for="inlineRadio2">21+</label>
 										</div>
+										<span class="error-message-adult"></span>
 									</div>
 								</div>
 								<div class="row mb-4">
@@ -223,6 +233,7 @@
 												Upload
 												<input type="file" name="url[]" id="propery_image" multiple/>
 											</div>
+											<span class="error-message-url"></span>
 										</div>
 									</div>
 								</div>
@@ -526,6 +537,8 @@
 								</div>
 							</div>
 						</div>
+						<span class="error-message-working_days"></span>
+
 						<!-- Next or back button start -->
 						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
 							<i class="fas fa-arrow-left mr-2"></i> <span>Back</span>
@@ -602,6 +615,7 @@
 								@endforeach
 							</ul>
 						</div>
+						<span class="error-message-category"></span>
 						<div class="row"><div class="col-12 mb-5"></div></div>
 						<!-- Next or back button start -->
 						<button type="button" name="previous" class="previous btn btn-outline-primary site_ouline_step_btn">
@@ -630,6 +644,7 @@
 										</div>
 										<input type="number" class="form-control" placeholder="2" name="price">
 									</div>
+									<span class="error-message-price"></span>
 								</div>
 								<div class="col-lg-6">
 									<label>Minimum number of hours</label>
@@ -639,6 +654,7 @@
 										</div>
 										<input type="number" class="form-control" placeholder="1-12 hours" name="min_hours">
 									</div>
+									<span class="error-message-min_hours"></span>
 								</div>
 							</div>
 							<div class="row mb-4">
@@ -695,6 +711,7 @@
 										</div>
 										<input type="number" class="form-control" placeholder="2" name="capacity">
 									</div>
+									<span class="error-message-capacity"></span>
 								</div>
 							</div>
 							<div class="row">
@@ -749,18 +766,21 @@
 										<div class="form-group">
 											<label>First Name</label>
 											<input type="text" class="form-control" required="" name="first_name" placeholder="Alice">
+											<span class="error-message-first_name"></span>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Last Name</label>
 											<input type="text" class="form-control" required="" name="last_name" placeholder="W Heideman">
+											<span class="error-message-last_name"></span>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Contact Number</label>
 											<input type="text" class="form-control" required="" name="contact_number" placeholder="*********2332">
+											<span class="error-message-contact_number"></span>
 										</div>
 									</div>
 								</div>
@@ -773,6 +793,7 @@
 													Upload
 													<input type="file" name="image" id="contact_person">
 												</div>
+												<span class="error-message-image"></span>
 											</li>
 											<button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
 											<button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
@@ -1000,7 +1021,18 @@
 					error: function(error) {
 						$('#validation-msg').html('');
 						$.each(error.responseJSON.errors, function(key,value) {
-							$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
+							if(key == 'country' ){
+								$('.error-message-country').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'city' ){
+								$('.error-message-city').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'postal_code' ){
+								$('.error-message-postal_code').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'address_1' ){
+								$('.error-message-address_1').append('<p class="alert alert-danger">'+value+'</p>');
+							}
 						});
 					}
 				});
@@ -1043,7 +1075,18 @@
 					error: function(error) {
 						$('#validation-msg').html('');
 						$.each(error.responseJSON.errors, function(key,value) {
-							$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
+							if(key == 'country' ){
+								$('.error-message-country').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'city' ){
+								$('.error-message-city').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'postal_code' ){
+								$('.error-message-postal_code').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'address_1' ){
+								$('.error-message-address_1').append('<p class="alert alert-danger">'+value+'</p>');
+							}
 						});
 					}
 				});
@@ -1102,7 +1145,15 @@
 					error: function(error) {
 						$('#validation-msg').html('');
 						$.each(error.responseJSON.errors, function(key,value) {
-							$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
+							if(key == 'name' ){
+								$('.error-message-name').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'description' ){
+								$('.error-message-description').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'adult' ){
+								$('.error-message-adult').append('<p class="alert alert-danger">'+value+'</p>');
+							}
 						});
 					}
 				});
@@ -1142,7 +1193,15 @@
 					error: function(error) {
 						$('#validation-msg').html('');
 						$.each(error.responseJSON.errors, function(key,value) {
-							$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
+							if(key == 'name' ){
+								$('.error-message-name').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'description' ){
+								$('.error-message-description').append('<p class="alert alert-danger">'+value+'</p>');
+							}
+							if(key == 'adult' ){
+								$('.error-message-adult').append('<p class="alert alert-danger">'+value+'</p>');
+							}
 						});
 					}
 				});
@@ -1188,7 +1247,7 @@
 				},
 				error: function(error) {
 					$('#validation-msg').html('');
-					$('#validation-msg').append('<div class="alert alert-danger">Please add photos of your venue</div');
+					$('.error-message-url').append('<p class="alert alert-danger">Please add photos of your venue</p>');
 				}
 			});
 		});
@@ -1586,7 +1645,6 @@
 					$( 'html, body' ).animate( {
 						scrollTop: $( ".site_step_form_column" ).offset().top - 10
 					}, 500 );
-					// console.log(res)
 				},
 				error: function(error) {
 					console.log(error)
@@ -1594,7 +1652,7 @@
 			});
 		}else{
 			$('#validation-msg').html('');
-			$('#validation-msg').append('<div class="alert alert-danger">Please note your working days and hours</div');
+			$('.error-message-working_days').append('<p class="alert alert-danger">Please note your working days and hours</p>');
 		}
 	});
 
@@ -1698,7 +1756,6 @@
 					$( 'html, body' ).animate( {
 						scrollTop: $( ".site_step_form_column" ).offset().top - 10
 					}, 500 );
-					console.log(res.property)
 				},
 				error: function(error) {
 					console.log(error)
@@ -1706,7 +1763,7 @@
 			});
 		}else{
 			$('#validation-msg').html('');
-			$('#validation-msg').append('<div class="alert alert-danger">Please select some categories </div');
+			$('.error-message-category').append('<p class="alert alert-danger">Please select some categories</p>');
 		}
 	});
 
@@ -1757,7 +1814,6 @@
 					$( 'html, body' ).animate( {
 						scrollTop: $( ".site_step_form_column" ).offset().top - 10
 					}, 500 );
-					console.log(res.property)
 				},
 				error: function(error) {
 					console.log(error)
@@ -1765,9 +1821,9 @@
 			});
 		}else{
 			$('#validation-msg').html('');
-			$('#validation-msg').append('<div class="alert alert-danger">The hourly rate field is required.</div');
-			$('#validation-msg').append('<div class="alert alert-danger">The minimum number of hours field is required.</div');
-			$('#validation-msg').append('<div class="alert alert-danger">The capacity field is required.</div');
+			$('.error-message-price').append('<p class="alert alert-danger">The hourly rate field is required.</p>');
+			$('.error-message-min_hours').append('<p class="alert alert-danger">The minimum number of hours field is required.</p>');
+			$('.error-message-capacity').append('<p class="alert alert-danger">The capacity field is required.</p>');
 		}
 	});
 
@@ -1828,7 +1884,6 @@
 						$( 'html, body' ).animate( {
 							scrollTop: $( ".site_step_form_column" ).offset().top - 10
 						}, 500 );
-						console.log(res.property)
 					},
 					error: function(error) {
 						$.each(error.responseJSON.errors, function(key,value) {
@@ -1840,7 +1895,18 @@
 			error: function(error) {
 				$('#validation-msg').html('');
 				$.each(error.responseJSON.errors, function(key,value) {
-					$('#validation-msg').append('<div class="alert alert-danger">'+value+'</div');
+					if(key == 'first_name' ){
+						$('.error-message-first_name').append('<p class="alert alert-danger">'+value+'</p>');
+					}
+					if(key == 'last_name' ){
+						$('.error-message-last_name').append('<p class="alert alert-danger">'+value+'</p>');
+					}
+					if(key == 'contact_number' ){
+						$('.error-message-contact_number').append('<p class="alert alert-danger">'+value+'</p>');
+					}
+					if(key == 'image' ){
+						$('.error-message-image').append('<p class="alert alert-danger">'+value+'</p>');
+					}
 				});
 			}
 		});

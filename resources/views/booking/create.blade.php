@@ -180,7 +180,10 @@
 								<div class="col-lg-6">
 									<select class="form-control border-0 border-light">
 										<option>Add Card</option>
-											<option>Option 2</option>
+										<option>Something else</option>
+										@if($creditCard)
+											{{-- <option id="authUserCard">**** **** **** {{ $creditCard->last4 }}</option> --}}
+										@endif
 									</select>
 								</div>
 							</div>
@@ -235,6 +238,32 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		/*
+		* Will alcohol be consumed in this activity?
+		*/
+		$('.adult_message').hide();
+		$('.not_adult_message').hide();
+		let adult;
+
+		$('.adult').click(function(e) {
+			e.preventDefault();
+			adult = $('input[name=adult]').val(1);
+			$('.not_adult').hide();
+			$('.adult').hide();
+			$('.adult_message').show();
+		});
+
+		$('.not_adult').click(function(e) {
+			e.preventDefault();
+			adult = $('input[name=adult]').val(0);
+			$('.adult').hide();
+			$('.not_adult').hide();
+			$('.not_adult_message').show();
+		});
+
+		/*
+		* Stripe
+		*/
 		$('#card-button').attr("disabled", true);
 		var stripe = Stripe('pk_test_JMDrvC6Lqvpr14EJBDEF4G5R00VHfsHL8l');
 		var elements = stripe.elements();
@@ -325,7 +354,9 @@
 		  });
 
 		}
-
+		/*
+		* Get booking's inputs values from url and fill it here
+		*/
 		function getUrlParameter(sParam) {
 		    let sPageURL = window.location.search.substring(1),
 		        sURLVariables = sPageURL.split('&'),
@@ -351,6 +382,9 @@
 		};
 		var tech = getUrlParameter('date');
 
+		/*
+		* Calculate property booking price  
+		*/
 		$("input.time").focusout(function(){
 			let date = $('input[name="date"]').val();
 			let start_time = $('input[name="from_date"]').val();
@@ -393,32 +427,10 @@
 			$('#site_vsd_price_total_amount').val(Math.trunc(price_total_amount));
 			$('#pay').attr("data-amount") = Math.trunc(price_total_amount);
         }
-
-		/*
-		* Will alcohol be consumed in this activity?
-		*/
-		$('.adult_message').hide();
-		$('.not_adult_message').hide();
-		let adult;
-
-		$('.adult').click(function(e) {
-			e.preventDefault();
-			adult = $('input[name=adult]').val(1);
-			$('.not_adult').hide();
-			$('.adult').hide();
-			$('.adult_message').show();
-		});
-
-		$('.not_adult').click(function(e) {
-			e.preventDefault();
-			adult = $('input[name=adult]').val(0);
-			$('.adult').hide();
-			$('.not_adult').hide();
-			$('.not_adult_message').show();
-		});
 	})
 </script>
-<style scoped>
+
+<style scoped="">
 	/**
 	 * The CSS shown here will not be introduced in the Quickstart guide, but shows
 	 * how you can use CSS to style your Element's container.

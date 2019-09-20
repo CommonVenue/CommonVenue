@@ -8,11 +8,8 @@ use App\Models\PropertyCategory;
 use App\Models\Property;
 use App\Models\User;
 use App\Models\ContactPerson;
-use Stripe\Stripe;
-use Stripe\Customer;
-use Stripe\Charge;
+use App\Models\CreditCard;
 use Illuminate\Http\Request;
-use App\Http\Requests\Booking\StoreRequest;
 use App\Http\Requests\Booking\UpdateRequest;
 
 class BookingController extends Controller
@@ -53,13 +50,15 @@ class BookingController extends Controller
         $propertyImage = PropertyImage::where('property_id', $property->id)->get();
         $propertyCategories = PropertyCategory::where('property_id', $property->id)->get();
         $contactPerson = ContactPerson::where('id', $property->contact_person_id)->first();
+        $creditCard = CreditCard::where('user_id', auth()->id())->first();
 
         return view('booking.create', [
             'booking' => $booking,
             'property' => $property,
             'propertyImage' => $propertyImage,
             'propertyCategories' => $propertyCategories,
-            'contactPerson' => $contactPerson
+            'contactPerson' => $contactPerson,
+            'creditCard' => $creditCard
         ]);
     }
 
