@@ -326,28 +326,73 @@
 
 		}
 
+		function getUrlParameter(sParam) {
+		    let sPageURL = window.location.search.substring(1),
+		        sURLVariables = sPageURL.split('&'),
+		        sParameterName,
+		        i;
+
+		    for (i = 0; i < sURLVariables.length; i++) {
+		        sParameterName = sURLVariables[i].split('=');
+
+		        if (sParameterName[0] === 'date') {
+	        		let decodedUrl = decodeURIComponent(sParameterName[1]);
+					let dateForDate = $('input[name=date]').val(decodedUrl);
+		        }
+		        if (sParameterName[0] === 'from_date') {
+		        	let decodedUrl = decodeURIComponent(sParameterName[1]);
+					let timeForFromDate = $('input[name=from_date]').val(decodedUrl);
+		        }
+		        if (sParameterName[0] === 'to_date') {
+		        	let decodedUrl = decodeURIComponent(sParameterName[1]);
+					let timeForToDate = $('input[name=to_date]').val(decodedUrl);
+		        }
+		    }
+		};
+		var tech = getUrlParameter('date');
+
 		$("input.time").focusout(function(){
+			let date = $('input[name="date"]').val();
+			let start_time = $('input[name="from_date"]').val();
+			let end_time = $('input[name="to_date"]').val();
 
-			var start_time = $('.start').val();
-			var end_time = $('.end').val();
-			var date = $('.date_time').val();
-			var price = {{ $property->price }};
-			var start_date = new Date(date + ' ' + start_time);
-			var end_date = new Date(date + ' ' + end_time);
-			var diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
-			var diff_date_span = diff_date + ' ' +'hours';
+			let price = {{ $property->price }};
+			let start_date = new Date(date + ' ' + start_time);
+			let end_date = new Date(date + ' ' + end_time);
+			let diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
+			let diff_date_span = diff_date + ' ' +'hours';
+			let big_price = price * diff_date;
+			let processing_price = {{ $property->cleaning_fee }};
+			let price_total_amount = processing_price+big_price;
 			$('.hours').text(diff_date);
-
-			var big_price = price * diff_date;
-			var processing_price = {{ $property->cleaning_fee }};
-			var price_total_amount = processing_price+big_price;
-
 			$('.site_vsd_price_amount').text('$'+big_price);
 			$('.site_vsd_price_total').text('$'+ processing_price);
 			$('.site_vsd_price_total_amount').text('$'+price_total_amount);
 			$('#site_vsd_price_total_amount').val(Math.trunc(price_total_amount));
 			$('#pay').attr("data-amount") = Math.trunc(price_total_amount);
 		});
+		
+		let date = $('input[name="date"]').val();
+		let start_time = $('input[name="from_date"]').val();
+		let end_time = $('input[name="to_date"]').val();
+
+		let price = {{ $property->price }};
+		let start_date = new Date(date + ' ' + start_time);
+		let end_date = new Date(date + ' ' + end_time);
+		let diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
+		let diff_date_span = diff_date + ' ' +'hours';
+		let big_price = price * diff_date;
+		let processing_price = {{ $property->cleaning_fee }};
+		let price_total_amount = processing_price+big_price;
+
+        if(date && start_time && end_time){
+        	$('.hours').text(diff_date);
+			$('.site_vsd_price_amount').text('$'+big_price);
+			$('.site_vsd_price_total').text('$'+ processing_price);
+			$('.site_vsd_price_total_amount').text('$'+price_total_amount);
+			$('#site_vsd_price_total_amount').val(Math.trunc(price_total_amount));
+			$('#pay').attr("data-amount") = Math.trunc(price_total_amount);
+        }
 
 		/*
 		* Will alcohol be consumed in this activity?
@@ -371,32 +416,6 @@
 			$('.not_adult').hide();
 			$('.not_adult_message').show();
 		});
-
-		function getUrlParameter(sParam) {
-		    var sPageURL = window.location.search.substring(1),
-		        sURLVariables = sPageURL.split('&'),
-		        sParameterName,
-		        i;
-
-		    for (i = 0; i < sURLVariables.length; i++) {
-		        sParameterName = sURLVariables[i].split('=');
-
-		        if (sParameterName[0] === 'date') {
-					let dateForDate = $('input[name=date]').val(sParameterName[1]);
-		        }
-		        if (sParameterName[0] === 'from_date') {
-		        	console.log(sParameterName[1])
-
-					let timeForFromDate = $('input[name=from_date]').val(sParameterName[1]);
-		        }
-		        if (sParameterName[0] === 'to_date') {
-		        	console.log(sParameterName[1])
-
-					let timeForToDate = $('input[name=to_date]').val(sParameterName[1]);
-		        }
-		    }
-		};
-		var tech = getUrlParameter('date');
 	})
 </script>
 <style scoped>

@@ -139,9 +139,9 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item">
             @if (auth()->user())
-            <button form="booking" class="btn btn-dark site_btn_lg">Booking</button>
+              <button form="booking" class="btn btn-dark site_btn_lg">Booking</button>
             @else
-            <a href="#" class="btn btn-dark site_btn_lg login_modal">Booking</a>
+              <a href="#" class="btn btn-dark site_btn_lg login_modal">Booking</a>
             @endif
           </li>
           <li class="list-inline-item">
@@ -206,7 +206,11 @@
       </div>
       <div class="col">
         <div class="site_vsd_request_book">
-          <a href="/properties/{{$property->id}}/booking" class="btn btn-outline-primary">Request to Book</a>
+          @if (auth()->user())
+            <button form="booking" class="btn btn-outline-primary">Request to Book</button>
+          @else
+            <a href="#" class="btn btn-outline-primary">Request to Book</a>
+          @endif
         </div>
       </div>
     </div>
