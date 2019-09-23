@@ -178,11 +178,12 @@
 									<h4 class="site_booking_activit_title mb-4">3. How would you like to pay?</h4>
 								</div>
 								<div class="col-lg-6">
-									<select class="form-control border-0 border-light">
+									<select class="form-control border-0 border-light" id="selectBox">
 										<option>Add Card</option>
 										<option>Something else</option>
 										@if($creditCard)
-											{{-- <option id="authUserCard">**** **** **** {{ $creditCard->last4 }}</option> --}}
+											<option id="authUserCard">**** **** **** {{ $creditCard->last4 }}</option>
+											<input type="hidden" name="card_id" value="{{ $creditCard->stripe_id }}">
 										@endif
 									</select>
 								</div>
@@ -192,7 +193,8 @@
 						<div class="row mb-4">
 							<div class="col-lg-12">
 			                    <form  id="payment-form">
-									<div class="form">
+			                    	<input type="hidden" name="stripeToken">
+									<div class="form stripe_box">
 										<label for="card-element">
 										  Credit or debit card
 										</label>
@@ -262,6 +264,120 @@
 		});
 
 		/*
+		* Get booking's inputs values from url and fill it here
+		*/
+		function getUrlParameter(sParam) {
+		    let sPageURL = window.location.search.substring(1),
+		        sURLVariables = sPageURL.split('&'),
+		        sParameterName,
+		        i;
+
+		    for (i = 0; i < sURLVariables.length; i++) {
+		        sParameterName = sURLVariables[i].split('=');
+
+		        if (sParameterName[0] === 'date') {
+	        		let decodedUrl = decodeURIComponent(sParameterName[1]);
+					let dateForDate = $('input[name=date]').val(decodedUrl);
+		        }
+		        if (sParameterName[0] === 'from_date') {
+		        	let decodedUrl = decodeURIComponent(sParameterName[1]);
+					let timeForFromDate = $('input[name=from_date]').val(decodedUrl);
+		        }
+		        if (sParameterName[0] === 'to_date') {
+		        	let decodedUrl = decodeURIComponent(sParameterName[1]);
+					let timeForToDate = $('input[name=to_date]').val(decodedUrl);
+		        }
+		    }
+		};
+		var tech = getUrlParameter('date');
+
+		/*
+		* Calculate property booking price  
+		*/
+		let site_vsd_price_total_amount;
+
+		$("input.time").focusout(function(){
+			let date = $('input[name="date"]').val();
+			let start_time = $('input[name="from_date"]').val();
+			let end_time = $('input[name="to_date"]').val();
+
+			let price = {{ $property->price }};
+			let start_date = new Date(date + ' ' + start_time);
+			let end_date = new Date(date + ' ' + end_time);
+			let diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
+			let diff_date_span = diff_date + ' ' +'hours';
+			let big_price = price * diff_date;
+			let processing_price = {{ $property->cleaning_fee }};
+			let price_total_amount = processing_price+big_price;
+			$('.hours').text(diff_date);
+			$('.site_vsd_price_amount').text('$'+big_price);
+			$('.site_vsd_price_total').text('$'+ processing_price);
+			$('.site_vsd_price_total_amount').text('$'+price_total_amount);
+			site_vsd_price_total_amount = $('#site_vsd_price_total_amount').val(Math.trunc(price_total_amount));
+			$('#pay').attr("data-amount") = Math.trunc(price_total_amount);
+		});
+		
+		let date = $('input[name="date"]').val();
+		let start_time = $('input[name="from_date"]').val();
+		let end_time = $('input[name="to_date"]').val();
+
+		let price = {{ $property->price }};
+		let start_date = new Date(date + ' ' + start_time);
+		let end_date = new Date(date + ' ' + end_time);
+		let diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
+		let diff_date_span = diff_date + ' ' +'hours';
+		let big_price = price * diff_date;
+		let processing_price = {{ $property->cleaning_fee }};
+		let price_total_amount = processing_price+big_price;
+        if(date && start_time && end_time){
+        	$('.hours').text(diff_date);
+			$('.site_vsd_price_amount').text('$'+big_price);
+			$('.site_vsd_price_total').text('$'+ processing_price);
+			$('.site_vsd_price_total_amount').text('$'+price_total_amount);
+			site_vsd_price_total_amount = $('#site_vsd_price_total_amount').val(Math.trunc(price_total_amount));
+			$('#pay').attr("data-amount") = Math.trunc(price_total_amount);
+        }
+
+		// 	console.log(asd);
+
+		$( "#selectBox" ).change(function() {
+			if($('#authUserCard').prop("selected") == true){
+				$('.stripe_box').hide();
+			}
+			if($('#authUserCard').prop("selected") == false){
+				$('.stripe_box').show();
+			}
+		});
+		$('#payment_button').click(function(e) {
+			e.preventDefault();
+			$('#card-button').attr("disabled", false);
+				
+			let cardId = $('input[name=card_id]').val();
+		    let userId = {{ $creditCard->user_id }};
+	  		let amount = site_vsd_price_total_amount.val();
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				type: "POST",
+				url: "/properties/{property}/booking/charge",
+				dataType: "JSON",
+				data:{
+					card_id:cardId,
+					user_id:userId,
+					amount:amount,
+				},
+				success: function(res) {
+					setTimeout(function(){
+						$('#payment_button').text('Success!'); 
+					}, 500);
+				},
+				error: function(error) {
+				}
+			});
+		});
+
+		/*
 		* Stripe
 		*/
 		$('#card-button').attr("disabled", true);
@@ -307,7 +423,7 @@
 					errorElement.textContent = result.error.message;
 				} else {
 					// Send the token to your server.
-					stripeTokenHandler(result.token);
+					let token = stripeTokenHandler(result.token);
 				}
 			});
 		});
@@ -315,32 +431,34 @@
 		let paymentSuccess;
 		// Submit the form with the token ID.
 		function stripeTokenHandler(token) {
+
 		  // Insert the token ID into the form so it gets submitted to the server
-		  var form =$('#payment-form');
-		  var hiddenInput = document.createElement('input');
-		  hiddenInput.setAttribute('type', 'hidden');
-		  hiddenInput.setAttribute('name', 'stripeToken');
-		  hiddenInput.setAttribute('value', token.id);
+		  var form = $('#payment-form');
+		  let stipe_token = $('input[name=stripeToken]').attr('value', token.id);
 
 		  let stripeId = token.card.id;
 		  let expMonth = token.card.exp_month;
 		  let expYear = token.card.exp_year;
 		  let last4 = token.card.last4;
 		  let userId = $('input[name=user_id]').val();
+  		  let amount = site_vsd_price_total_amount.val();
 
 		  $.ajax({
 		  	headers: {
 		  		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		  	},
 		  	type: "POST",
-		  	url: "/properties/{property}/booking/charge",
+		  	url: "/properties/{property}/booking/store",
 		  	dataType: "JSON",
 		  	data:{
+		  		stripeToken:stipe_token.val(),
+				amount:amount,
 		  		stripe_id:stripeId,
 		  		exp_month:expMonth,
 		  		exp_year:expYear,
 		  		last4:last4,
 		  		user_id:userId,
+		  		customer_id:'',
 		  	},
 		  	success: function(res) {
 		  		paymentSuccess = res
@@ -349,84 +467,10 @@
 					$('#payment_button').text('Success!'); 
 				}, 500);
 		  	},
-		  	error: function(error) {
-		  	}
+		  	error: function(error) {	}
 		  });
 
 		}
-		/*
-		* Get booking's inputs values from url and fill it here
-		*/
-		function getUrlParameter(sParam) {
-		    let sPageURL = window.location.search.substring(1),
-		        sURLVariables = sPageURL.split('&'),
-		        sParameterName,
-		        i;
-
-		    for (i = 0; i < sURLVariables.length; i++) {
-		        sParameterName = sURLVariables[i].split('=');
-
-		        if (sParameterName[0] === 'date') {
-	        		let decodedUrl = decodeURIComponent(sParameterName[1]);
-					let dateForDate = $('input[name=date]').val(decodedUrl);
-		        }
-		        if (sParameterName[0] === 'from_date') {
-		        	let decodedUrl = decodeURIComponent(sParameterName[1]);
-					let timeForFromDate = $('input[name=from_date]').val(decodedUrl);
-		        }
-		        if (sParameterName[0] === 'to_date') {
-		        	let decodedUrl = decodeURIComponent(sParameterName[1]);
-					let timeForToDate = $('input[name=to_date]').val(decodedUrl);
-		        }
-		    }
-		};
-		var tech = getUrlParameter('date');
-
-		/*
-		* Calculate property booking price  
-		*/
-		$("input.time").focusout(function(){
-			let date = $('input[name="date"]').val();
-			let start_time = $('input[name="from_date"]').val();
-			let end_time = $('input[name="to_date"]').val();
-
-			let price = {{ $property->price }};
-			let start_date = new Date(date + ' ' + start_time);
-			let end_date = new Date(date + ' ' + end_time);
-			let diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
-			let diff_date_span = diff_date + ' ' +'hours';
-			let big_price = price * diff_date;
-			let processing_price = {{ $property->cleaning_fee }};
-			let price_total_amount = processing_price+big_price;
-			$('.hours').text(diff_date);
-			$('.site_vsd_price_amount').text('$'+big_price);
-			$('.site_vsd_price_total').text('$'+ processing_price);
-			$('.site_vsd_price_total_amount').text('$'+price_total_amount);
-			$('#site_vsd_price_total_amount').val(Math.trunc(price_total_amount));
-			$('#pay').attr("data-amount") = Math.trunc(price_total_amount);
-		});
-		
-		let date = $('input[name="date"]').val();
-		let start_time = $('input[name="from_date"]').val();
-		let end_time = $('input[name="to_date"]').val();
-
-		let price = {{ $property->price }};
-		let start_date = new Date(date + ' ' + start_time);
-		let end_date = new Date(date + ' ' + end_time);
-		let diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
-		let diff_date_span = diff_date + ' ' +'hours';
-		let big_price = price * diff_date;
-		let processing_price = {{ $property->cleaning_fee }};
-		let price_total_amount = processing_price+big_price;
-
-        if(date && start_time && end_time){
-        	$('.hours').text(diff_date);
-			$('.site_vsd_price_amount').text('$'+big_price);
-			$('.site_vsd_price_total').text('$'+ processing_price);
-			$('.site_vsd_price_total_amount').text('$'+price_total_amount);
-			$('#site_vsd_price_total_amount').val(Math.trunc(price_total_amount));
-			$('#pay').attr("data-amount") = Math.trunc(price_total_amount);
-        }
 	})
 </script>
 

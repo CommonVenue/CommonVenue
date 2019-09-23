@@ -943,28 +943,55 @@
 		}
 		
 		/*
-		* Google API
-		*/
-		let longitude;
-		let latitude;
-		window.onload = function() {
-		    var latlng = new google.maps.LatLng(51.4975941, -0.0803232);
-		    var map = new google.maps.Map(document.getElementById('map'), {
-		        center: latlng,
-		        zoom: 11,
-		        mapTypeId: google.maps.MapTypeId.ROADMAP
-		    });
-		    var marker = new google.maps.Marker({
-		        position: latlng,
-		        map: map,
-		        title: 'Set lat/lon values for this property',
-		        draggable: true
-		    });
-		    google.maps.event.addListener(marker, 'dragend', function(a) {
-		    	latitude = a.latLng.lat().toFixed(4);
-		    	longitude = a.latLng.lng().toFixed(4);
-		    });
-		};
+        * Google API
+        */
+        let longitude;
+        let latitude;
+
+        function initMap() {
+            var latlng = new google.maps.LatLng(51.4975941, -0.0803232);
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: latlng,
+                zoom: 11,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: 'Set lat/lon values for this property',
+                draggable: true
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function(a) {
+                latitude = a.latLng.lat().toFixed(4);
+                longitude = a.latLng.lng().toFixed(4);
+            });
+
+            var geocoder = new google.maps.Geocoder();
+
+            document.getElementById('submit').addEventListener('click', function() {
+              geocodeAddress(geocoder, map);
+            });
+
+        }
+
+		function geocodeAddress(geocoder, resultsMap) {
+			var address = document.getElementById('address').value;
+			geocoder.geocode({'address': address}, function(results, status) {
+				if (status === 'OK') {
+					resultsMap.setCenter(results[0].geometry.location);
+					var marker = new google.maps.Marker({
+					  map: resultsMap,
+					  position: results[0].geometry.location
+					});
+				} else {
+					alert('Geocode was not successful for the following reason: ' + status);
+				}
+			});
+		}
+
 		/*
 		* Create address for property
 		*/

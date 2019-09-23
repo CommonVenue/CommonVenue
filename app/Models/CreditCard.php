@@ -17,6 +17,7 @@ class CreditCard extends Model
         "exp_month",
         "exp_year",
         "last4",
+        "customer_id",
         "user_id"
     ];
 }

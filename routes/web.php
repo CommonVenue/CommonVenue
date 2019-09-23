@@ -60,7 +60,9 @@ Route::group(['middleware' => array('auth')],function(){
 
 	Route::get('/properties/{property}/booking', 'BookingController@create')->name('booking.create');
 	Route::post('/properties/{property}/booking', 'BookingController@store')->name('booking.store');
-	Route::post('/properties/{property}/booking/charge', 'CreditCardsController@store')->name('charge.store');
+	
+	Route::post('/properties/{property}/booking/store', 'CreditCardsController@store')->name('charge.store');
+	Route::post('/properties/{property}/booking/charge', 'CreditCardsController@charge')->name('charge.store');
 
 	Route::get('/properties/{property}/booking/{booking}/edit', 'BookingController@edit')->name('booking.edit');
 	Route::put('/properties/{property}/booking/{booking}', 'BookingController@update')->name('booking.update');

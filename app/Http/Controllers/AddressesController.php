@@ -6,8 +6,6 @@ use App\Models\Address;
 use App\Models\Property;
 use App\Http\Requests\Address\StoreRequest;
 use App\Http\Requests\Address\UpdateRequest;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Client;
 
 class AddressesController extends Controller
 {
@@ -28,14 +26,6 @@ class AddressesController extends Controller
                     'address' => $address
                 ]);
             }
-            $address = new Address();
-            $client = new Client();
-
-            // $result = $client->post(`https://maps.googleapis.com/maps/api/geocode/json?address=$address`, [ ‘form_params’ => [‘key’=>’YOUR API KEY HERE’]])->getBody();
-            // $json =json_decode($result);
-
-            // $address->latitude =$json->results[0]->geometry->location->lat;
-            // $address->longitude =$json->results[0]->geometry->location->lng;
 
             return view('properties.create', ['address' => $address]);
         } catch (\Exception $ex) {

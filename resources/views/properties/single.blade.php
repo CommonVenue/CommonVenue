@@ -139,7 +139,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item">
             @if (auth()->user())
-              <button form="booking" class="btn btn-dark site_btn_lg">Booking</button>
+              <button form="booking" class="btn btn-dark site_btn_lg transfer_booking_date">Booking</button>
             @else
               <a href="#" class="btn btn-dark site_btn_lg login_modal">Booking</a>
             @endif
@@ -207,7 +207,7 @@
       <div class="col">
         <div class="site_vsd_request_book">
           @if (auth()->user())
-            <button form="booking" class="btn btn-outline-primary">Request to Book</button>
+            <button form="booking" class="btn btn-outline-primary transfer_booking_date">Request to Book</button>
           @else
             <a href="#" class="btn btn-outline-primary">Request to Book</a>
           @endif
@@ -381,8 +381,8 @@
 </div>
 </div>
 </section>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuKciuUEuIvPWuTJK6YKF0kGVRMzZfjIA"></script>
 
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
   var swiper = new Swiper('.site_venue_space_swiper', {
     navigation: {
@@ -395,7 +395,7 @@
       let fromDate = $("input[name=from_date]").val();
       let toDate = $("input[name=to_date]").val();
 
-      $("input[name=to_date]").change(function() {
+      $(".transfer_booking_date").click(function() {
         var action = '?date='+date+'&from_date='+'fromDate'+'&to_date='+'toDate';
         $("#booking").attr("action", "/properties/{{$property->id}}/booking" + action);
       });
@@ -405,82 +405,87 @@
       */
       let longitude;
       let latitude;
+
       window.onload = function() {
         var latlng = new google.maps.LatLng(51.4975941, -0.0803232);
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: latlng,
-          zoom: 11,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+            center: latlng,
+            zoom: 11,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+
         var marker = new google.maps.Marker({
-          position: latlng,
-          map: map,
-          title: 'Set lat/lon values for this property',
-          draggable: true
+            position: latlng,
+            map: map,
+            title: 'Set lat/lon values for this property',
+            draggable: true
         });
         google.maps.event.addListener(marker, 'dragend', function(a) {
-          latitude = a.latLng.lat().toFixed(4);
-          longitude = a.latLng.lng().toFixed(4);
+            latitude = a.latLng.lat().toFixed(4);
+            longitude = a.latLng.lng().toFixed(4);
+        console.log(latitude,longitude)
         });
-      };
+      }
 
       $('[data-id]').click(function(e) {
-       e.preventDefault();
+        e.preventDefault();
 
-       var self = $(this);
-       var id = self.data('id');
-       var url = '/favorite/properties/'+id;
-       $.ajax({
-        headers: {
-         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-       },
-       type: "GET",
-       url: url,
-       dataType: "JSON",
-       data: { id: id },
-       success: function(res) {
-         if ( $('i.like-'+id).hasClass('far') ){
-          $('i.like-'+id).removeClass('far');
-          $('i.like-'+id).addClass('fas');
-        }else {
-          $('i.like-'+id).removeClass('fas');
-          $('i.like-'+id).addClass('far');
-        }
-      },
-      error: function(error) {
-       console.log(error)
-     }
-   });
-     });
+        var self = $(this);
+        var id = self.data('id');
+        var url = '/favorite/properties/'+id;
+        $.ajax({
+          headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         type: "GET",
+         url: url,
+         dataType: "JSON",
+         data: { id: id },
+         success: function(res) {
+           if ( $('i.like-'+id).hasClass('far') ){
+              $('i.like-'+id).removeClass('far');
+              $('i.like-'+id).addClass('fas');
+            }else {
+              $('i.like-'+id).removeClass('fas');
+              $('i.like-'+id).addClass('far');
+            }
+          },
+          error: function(error) {
+           console.log(error)
+          }
+        });
+      });
 
       $('a.login_modal').click(function(e) {
-       setTimeout(function(){
-        $('#myModal').modal('show');
+        setTimeout(function(){
+          $('#myModal').modal('show');
+        });
       });
-     });
 
       $("input.time").focusout(function(){
 
-       var start_time = $('.start').val();
-       var end_time = $('.end').val();
-       var date = $('.date_time').val();
-       if ({{ $property->price }}) {
-        var price = {{ $property->price }};
-      }
-      var start_date = new Date(date + ' ' + start_time);
-      var end_date = new Date(date + ' ' + end_time);
-      var diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
-      var diff_date_span = diff_date + ' ' +'hours';
-      $('.hours').text(diff_date_span);
+        var start_time = $('.start').val();
+        var end_time = $('.end').val();
+        var date = $('.date_time').val();
 
-      var big_price = price * diff_date;
-      var processing_price = 45;
-      var price_total_amount = processing_price+big_price;
+        if ({{ $property->price }}) {
+          var price = {{ $property->price }};
+        }
 
-      $('.site_vsd_price_amount').text('$'+big_price);
-      $('.site_vsd_price_total').text('$'+ processing_price);
-      $('.site_vsd_price_total_amount').text('$'+price_total_amount);
-    });
+        var start_date = new Date(date + ' ' + start_time);
+        var end_date = new Date(date + ' ' + end_time);
+        var diff_date = ( end_date - start_date ) / 1000 / 60 / 60 ;
+        var diff_date_span = diff_date + ' ' +'hours';
+        $('.hours').text(diff_date_span);
+
+        var big_price = price * diff_date;
+        var processing_price = 45;
+        var price_total_amount = processing_price+big_price;
+
+        $('.site_vsd_price_amount').text('$'+big_price);
+        $('.site_vsd_price_total').text('$'+ processing_price);
+        $('.site_vsd_price_total_amount').text('$'+price_total_amount);
+      });
     })
   </script>
   @endsection
