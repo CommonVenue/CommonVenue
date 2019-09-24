@@ -23,6 +23,7 @@
             <div class="site_user_circle"><i class="far fa-user"></i></div>
           </a>
           <div class="site_booking_dropdown dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ route('profile.messages') }}">Messages</a>
             <a class="dropdown-item" href="#">Reviews</a>
             <a class="dropdown-item" href="/profile">Profile</a>
             <a class="dropdown-item" href="/favorite/properties">My List</a>
