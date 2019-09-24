@@ -166,7 +166,6 @@ return [
          * Package Service Providers...
          */
         ChristianKuri\LaravelFavorite\FavoriteServiceProvider::class,
-        Cornford\Googlmapper\MapperServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,7 +226,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
     ],
 
 ];
