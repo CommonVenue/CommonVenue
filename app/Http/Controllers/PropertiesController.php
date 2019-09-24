@@ -25,7 +25,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        $properties = Property::with('images')->get();
+        $properties = Property::with('images')->paginate(20);
 
         return view('properties.index', ['properties' => $properties]);
     }
@@ -154,7 +154,7 @@ class PropertiesController extends Controller
         if (Auth::user()) {
             $properties = Property::whereHas('favorites', function ($q) {
                 return $q->where('user_id', Auth::user()->id);
-            })->orderByDesc('id')->get();
+            })->orderByDesc('id')->paginate(20);
 
             return view('properties.favorites', compact('properties'));
         } else {

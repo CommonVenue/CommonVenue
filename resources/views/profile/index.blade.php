@@ -21,7 +21,7 @@
 			</div>
 			<ul class="site_select_photo_list list-inline">
 				<li class="list-inline-item">
-					<img src="{{ isset($profile->avatar) ? asset('/images/'.$profile->avatar) : "" }}" class="site_your_profile_thumb img-fluid" alt="">
+					<img src="{{ isset($profile->avatar) ? Storage::url('/images/'.$profile->avatar) : "" }}" class="site_your_profile_thumb img-fluid" alt="">
 				</li>
 				<li class="list-inline-item">
 					<div class="site_input_file btn btn-lg btn-primary">

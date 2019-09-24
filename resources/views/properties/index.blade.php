@@ -100,7 +100,7 @@
 			</div>
 		</div>
 		<hr class="mt-2 mb-4">  
-		<p class="site_search_showing_title mb-5">Showing 1-20 of 122 meeting spaces near Toronto</p>  
+		<p class="site_search_showing_title mb-5">Showing 1-20 of {{ count($properties) }} meeting spaces near Toronto</p>  
 		<div class="row mb-5">
 			@foreach($properties as $property)
 			<div class="col-lg-3 mb-4">
@@ -149,13 +149,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<nav class="site_pagination_nav">
-					<span class="site_pagination_show_title">Showing 1-20 of 122</span>
+					<span class="site_pagination_show_title">Showing 1-20 of {{ count($properties) }}</span>
 					<ul class="pagination justify-content-end">
-						<li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a></li>
-						<li class="page-item active"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a></li>
+						{{ $properties->links() }}
 					</ul>
 				</nav>			
 			</div>

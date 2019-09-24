@@ -19,4 +19,12 @@ class ContactPerson extends Model
         "image",
     ];
 
+    /**
+     * Get the user that owns the phone.
+     */
+    public function property()
+    {
+        return $this->hasOne('App\Models\Property');
+    }
+
 }
