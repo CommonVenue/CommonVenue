@@ -82,6 +82,11 @@ class Property extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function property_category()
+    {
+        return $this->hasMany(PropertyCategory::class);
+    }
+
     /**
      * Get the working hours for the property.
     */
@@ -96,5 +101,13 @@ class Property extends Model
     public function images()
     {
         return $this->hasMany(PropertyImage::class);
+    }
+
+    /**
+     * Get the images for the property.
+    */
+    public function contact_person()
+    {
+        return $this->belongsTo(ContactPerson::class);
     }
 }

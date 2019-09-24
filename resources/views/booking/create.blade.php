@@ -338,8 +338,6 @@
 			$('#pay').attr("data-amount") = Math.trunc(price_total_amount);
         }
 
-		// 	console.log(asd);
-
 		$( "#selectBox" ).change(function() {
 			if($('#authUserCard').prop("selected") == true){
 				$('.stripe_box').hide();
@@ -353,7 +351,7 @@
 			$('#card-button').attr("disabled", false);
 				
 			let cardId = $('input[name=card_id]').val();
-		    let userId = {{ $creditCard->user_id }};
+		    let userId = {{ auth()->id() }};
 	  		let amount = site_vsd_price_total_amount.val();
 			$.ajax({
 				headers: {

@@ -7,6 +7,7 @@ use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\Charge;
 use App\Models\User;
+use App\Models\CreditCard;
 use Auth;
 
 class PaymentController extends Controller
@@ -23,27 +24,19 @@ class PaymentController extends Controller
             $token = $request->get('stripeToken');
 
             $customer = Customer::create([
-                'email' => $request->stripeEmail,
-                'source' => $request->stripeToken
+                'email' => $request->email,
+                'source' => $token
             ]);
             
-            $charge = Charge::create([
-                'customer' => $customer->id,
-                'amount' => 1*1000,
-                'currency' => 'usd',
-                'description' => 'Example charge',
-                // 'source' => $token,
+            $data = $request->all();
+            $data['customer_id'] = $customer->id;
+
+            $craditCard = CreditCard::create($data);
+
+            return response()->json([
+                'success' => 'Success!',
+                'cradit card' => $craditCard
             ]);
-
-            /*// Create a Transfer to a connected account (later):
-            $transfer = \Stripe\Transfer::create([
-              "amount" => 7000,
-              "currency" => "USD",
-              "destination" => "{CONNECTED_STRIPE_ACCOUNT_ID}",
-              "transfer_group" => "{ORDER10}",
-            ]);*/
-
-            session()->flash('success', 'Payment Successful');
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
