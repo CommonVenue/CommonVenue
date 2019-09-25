@@ -146,7 +146,10 @@ class PropertiesController extends Controller
      */
     public function destroy(Property $property)
     {
-        //
+        if(!is_null($property)){
+            $property->delete();
+        }
+        return redirect()->route('properties.my-list');
     }
 
     public function favorites()
@@ -180,5 +183,12 @@ class PropertiesController extends Controller
                 'success' => 'Property disliked',
             ]);
         }
+    }
+
+    public function myList()
+    {
+        $properties = Property::where('owner_id',auth()->id())->paginate(20);
+
+        return view('listing.my-list', ['properties' => $properties]);
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Property;
 use App\Models\User;
 use App\Models\ContactPerson;
 use App\Models\CreditCard;
+use App\Models\WorkingHours;
 use Illuminate\Http\Request;
 use App\Http\Requests\Booking\UpdateRequest;
 
@@ -72,7 +73,7 @@ class BookingController extends Controller
     {
         try {
             $booking = Booking::create($request->all());
-            return redirect()->route('bookings');
+            return redirect()->to("/properties/{$property->id}/successful-booking/{$booking->id}");
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
@@ -135,5 +136,22 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function successful(Property $property, Booking $booking)
+    {
+        // $booking = Booking::where('property_id', $property->id)->first();
+        $propertyImage = PropertyImage::where('property_id', $property->id)->get();
+
+        return view('booking.successful-booking', [
+            'booking' => $booking,
+            'property' => $property,
+            'propertyImage' => $propertyImage,
+        ]);
     }
 }

@@ -35,10 +35,12 @@ Route::group(['middleware' => array('auth')],function() {
 		Route::post('/profile','UserController@store')->name('profile.store');
 		Route::put('/profile','UserController@update')->name('profile.update');
 
+		Route::get('/properties/my-list', 'PropertiesController@myList')->name('properties.my-list');
 		Route::get('/properties/create', 'PropertiesController@create')->name('properties.create');
 		Route::post('/properties/store', 'PropertiesController@store')->name('properties.store');
 		Route::get('/properties/{property}/edit', 'PropertiesController@edit')->name('properties.edit');
 		Route::put('/properties/{property}', 'PropertiesController@update')->name('properties.update');
+		Route::delete('/properties/{property}', 'PropertiesController@destroy')->name('properties.destroy');
 
 		Route::post('/property/images/store', 'PropertyImagesController@store');
 		Route::post('/property/categories/store', 'PropertyCategoriesController@store');
@@ -50,7 +52,7 @@ Route::group(['middleware' => array('auth')],function() {
 		    Route::get('/properties/{property}', 'PropertiesController@toggleFavorite')->name('properties.toggle');
 		});
 
-    Route::get('/properties/category/{category}', 'CategoriesController@index')->name('properties.category');
+    	Route::get('/properties/category/{category}', 'CategoriesController@index')->name('properties.category');
 
 		Route::post('/addresses/store', 'AddressesController@store')->name('addresses.store');
 		Route::put('/addresses/{address}', 'AddressesController@update')->name('addresses.update');
@@ -63,6 +65,7 @@ Route::group(['middleware' => array('auth')],function() {
 
 		Route::get('/properties/{property}/booking', 'BookingController@create')->name('booking.create');
 		Route::post('/properties/{property}/booking', 'BookingController@store')->name('booking.store');
+		Route::get('/properties/{property}/successful-booking/{booking}', 'BookingController@successful')->name('booking.successful');
 
 		Route::post('/properties/{property}/booking/store', 'CreditCardsController@store')->name('charge.store');
 		Route::post('/properties/{property}/booking/charge', 'CreditCardsController@charge')->name('charge.store');
@@ -72,6 +75,7 @@ Route::group(['middleware' => array('auth')],function() {
 
 		Route::get('/payment', 'PaymentController@payWithStripe')->name('make:payment');
 		Route::post('/payment', 'PaymentController@payment');
+
 		Route::get('/subscription', 'PaymentController@subscription');
 		Route::post('/process-subscription', 'PaymentController@process_subscription');
 		Route::get('/invoices', 'PaymentController@invoices');

@@ -18,6 +18,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item"><a class="nav-link" href="{{ route('profile.inbox') }}">Inbox</a></li>
         <li class="nav-item"><a class="nav-link" href="/bookings">Bookings</a></li>
+        <li class="nav-item"><a class="nav-link" href="/properties/my-list">Listing</a></li>
 		    <li class="nav-item site_user_dropdown_li dropdown">
           <a class="nav-link site_user_dropdown dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="site_user_circle"><i class="far fa-user"></i></div>

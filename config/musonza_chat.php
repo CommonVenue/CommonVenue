@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'user_model' => 'App\Models\User',
+    'user_model' => App\Models\User::class,
 
     /*
      * If not set, the package will use getKeyName() on the user_model specified above

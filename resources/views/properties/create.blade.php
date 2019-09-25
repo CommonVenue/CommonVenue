@@ -914,7 +914,8 @@
 	</div>
 </section>
 <!-- Section 1 end -->
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBYoF9Nu2Y3AaDNAfp9RaP2Qc8HOtCRnok"></script>
+{{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBYoF9Nu2Y3AaDNAfp9RaP2Qc8HOtCRnok"></script> --}}
 <script type="text/javascript">
 	$(document).ready(function(){
 		let form_count = 1, form_count_form, next_form, total_forms;
@@ -945,52 +946,41 @@
 		/*
         * Google API
         */
+
         let longitude;
         let latitude;
+        let geocoder = new google.maps.Geocoder();
 
-        function initMap() {
-            var latlng = new google.maps.LatLng(51.4975941, -0.0803232);
+        var latlng = new google.maps.LatLng(51.4975941, -0.0803232);
+        var mapOptions = {
+            center: latlng,
+            zoom: 14,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var infoWindow = new google.maps.InfoWindow();
+    	var latlngbounds = new google.maps.LatLngBounds();
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: latlng,
-                zoom: 11,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: 'Set lat/lon values for this property',
+            draggable: true
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function(a) {
+            latitude = a.latLng.lat().toFixed(4);
+            longitude = a.latLng.lng().toFixed(4);
+
+            var newLatLng = new google.maps.LatLng(latitude, longitude);
+            geocoder.geocode({ 'latLng': newLatLng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        alert("Location: " + results[1].formatted_address + "\r\nLatitude: " + latitude + "\r\nLongitude: " + longitude);
+                    }
+                }
             });
-
-            var marker = new google.maps.Marker({
-                position: latlng,
-                map: map,
-                title: 'Set lat/lon values for this property',
-                draggable: true
-            });
-
-            google.maps.event.addListener(marker, 'dragend', function(a) {
-                latitude = a.latLng.lat().toFixed(4);
-                longitude = a.latLng.lng().toFixed(4);
-            });
-
-            var geocoder = new google.maps.Geocoder();
-
-            document.getElementById('submit').addEventListener('click', function() {
-              geocodeAddress(geocoder, map);
-            });
-
-        }
-
-		function geocodeAddress(geocoder, resultsMap) {
-			var address = document.getElementById('address').value;
-			geocoder.geocode({'address': address}, function(results, status) {
-				if (status === 'OK') {
-					resultsMap.setCenter(results[0].geometry.location);
-					var marker = new google.maps.Marker({
-					  map: resultsMap,
-					  position: results[0].geometry.location
-					});
-				} else {
-					alert('Geocode was not successful for the following reason: ' + status);
-				}
-			});
-		}
+        });
 
 		/*
 		* Create address for property

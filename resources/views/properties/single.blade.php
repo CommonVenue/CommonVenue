@@ -46,7 +46,7 @@
       <div class="swiper-wrapper">
         @foreach($images as $image)
         <div class="swiper-slide">
-          <img src="{{ url('storage/images/'.$image->url) }}" class="img-fluid site_venue_space_swiper_img" alt="">
+          <img src="{{ Storage::url('images/'.$image->url) }}" class="img-fluid site_venue_space_swiper_img" alt="">
         </div>
         @endforeach
       </div>
@@ -73,11 +73,11 @@
           <i class="fas fa-star"></i>
           <i class="fas fa-star"></i>
           <i class="fas fa-star site_light_color"></i>
-          <span class="site_venue_rewiews">212 reviews</span>
+          <span class="site_venue_rewiews">{{count($reviews)}} reviews</span>
         </div>
       </li>
       <li class="list-inline-item">
-       <i class="fas fa-user-friends mr-1"></i> 22
+       <i class="fas fa-user-friends mr-1"></i> {{$property->capacity}}
      </li>
      <li class="list-inline-item">
        <i class="far fa-clock mr-1"></i> 1hr
@@ -331,10 +331,12 @@
       </div>
       <div class="col-lg-12 mb-4">
         <div class="site_rules_content">
+          @foreach($property->working_hours->take(2) as $working_days)
           <ul class="list-inline">
-            <li class="list-inline-item">Monday - Sunday</li>
-            <li class="list-inline-item">All day (24 hours)</li>
+            <li class="list-inline-item">{{ $working_days->day }}</li>
+            <li class="list-inline-item">{{ $working_days->from_time }} - {{ $working_days->to_time }}</li>
           </ul>
+          @endforeach
         </div>
       </div>
       <div class="col-lg-12">

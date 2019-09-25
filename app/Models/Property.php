@@ -11,7 +11,7 @@ class Property extends Model
 
 	protected $with = [
     'address',
-    'category',
+    'property_category',
     'working_hours',
     'images'
   ];
@@ -39,6 +39,7 @@ class Property extends Model
         "cleaning_fee",
         "capacity",
         "contact_person_id",
+        'rating'
     ];
 
 
