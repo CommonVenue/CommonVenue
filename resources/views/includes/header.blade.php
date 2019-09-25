@@ -16,14 +16,13 @@
         <li class="nav-item"><a class="nav-link" href="{{ route('properties.create') }}">List A Venue</a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="signin.html">Inbox</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('profile.inbox') }}">Inbox</a></li>
         <li class="nav-item"><a class="nav-link" href="/bookings">Bookings</a></li>
 		    <li class="nav-item site_user_dropdown_li dropdown">
           <a class="nav-link site_user_dropdown dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="site_user_circle"><i class="far fa-user"></i></div>
           </a>
           <div class="site_booking_dropdown dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ route('profile.messages') }}">Messages</a>
             <a class="dropdown-item" href="#">Reviews</a>
             <a class="dropdown-item" href="/profile">Profile</a>
             <a class="dropdown-item" href="/favorite/properties">My List</a>

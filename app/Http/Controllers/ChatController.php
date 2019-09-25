@@ -19,7 +19,7 @@ class ChatController extends Controller
             auth()->id(),
         ]);
 
-        return view('messages.index', compact('conversations'));
+        return view('inbox.index', compact('conversations'));
     }
 
     /**

@@ -27,7 +27,7 @@ Route::get('/properties/{property}/show', 'PropertiesController@show')->name('pr
 
 Route::group(['middleware' => array('auth')],function() {
 
-		Route::get('messages', 'ChatController@index')->name('profile.messages');
+		Route::get('inbox', 'ChatController@index')->name('profile.inbox');
 
 		Route::get('/home', 'HomeController@home');
 
