@@ -13,5 +13,6 @@ $factory->define(PropertyCategory::class, function (Faker $faker) {
 
     return [
         'name' => $category->name,
+        'category_id' => $category->id
     ];
 });

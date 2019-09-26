@@ -110,10 +110,13 @@ class PropertiesController extends Controller
     public function edit(Property $property)
     {
         $address = Address::where('id', $property->address_id)->first();
+        $categories = Category::all();
 
         return view('properties.edit', [
           'property' => $property,
-          'address' => $address
+          'address' => $address,
+          'categories' => $categories,
+
         ]);
     }
 
@@ -128,11 +131,12 @@ class PropertiesController extends Controller
     {
         try {
             $property->update($request->params());
+            return redirect()->back();
 
-            return response()->json([
-                'success' => 'Property is successfuly updated',
-                'property' => $property
-            ]);
+            // return response()->json([
+            //     'success' => 'Property is successfuly updated',
+            //     'property' => $property
+            // ]);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }

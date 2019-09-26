@@ -14,7 +14,8 @@ class PropertyCategory extends Model
      */
     protected $fillable = [
         'name',
-        'property_id'
+        'property_id',
+        'category_id'
     ];
 
     public function property()
@@ -29,6 +30,15 @@ class PropertyCategory extends Model
     public function booking()
     {
         return $this->belongsTo(Booking::class);
-    }    
+    }
+
+
+    /**
+     * Get the booking that owns the category.
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
 }

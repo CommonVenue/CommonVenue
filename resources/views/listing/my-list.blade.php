@@ -85,7 +85,7 @@
 									<a href="#" class="btn btn-outline-primary site_status_btn site_status_active">ACTIVE</a>
 									{{-- <a href="#" class="btn btn-outline-primary site_status_btn site_status_pending">Pending</a> --}}
 
-									<i class="fas fa-pencil-alt"></i>
+									<a href="/properties/{{$property->id}}/edit"><i class="fas fa-pencil-alt"></i></a>
 								</td>
 
 								<td>

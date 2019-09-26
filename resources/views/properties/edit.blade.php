@@ -15,59 +15,19 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<ul class="site_select_catgory_list list-unstyled row">
+					@foreach($categories as $category)
 					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/meetings-thumb.png" class="img-fluid" alt="">
-							<p>Meetings</p>
-						</a>	
+						<label class="form-check-label" for="{{ $category->id}}">
+							<img src="/images/{{ $category->image}}" class="img-fluid property_image property_image_{{ $category->id}}" alt="" data-id="{{ $category->id}}" data-name="{{ $category->name}}">{{$category->name}}
+							<input class="category-{{ $category->id }}" type="checkbox" id="{{ $category->id }}" name="category_id" value="{{ $category->id}}">
+						</label>
 					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/outdoor-thumb.png" class="img-fluid" alt="">
-							<p>Outdoor</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/wedding-thumb.png" class="img-fluid" alt="">
-							<p>Weddings</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/meetings-thumb.png" class="img-fluid" alt="">
-							<p>Meetings</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/outdoor-thumb.png" class="img-fluid" alt="">
-							<p>Outdoor</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/wedding-thumb.png" class="img-fluid" alt="">
-							<p>Weddings</p>
-						</a>	
-					</li>
-					<li class="col">
-						<a href="#">
-							<img src="../vendor/images/wedding-thumb.png" class="img-fluid" alt="">
-							<p>Weddings</p>
-						</a>	
-					</li>
-
+					@endforeach
 				</ul>
-
 			</div>
-
 		</div>  
-
 		<div class="row mb-5">
-
 			<div class="col-lg-12">
-
 				<div class="site_mylist_card site_mylist_edit_card card mb-4">
 					<div class="card-body">
 						<form method="POST" action="{{ route('properties.update',$property->id) }}"  enctype="multipart/form-data">
@@ -100,9 +60,11 @@
 											<input type="file" name="image">
 										</div>					  
 										<ul class="site_add_images_list list-inline">
+											@foreach($property->images as $image)
 											<li class="list-inline-item">
-												<img src="{{ asset('/images/'.$property->image) }}" class="img-fluid" alt="">
+												<img src="{{ Storage::url('/images/'.$image->url) }}" class="img-fluid" alt="">
 											</li>
+											@endforeach
 										</ul>
 									</div>					
 								</div>					
@@ -131,6 +93,12 @@
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
+										<label for="exampleInputEmail1">Unit</label>
+										<input type="text" class="form-control" value="{{ $address->unit }}" name="unit">
+									</div>				  
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
 										<label for="exampleInputEmail1">City</label>
 										<input type="text" class="form-control" value="{{ $address->city }}" name="city">
 									</div>				  
@@ -143,8 +111,14 @@
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Unit</label>
-										<input type="text" class="form-control" value="{{ $address ->street_1 }}" name="street_1">
+										<label for="exampleInputEmail1">Address 1</label>
+										<input type="text" class="form-control" value="{{ $address ->address_1 }}" name="address_1">
+									</div>				  
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Address 2</label>
+										<input type="text" class="form-control" value="{{ $address ->address_2 }}" name="address_2">
 									</div>				  
 								</div>
 

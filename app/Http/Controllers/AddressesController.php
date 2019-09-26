@@ -44,10 +44,11 @@ class AddressesController extends Controller
     {
         try {
             $address->update($request->params());
-            return response()->json([
-                    'success' => 'Address is successfuly updated',
-                    'address' => $address
-            ]);
+            return redirect()->back();
+            // return response()->json([
+            //         'success' => 'Address is successfuly updated',
+            //         'address' => $address
+            // ]);
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
