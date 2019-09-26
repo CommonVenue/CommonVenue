@@ -209,7 +209,7 @@
           @if (auth()->user())
             <button form="booking" class="btn btn-outline-primary transfer_booking_date">Request to Book</button>
           @else
-            <a href="#" class="btn btn-outline-primary">Request to Book</a>
+            <a href="#" class="btn btn-outline-primary login_modal">Request to Book</a>
           @endif
         </div>
       </div>
@@ -397,6 +397,8 @@
       let fromDate = $("input[name=from_date]").val();
       let toDate = $("input[name=to_date]").val();
 
+      $('.transfer_booking_date').attr("disabled", true);
+
       $(".transfer_booking_date").click(function() {
         var action = '?date='+date+'&from_date='+'fromDate'+'&to_date='+'toDate';
         $("#booking").attr("action", "/properties/{{$property->id}}/booking" + action);
@@ -487,6 +489,10 @@
         $('.site_vsd_price_amount').text('$'+big_price);
         $('.site_vsd_price_total').text('$'+ processing_price);
         $('.site_vsd_price_total_amount').text('$'+price_total_amount);
+
+        if(price_total_amount > 0 && price_total_amount !== NaN){
+          $('.transfer_booking_date').attr("disabled", false);
+        }
       });
     })
   </script>
