@@ -54,7 +54,7 @@ class BookingController extends Controller
         $propertyImage = PropertyImage::where('property_id', $property->id)->get();
         $propertyCategories = PropertyCategory::where('property_id', $property->id)->get();
         $contactPerson = ContactPerson::where('id', $property->contact_person_id)->first();
-        $creditCard = CreditCard::where('user_id', auth()->id())->first();
+        $creditCards = CreditCard::where('user_id', auth()->id())->get();
 
         return view('booking.create', [
             'booking' => $booking,
@@ -62,7 +62,7 @@ class BookingController extends Controller
             'propertyImage' => $propertyImage,
             'propertyCategories' => $propertyCategories,
             'contactPerson' => $contactPerson,
-            'creditCard' => $creditCard
+            'creditCards' => $creditCards
         ]);
     }
 
@@ -148,7 +148,6 @@ class BookingController extends Controller
      */
     public function successful(Property $property, Booking $booking)
     {
-        // $booking = Booking::where('property_id', $property->id)->first();
         $propertyImage = PropertyImage::where('property_id', $property->id)->get();
 
         return view('booking.successful-booking', [

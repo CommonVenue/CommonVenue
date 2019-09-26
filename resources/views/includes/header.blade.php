@@ -27,7 +27,7 @@
             <a class="dropdown-item" href="#">Reviews</a>
             <a class="dropdown-item" href="/profile">Profile</a>
             <a class="dropdown-item" href="/favorite/properties">My List</a>
-            <a class="dropdown-item" href="#">Payments</a>
+            <a class="dropdown-item" href="/payment">Payments</a>
             <a class="dropdown-item" href="{{ route('properties.create') }}">Add a space</a>
             <a class="dropdown-item" href="/logout">Logout</a>
           </div>

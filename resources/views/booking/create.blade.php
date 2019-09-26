@@ -189,12 +189,13 @@
 								</div>
 								<div class="col-lg-6">
 									<select class="form-control border-0 border-light" id="selectBox">
-										<option>Add Card</option>
-										<option>Something else</option>
-										@if($creditCard)
-											<option id="authUserCard">**** **** **** {{ $creditCard->last4 }}</option>
-											<input type="hidden" name="card_id" value="{{ $creditCard->stripe_id }}">
-										@endif
+										{{-- @if(!$creditCards)
+											<option>Add Card</option>
+										@endif --}}
+										<option class="new_card">Add Card</option>
+										@foreach($creditCards as $creditCard)
+											<option id="authUserCard{{ $creditCard->id }}">**** **** **** {{ $creditCard->last4 }}</option>
+										@endforeach
 									</select>
 								</div>
 							</div>
@@ -452,16 +453,18 @@
 
 	}
 	$('#payment_button_selected').hide();
+	$('.stripe_box').show();
+	$('#payment_button').show();
+
 	$( "#selectBox" ).change(function() {
-		if($('#authUserCard').prop("selected") == true){
+		if($('.new_card').prop("selected") == true){
+			$('#payment_button_selected').hide();
+			$('.stripe_box').show();
+			$('#payment_button').show();
+		}else{
 			$('.stripe_box').hide();
 			$('#payment_button_selected').show();
 			$('#payment_button').hide();
-		}
-		if($('#authUserCard').prop("selected") == false){
-			$('.stripe_box').show();
-			$('#payment_button_selected').hide();
-			$('#payment_button').show();
 		}
 	});
 
@@ -470,6 +473,13 @@
 		$('#card-button').attr("disabled", false);
 			
 		let cardId = $('input[name=card_id]').val();
+		var form = document.getElementById('payment-form');
+		var hiddenInput = document.createElement('input');
+		hiddenInput.setAttribute('type', 'hidden');
+		hiddenInput.setAttribute('name', 'card_id');
+		hiddenInput.setAttribute('value', token.id);
+		form.appendChild(hiddenInput);
+
 	    let userId = {{ auth()->id() }};
   		let amount = site_vsd_price_total_amount.val();
 		$.ajax({
