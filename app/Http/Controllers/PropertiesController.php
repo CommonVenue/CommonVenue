@@ -25,7 +25,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        $properties = Property::with('images')->paginate(20);
+        $properties = Property::with('images')->where('owner_id', '!=', auth()->id())->paginate(20);
 
         return view('properties.index', ['properties' => $properties]);
     }

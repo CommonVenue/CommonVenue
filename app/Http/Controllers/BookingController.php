@@ -47,6 +47,9 @@ class BookingController extends Controller
      */
     public function create(Property $property)
     {
+        if($property->owner_id == auth()->id()){
+            return redirect()->back();
+        }
         $booking = Booking::where('property_id', $property->id)->get();
         $propertyImage = PropertyImage::where('property_id', $property->id)->get();
         $propertyCategories = PropertyCategory::where('property_id', $property->id)->get();
