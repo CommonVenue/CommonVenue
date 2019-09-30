@@ -27,9 +27,13 @@
 							<h5 class="site_form_heading_subtitle">The more you share, the faster you can get a booking.</h5>
 						</div>
 						<div class="row mb-4">
+
 							<div class="col-lg-8" id="addresses">
 								<div class="row">
 									<div class="col-lg-6">
+										<div id="locationField">
+									        <input id="autocomplete" class="form-control" placeholder="Enter your address" type="text"/>
+									    </div>
 										<div class="form-group">
 											<label>Country</label>
 											<input type="text" class="form-control" required id="country" name="country">
@@ -914,10 +918,63 @@
 	</div>
 </section>
 <!-- Section 1 end -->
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBYoF9Nu2Y3AaDNAfp9RaP2Qc8HOtCRnok"></script>
-{{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBYoF9Nu2Y3AaDNAfp9RaP2Qc8HOtCRnok"></script> --}}
 <script type="text/javascript">
+    /*
+    * Authofill address fields
+    */
+    var placeSearch, autocomplete;
+
+    var componentForm = {
+        address_2: 'short_name',
+        address_1: 'long_name',
+        city: 'long_name',
+        state: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+    };
+
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('autocomplete'), {types: ['geocode']});
+
+        autocomplete.setFields(['address_component']);
+        autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            document.getElementById(component).disabled = false;
+        }
+
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType]) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType).value = val;
+            }
+        }
+    }
+
+    $( "#autocomplete" ).focus(function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle = new google.maps.Circle(
+                {
+                    center: geolocation, radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    });
 	$(document).ready(function(){
+
 		let form_count = 1, form_count_form, next_form, total_forms;
 		total_forms = $("fieldset").length;
 		$(".previous").click(function(){
@@ -954,7 +1011,7 @@
         var latlng = new google.maps.LatLng(51.4975941, -0.0803232);
         var mapOptions = {
             center: latlng,
-            zoom: 14,
+            zoom: 10,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var infoWindow = new google.maps.InfoWindow();
@@ -1931,4 +1988,5 @@
 	});
 });		 
 </script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBYoF9Nu2Y3AaDNAfp9RaP2Qc8HOtCRnok&libraries=places&callback=initAutocomplete"></script>
 @endsection
