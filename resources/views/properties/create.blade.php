@@ -27,17 +27,15 @@
 							<h5 class="site_form_heading_subtitle">The more you share, the faster you can get a booking.</h5>
 						</div>
 						<div class="row mb-4">
-
 							<div class="col-lg-8" id="addresses">
 								<div class="row">
 									<div class="col-lg-6">
-										<div id="locationField">
-									        <input id="autocomplete" class="form-control" placeholder="Enter your address" type="text"/>
-									    </div>
 										<div class="form-group">
-											<label>Country</label>
-											<input type="text" class="form-control" required id="country" name="country">
-											<span class="error-message-country"></span>
+											<div id="locationField">
+												<label>Country</label>
+												<input type="text" class="form-control" required id="country" name="country">
+												<span class="error-message-country"></span>
+										    </div>
 										</div>
 									</div>
 									<div class="col-lg-6">
@@ -919,62 +917,93 @@
 </section>
 <!-- Section 1 end -->
 <script type="text/javascript">
-    /*
-    * Authofill address fields
+	/*
+    * Check if an enter key is pressed on #country (Search address) input
     */
-    var placeSearch, autocomplete;
+    $("#country").keypress(function(event){
+    	var keycode = (event.keyCode ? event.keyCode : event.which);
+    	if(keycode == '13'){
+    		return false;	
+    	}
+    });
 
-    var componentForm = {
-        address_2: 'short_name',
-        address_1: 'long_name',
-        city: 'long_name',
-        state: 'short_name',
-        country: 'long_name',
-        postal_code: 'short_name'
-    };
+    /*
+    * Autofill address fields and map marker 
+    */
+    var placeSearch, autocomplete, input;
 
     function initAutocomplete() {
-        autocomplete = new google.maps.places.Autocomplete(
-            document.getElementById('autocomplete'), {types: ['geocode']});
-
-        autocomplete.setFields(['address_component']);
-        autocomplete.addListener('place_changed', fillInAddress);
+    	input = document.getElementById('country');
+    	autocomplete = new google.maps.places.Autocomplete(input);
+    	autocomplete.addListener('place_changed', fillInAddress);
     }
 
     function fillInAddress() {
-        var place = autocomplete.getPlace();
 
-        for (var component in componentForm) {
-            document.getElementById(component).value = '';
-            document.getElementById(component).disabled = false;
-        }
+    	let place = autocomplete.getPlace();
 
-        for (var i = 0; i < place.address_components.length; i++) {
-            var addressType = place.address_components[i].types[0];
-            if (componentForm[addressType]) {
-                var val = place.address_components[i][componentForm[addressType]];
-                document.getElementById(addressType).value = val;
-            }
+    	place.address_components.forEach(function(element) {
+
+    		if(element.types[0] == 'country'){
+    			country = element.long_name;
+    			$("input[name=country]").val(country);
+    		}
+
+    		if(element.types[0] == 'locality'){
+    			city = element.long_name;
+    			$("input[name=city]").val(city);
+    		}else if(!(element.types[0] == 'locality')){
+    			if(element.types[0] == 'administrative_area_level_1'){
+    				city = element.short_name;
+    				$("input[name=city]").val(city);
+    			}
+    		}
+
+    		if(element.types[0] == 'administrative_area_level_1'){
+    			state = element.short_name;
+    			$("input[name=state]").val(state);
+    		}
+
+    		if(element.types[0] == 'postal_code'){
+    			postal_code = element.short_name;
+    			$("input[name=postal_code]").val(postal_code);
+    		}
+
+    		if(element.types[0] == 'route'){
+    			address_1 = element.short_name;
+    			$("input[name=address_1]").val(address_1);
+    		}
+    	});
+
+    	var map = new google.maps.Map(document.getElementById('map'), {
+    		center: {lat: -33.8688, lng: 151.2195},
+    		zoom: 13
+    	});
+
+    	autocomplete.bindTo('bounds', map);
+
+    	var marker = new google.maps.Marker({
+    		map: map,
+    		anchorPoint: new google.maps.Point(0, -29)
+    	});
+
+    	marker.setVisible(false);
+    	if (!place.geometry) {
+    		window.alert("No details available for input: '" + place.name + "'");
+    		return;
+    	}
+
+        if (place.geometry.viewport) {
+        	map.fitBounds(place.geometry.viewport);
+        } else {
+          	map.setCenter(place.geometry.location);
+            map.setZoom(13);
         }
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
     }
 
-    $( "#autocomplete" ).focus(function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var geolocation = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                var circle = new google.maps.Circle(
-                {
-                    center: geolocation, radius: position.coords.accuracy
-                });
-                autocomplete.setBounds(circle.getBounds());
-            });
-        }
-    });
 	$(document).ready(function(){
-
 		let form_count = 1, form_count_form, next_form, total_forms;
 		total_forms = $("fieldset").length;
 		$(".previous").click(function(){
@@ -1003,7 +1032,6 @@
 		/*
         * Google API
         */
-
         let longitude;
         let latitude;
         let geocoder = new google.maps.Geocoder();
@@ -1032,9 +1060,37 @@
             var newLatLng = new google.maps.LatLng(latitude, longitude);
             geocoder.geocode({ 'latLng': newLatLng }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[1]) {
-                        alert("Location: " + results[1].formatted_address + "\r\nLatitude: " + latitude + "\r\nLongitude: " + longitude);
-                    }
+                	results[1].address_components.forEach(function(element) {
+			        	if(element.types[0] == 'country'){
+			        		country = element.long_name;
+			        		$("input[name=country]").val(country);
+			        	}
+
+			        	if(element.types[0] == 'locality'){
+			        		city = element.long_name;
+			        		$("input[name=city]").val(city);
+			        	}else if(!(element.types[0] == 'locality')){
+			        		if(element.types[0] == 'administrative_area_level_1'){
+				        		city = element.short_name;
+				        		$("input[name=city]").val(city);
+				        	}
+			        	}
+
+			        	if(element.types[0] == 'administrative_area_level_1'){
+			        		state = element.short_name;
+			        		$("input[name=state]").val(state);
+			        	}
+
+			        	if(element.types[0] == 'postal_code'){
+			        		postal_code = element.short_name;
+			        		$("input[name=postal_code]").val(postal_code);
+			        	}
+
+			        	if(element.types[0] == 'route'){
+			        		address_1 = element.short_name;
+			        		$("input[name=address_1]").val(address_1);
+			        	}
+					});
                 }
             });
         });
@@ -1056,6 +1112,19 @@
 			let address_1 = $("input[name=address_1]").val();
 			let address_2 = $("input[name=address_2]").val();
 			
+			let data = {
+				"_token": "{{ csrf_token() }}",
+				country:country,
+				city:city,
+				state:state,
+				unit:unit,
+				postal_code:postal_code,
+				address_1:address_1,
+				address_2:address_2,
+				longitude:longitude,
+				latitude:latitude
+			}
+			
 			if(createdAddress !== undefined ){
 				$.ajax({
 					headers: {
@@ -1064,18 +1133,7 @@
 					type: "PUT",
 					url: "/addresses/"+createdAddress.id,
 					dataType: "JSON",
-					data:{
-						"_token": "{{ csrf_token() }}",
-						country:country,
-						city:city,
-						state:state,
-						unit:unit,
-						postal_code:postal_code,
-						address_1:address_1,
-						address_2:address_2,
-						longitude:longitude,
-						latitude:latitude
-					},
+					data:data,
 					success: function(res) {
 						createdAddress = res.address;
 						$('#validation-msg').html('');
